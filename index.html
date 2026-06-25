@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🌲 Ruta Cósmica - Mundo Esférico</title>
+    <title>🌲 Ruta Cósmica - De Día</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { margin: 0; overflow: hidden; background: #0a0a0a; font-family: 'Courier New', monospace; }
+        body { margin: 0; overflow: hidden; background: #87CEEB; font-family: 'Courier New', monospace; }
         canvas { display: block; }
 
         #ui {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            color: #a2ff00;
+            color: #2a5a2a;
             font-size: 9px;
-            background: rgba(0,0,0,0.7);
+            background: rgba(255,255,255,0.7);
             padding: 4px 10px;
-            border: 1px solid #a2ff00;
+            border: 1px solid #2a5a2a;
             z-index: 10;
             pointer-events: none;
             border-radius: 4px;
@@ -26,12 +26,12 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            color: #a2ff00;
+            color: #2a5a2a;
             font-size: 8px;
             text-align: right;
-            background: rgba(0,0,0,0.7);
+            background: rgba(255,255,255,0.7);
             padding: 4px 10px;
-            border: 1px solid #a2ff00;
+            border: 1px solid #2a5a2a;
             z-index: 10;
             pointer-events: none;
             border-radius: 4px;
@@ -41,12 +41,12 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            color: #a2ff00;
+            color: #2a5a2a;
             font-size: 11px;
             letter-spacing: 3px;
-            background: rgba(0,0,0,0.6);
+            background: rgba(255,255,255,0.7);
             padding: 3px 16px;
-            border: 1px solid #a2ff00;
+            border: 1px solid #2a5a2a;
             z-index: 10;
             pointer-events: none;
             border-radius: 20px;
@@ -55,11 +55,11 @@
             position: fixed;
             top: 65px;
             right: 20px;
-            color: #a2ff00;
+            color: #2a5a2a;
             font-size: 8px;
-            background: rgba(0,0,0,0.6);
+            background: rgba(255,255,255,0.7);
             padding: 3px 10px;
-            border: 1px solid #a2ff00;
+            border: 1px solid #2a5a2a;
             z-index: 10;
             pointer-events: none;
             border-radius: 4px;
@@ -68,11 +68,11 @@
             position: fixed;
             top: 65px;
             left: 20px;
-            color: #44ff44;
+            color: #2a7a2a;
             font-size: 8px;
-            background: rgba(0,0,0,0.6);
+            background: rgba(255,255,255,0.7);
             padding: 3px 10px;
-            border: 1px solid #44ff44;
+            border: 1px solid #2a7a2a;
             z-index: 10;
             pointer-events: none;
             border-radius: 4px;
@@ -81,19 +81,18 @@
         /* ===== INTERACCIÓN FLOTANTE ===== */
         #interaction-panel {
             position: fixed;
-            background: rgba(0,0,0,0.9);
-            border: 1.5px solid #ff8800;
+            background: rgba(255,255,255,0.95);
+            border: 2px solid #ff8800;
             padding: 10px 14px;
             z-index: 100;
             display: none;
             text-align: center;
             min-width: 190px;
             max-width: 230px;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(255,136,0,0.15);
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
             animation: floatIn 0.3s ease;
             pointer-events: auto;
-            backdrop-filter: blur(4px);
         }
         @keyframes floatIn {
             from { opacity: 0; transform: translateY(-8px) scale(0.95); }
@@ -108,14 +107,14 @@
         #interaction-panel .header h3 {
             color: #ff8800;
             font-size: 10px;
-            font-weight: normal;
+            font-weight: bold;
             letter-spacing: 1px;
             margin: 0;
         }
         #interaction-panel .header .close-btn {
             background: none;
             border: none;
-            color: #666;
+            color: #999;
             font-size: 13px;
             cursor: pointer;
             padding: 0 4px;
@@ -151,24 +150,25 @@
             margin-top: 3px;
         }
         #interaction-panel button {
-            background: transparent;
+            background: #f0f0f0;
             border: 1px solid #ff8800;
-            color: #ff8800;
-            padding: 2px 7px;
+            color: #333;
+            padding: 3px 8px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
             font-size: 7px;
             transition: all 0.3s;
-            border-radius: 3px;
+            border-radius: 4px;
             min-width: 44px;
+            font-weight: bold;
         }
         #interaction-panel button:hover:not(:disabled) {
             background: #ff8800;
-            color: #000;
+            color: #fff;
             transform: scale(1.05);
         }
         #interaction-panel button:disabled {
-            opacity: 0.25;
+            opacity: 0.4;
             cursor: not-allowed;
             transform: none;
         }
@@ -178,7 +178,7 @@
         }
         #interaction-panel .mini-hint {
             font-size: 6px;
-            color: #555;
+            color: #999;
             margin-top: 2px;
         }
 
@@ -188,16 +188,17 @@
             bottom: 90px;
             left: 50%;
             transform: translateX(-50%);
-            color: #ff8800;
-            background: rgba(0,0,0,0.8);
-            padding: 3px 14px;
-            border: 1px solid #ff8800;
+            color: #fff;
+            background: rgba(255,136,0,0.9);
+            padding: 4px 16px;
             border-radius: 20px;
             font-size: 9px;
             z-index: 50;
             animation: floatIn 0.3s ease;
             display: none;
             text-align: center;
+            font-weight: bold;
+            box-shadow: 0 2px 15px rgba(255,136,0,0.3);
         }
 
         /* ===== AUDIO ===== */
@@ -206,24 +207,25 @@
             top: 95px;
             right: 20px;
             width: 170px;
-            background: rgba(0,0,0,0.85);
-            border: 1px solid #a2ff00;
+            background: rgba(255,255,255,0.95);
+            border: 1px solid #2a5a2a;
             padding: 8px 10px;
-            color: #a2ff00;
+            color: #2a5a2a;
             font-family: 'Courier New', monospace;
             font-size: 7px;
             z-index: 100;
             display: none;
-            border-radius: 6px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
         }
         #audio-panel h3 {
             margin: 0 0 4px 0;
-            font-weight: normal;
+            font-weight: bold;
             letter-spacing: 2px;
             font-size: 9px;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #ddd;
             padding-bottom: 3px;
-            color: #a2ff00;
+            color: #2a5a2a;
         }
         .row {
             display: flex;
@@ -234,11 +236,11 @@
         .row label {
             flex: 0 0 35px;
             font-size: 6px;
-            color: #aaa;
+            color: #666;
         }
         .row input[type="range"] {
             flex: 1;
-            background: #222;
+            background: #ddd;
             height: 2px;
             -webkit-appearance: none;
             appearance: none;
@@ -249,7 +251,7 @@
             appearance: none;
             width: 5px;
             height: 5px;
-            background: #a2ff00;
+            background: #ff8800;
             border-radius: 50%;
             cursor: pointer;
         }
@@ -258,9 +260,9 @@
             top: 20px;
             right: 75px;
             z-index: 100;
-            background: #0a0a0a;
-            color: #a2ff00;
-            border: 1px solid #a2ff00;
+            background: rgba(255,255,255,0.8);
+            color: #2a5a2a;
+            border: 1px solid #2a5a2a;
             padding: 2px 8px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
@@ -268,8 +270,8 @@
             border-radius: 4px;
         }
         #audio-toggle:hover {
-            background: #a2ff00;
-            color: #000;
+            background: #2a5a2a;
+            color: #fff;
         }
 
         /* ===== CHAT ===== */
@@ -280,22 +282,22 @@
             width: 180px;
             max-height: 80px;
             overflow-y: auto;
-            background: rgba(0,0,0,0.8);
-            border: 1px solid #a2ff00;
+            background: rgba(255,255,255,0.9);
+            border: 1px solid #2a5a2a;
             padding: 3px 5px;
             z-index: 10;
             display: none;
             font-size: 7px;
-            color: #ccc;
+            color: #333;
             border-radius: 4px;
         }
         #chat-box .msg {
             margin: 1px 0;
             padding: 1px 3px;
-            border-bottom: 1px solid #1a1a1a;
+            border-bottom: 1px solid #eee;
         }
         #chat-box .msg .name {
-            color: #a2ff00;
+            color: #ff8800;
             font-weight: bold;
         }
         #chat-input {
@@ -303,9 +305,9 @@
             bottom: 55px;
             left: 20px;
             width: 180px;
-            background: rgba(0,0,0,0.9);
-            border: 1px solid #a2ff00;
-            color: #a2ff00;
+            background: rgba(255,255,255,0.95);
+            border: 1px solid #2a5a2a;
+            color: #333;
             padding: 2px 5px;
             font-family: 'Courier New', monospace;
             font-size: 7px;
@@ -319,9 +321,9 @@
             bottom: 48px;
             left: 208px;
             z-index: 10;
-            background: #000;
-            color: #a2ff00;
-            border: 1px solid #a2ff00;
+            background: #fff;
+            color: #2a5a2a;
+            border: 1px solid #2a5a2a;
             padding: 1px 5px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
@@ -335,23 +337,24 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 100;
-            background: rgba(0,0,0,0.95);
-            border: 2px solid #a2ff00;
+            background: rgba(255,255,255,0.95);
+            border: 2px solid #2a5a2a;
             padding: 20px 30px;
             text-align: center;
-            border-radius: 8px;
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
         }
         #room-input h2 {
-            color: #a2ff00;
+            color: #2a5a2a;
             font-size: 13px;
-            font-weight: normal;
+            font-weight: bold;
             letter-spacing: 2px;
             margin-bottom: 10px;
         }
         #room-input input {
-            background: #111;
-            border: 1px solid #a2ff00;
-            color: #a2ff00;
+            background: #f5f5f5;
+            border: 1px solid #2a5a2a;
+            color: #333;
             padding: 5px 10px;
             font-family: 'Courier New', monospace;
             font-size: 11px;
@@ -361,9 +364,9 @@
             border-radius: 4px;
         }
         #room-input button {
-            background: transparent;
-            border: 1px solid #a2ff00;
-            color: #a2ff00;
+            background: #2a5a2a;
+            border: none;
+            color: #fff;
             padding: 5px 16px;
             margin: 5px 4px;
             cursor: pointer;
@@ -373,25 +376,23 @@
             border-radius: 4px;
         }
         #room-input button:hover {
-            background: #a2ff00;
-            color: #000;
+            background: #ff8800;
         }
         #room-input .small {
             font-size: 7px;
-            color: #666;
+            color: #999;
             margin-top: 6px;
         }
 
-        /* Scroll personalizado */
         ::-webkit-scrollbar { width: 3px; }
-        ::-webkit-scrollbar-track { background: #111; }
-        ::-webkit-scrollbar-thumb { background: #a2ff00; border-radius: 2px; }
+        ::-webkit-scrollbar-track { background: #eee; }
+        ::-webkit-scrollbar-thumb { background: #2a5a2a; border-radius: 2px; }
     </style>
 </head>
 <body>
 
-    <div id="title">🌲 RUTA CÓSMICA</div>
-    <div id="ui">🎮 Mundo Esférico</div>
+    <div id="title">🌳 RUTA CÓSMICA · DE DÍA</div>
+    <div id="ui">🎮 Mundo Esférico · Interacción</div>
     <div id="controls">← ↑ → ↓ · T: chat · Click: girar</div>
     <div id="players-count">👤 Jugadores: 1</div>
     <div id="status">✅ Conectado</div>
@@ -400,12 +401,12 @@
 
     <div id="audio-panel">
         <h3>🌊 RUIDO BLANCO</h3>
-        <div class="row"><label>Vol</label><input type="range" id="noise-vol" min="0" max="1" step="0.01" value="0.35"></div>
-        <div class="row"><label>Filtro</label><input type="range" id="noise-filter" min="0" max="1" step="0.01" value="0.3"></div>
+        <div class="row"><label>Vol</label><input type="range" id="noise-vol" min="0" max="1" step="0.01" value="0.3"></div>
+        <div class="row"><label>Filtro</label><input type="range" id="noise-filter" min="0" max="1" step="0.01" value="0.4"></div>
         <div class="row"><label>Olas</label><input type="range" id="noise-wave" min="0" max="1" step="0.01" value="0.5"></div>
         <div style="margin-top:3px; display:flex; gap:3px;">
-            <button id="noise-play" style="background:#000;border:1px solid #a2ff00;color:#a2ff00;padding:1px 8px;cursor:pointer;font-size:7px;">▶</button>
-            <button id="noise-stop" style="background:#000;border:1px solid #ff4444;color:#ff4444;padding:1px 8px;cursor:pointer;font-size:7px;">⏹</button>
+            <button id="noise-play" style="background:#2a5a2a;border:none;color:#fff;padding:1px 8px;cursor:pointer;font-size:7px;border-radius:4px;">▶</button>
+            <button id="noise-stop" style="background:#cc4444;border:none;color:#fff;padding:1px 8px;cursor:pointer;font-size:7px;border-radius:4px;">⏹</button>
         </div>
     </div>
 
@@ -415,7 +416,7 @@
             <h3>🚬</h3>
             <button class="close-btn" onclick="cerrarInteraccion()">✕</button>
         </div>
-        <div style="font-size:8px;color:#aaa;">con <span class="player-name" id="interaction-player">Alguien</span></div>
+        <div style="font-size:8px;color:#666;">con <span class="player-name" id="interaction-player">Alguien</span></div>
         <div class="cigarette-status">
             <span id="cigarette-emoji">🚬</span>
             <span class="status-text" id="cigarette-state-text">📦</span>
@@ -457,7 +458,6 @@
 
     <script type="module">
         import * as THREE from 'three';
-        import { OrbitControls } from 'https://unpkg.com/three@0.128.0/examples/jsm/controls/OrbitControls.js';
 
         // ============================================================
         // 1. SONIDO
@@ -473,17 +473,17 @@
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 noiseGain = audioCtx.createGain();
-                noiseGain.gain.value = 0.35;
+                noiseGain.gain.value = 0.3;
                 noiseGain.connect(audioCtx.destination);
                 filterNode = audioCtx.createBiquadFilter();
                 filterNode.type = 'lowpass';
-                filterNode.frequency.value = 800;
+                filterNode.frequency.value = 1200;
                 filterNode.connect(noiseGain);
                 waveOsc = audioCtx.createOscillator();
                 waveOsc.frequency.value = 0.5;
                 waveOsc.type = 'sine';
                 const waveGain = audioCtx.createGain();
-                waveGain.gain.value = 0.06;
+                waveGain.gain.value = 0.05;
                 waveOsc.connect(waveGain);
                 waveGain.connect(noiseGain);
             }
@@ -498,7 +498,7 @@
                 const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
                 const data = buffer.getChannelData(0);
                 for (let i = 0; i < bufferSize; i++) {
-                    data[i] = (Math.random() * 2 - 1) * 0.25;
+                    data[i] = (Math.random() * 2 - 1) * 0.2;
                 }
                 noiseNode = audioCtx.createBufferSource();
                 noiseNode.buffer = buffer;
@@ -524,7 +524,7 @@
                     waveOsc.frequency.value = 0.5;
                     waveOsc.type = 'sine';
                     const waveGain = audioCtx.createGain();
-                    waveGain.gain.value = 0.06;
+                    waveGain.gain.value = 0.05;
                     waveOsc.connect(waveGain);
                     waveGain.connect(noiseGain);
                 }
@@ -539,7 +539,7 @@
             if (noiseGain) noiseGain.gain.value = parseFloat(e.target.value);
         });
         document.getElementById('noise-filter').addEventListener('input', (e) => {
-            if (filterNode) filterNode.frequency.value = 100 + parseFloat(e.target.value) * 4000;
+            if (filterNode) filterNode.frequency.value = 100 + parseFloat(e.target.value) * 5000;
         });
         document.getElementById('noise-wave').addEventListener('input', (e) => {
             if (waveOsc) waveOsc.frequency.value = 0.1 + parseFloat(e.target.value) * 1.5;
@@ -559,28 +559,28 @@
         let myId = null;
         let roomName = 'bosque';
         let playerName = 'Viajero';
-        let playerColor = '#88dd88';
+        let playerColor = '#6bcb77';
         let playerChar = '☺';
         let selectedPlayer = null;
         let cigaretteState = '📦';
         let interactionActive = false;
         let lastInteractionCheck = 0;
         let cameraAngle = 0;
-        let cameraHeight = 6;
+        let cameraHeight = 5;
         let cameraDistance = 10;
         let isDragging = false;
         let lastMouseX = 0;
         let lastMouseY = 0;
 
         // ============================================================
-        // 3. ESCENA 3D (con terreno esférico)
+        // 3. ESCENA 3D (DÍA)
         // ============================================================
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x0a0a0a);
-        scene.fog = new THREE.FogExp2(0x0a0a0a, 0.005);
+        scene.background = new THREE.Color(0x87CEEB);
+        scene.fog = new THREE.Fog(0x87CEEB, 30, 60);
 
-        const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 200);
-        camera.position.set(12, 8, 16);
+        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 200);
+        camera.position.set(12, 7, 16);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -588,11 +588,11 @@
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.2;
+        renderer.toneMappingExposure = 1.5;
         document.body.prepend(renderer.domElement);
 
         // ============================================================
-        // 4. CONTROL DE CÁMARA (orbit manual + zoom)
+        // 4. CONTROL DE CÁMARA
         // ============================================================
         function updateCamera() {
             const target = new THREE.Vector3(playerPos.x, 0, playerPos.z);
@@ -609,7 +609,6 @@
             camera.lookAt(target);
         }
 
-        // Control con ratón
         renderer.domElement.addEventListener('mousedown', (e) => {
             isDragging = true;
             lastMouseX = e.clientX;
@@ -621,7 +620,7 @@
                 const dx = e.clientX - lastMouseX;
                 const dy = e.clientY - lastMouseY;
                 cameraAngle -= dx * 0.005;
-                cameraHeight = Math.max(2, Math.min(12, cameraHeight - dy * 0.02));
+                cameraHeight = Math.max(2, Math.min(10, cameraHeight - dy * 0.02));
                 lastMouseX = e.clientX;
                 lastMouseY = e.clientY;
             }
@@ -631,24 +630,19 @@
             isDragging = false;
         });
 
-        // Zoom con scroll
         renderer.domElement.addEventListener('wheel', (e) => {
             e.preventDefault();
-            cameraDistance = Math.max(4, Math.min(18, cameraDistance + e.deltaY * 0.01));
+            cameraDistance = Math.max(4, Math.min(16, cameraDistance + e.deltaY * 0.01));
         }, { passive: false });
 
         // ============================================================
-        // 5. LUCES
+        // 5. LUCES (DÍA)
         // ============================================================
-        const ambient = new THREE.AmbientLight(0x223355, 0.5);
+        const ambient = new THREE.AmbientLight(0x88bbff, 0.6);
         scene.add(ambient);
         
-        const moonLight = new THREE.DirectionalLight(0x6688cc, 0.3);
-        moonLight.position.set(-10, 15, -10);
-        scene.add(moonLight);
-        
-        const sunLight = new THREE.DirectionalLight(0xffeedd, 0.6);
-        sunLight.position.set(10, 20, 5);
+        const sunLight = new THREE.DirectionalLight(0xffeedd, 1.2);
+        sunLight.position.set(20, 30, 10);
         sunLight.castShadow = true;
         sunLight.shadow.mapSize.width = 2048;
         sunLight.shadow.mapSize.height = 2048;
@@ -660,12 +654,16 @@
         sunLight.shadow.camera.bottom = -30;
         scene.add(sunLight);
 
-        const fireLight = new THREE.PointLight(0xff4400, 0, 8);
+        const fillLight = new THREE.DirectionalLight(0x88ccff, 0.4);
+        fillLight.position.set(-10, 10, -10);
+        scene.add(fillLight);
+
+        const fireLight = new THREE.PointLight(0xff6600, 0, 6);
         fireLight.position.set(0, 0.5, 0);
         scene.add(fireLight);
 
         // ============================================================
-        // 6. FUNCIONES: CREAR SPRITES Y PERSONAJES
+        // 6. FUNCIONES
         // ============================================================
         function createAsciiSprite(char, color, size = 0.35) {
             const canvas = document.createElement('canvas');
@@ -692,136 +690,158 @@
         }
 
         // ============================================================
-        // 7. CREAR PERSONAJE (más realista)
+        // 7. CREAR PERSONAJE HUMANO
         // ============================================================
-        function createPersonaje3D(color, char = '☺', name = '', isMine = false) {
+        function createPersonaje(color, char = '☺', name = '', isMine = false) {
             const group = new THREE.Group();
 
-            // Cuerpo con forma más natural
+            // Cuerpo (camisa)
             const bodyMat = new THREE.MeshStandardMaterial({ 
                 color: color, 
-                emissive: new THREE.Color(color), 
-                emissiveIntensity: 0.1,
-                roughness: 0.6,
-                metalness: 0.1
+                roughness: 0.7,
+                metalness: 0.0
             });
-            const body = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.35, 0.6, 8), bodyMat);
+            const body = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.32, 0.55, 8), bodyMat);
             body.position.y = 0.35;
             body.castShadow = true;
             body.receiveShadow = true;
             group.add(body);
 
+            // Pantalones
+            const pantsMat = new THREE.MeshStandardMaterial({ 
+                color: 0x445566, 
+                roughness: 0.8
+            });
+            const pants = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.32, 0.2, 8), pantsMat);
+            pants.position.y = 0.15;
+            pants.castShadow = true;
+            pants.receiveShadow = true;
+            group.add(pants);
+
             // Cabeza
             const headMat = new THREE.MeshStandardMaterial({ 
-                color: 0xddbb88,
+                color: 0xf5d0b8,
                 roughness: 0.4,
                 metalness: 0.0
             });
-            const head = new THREE.Mesh(new THREE.SphereGeometry(0.22, 10, 10), headMat);
-            head.position.y = 0.75;
+            const head = new THREE.Mesh(new THREE.SphereGeometry(0.2, 10, 10), headMat);
+            head.position.y = 0.7;
             head.castShadow = true;
             head.receiveShadow = true;
             group.add(head);
 
-            // Ojos (con brillo y expresivos)
+            // Pelo
+            const hairMat = new THREE.MeshStandardMaterial({ color: 0x3a2a1a, roughness: 0.9 });
+            const hair = new THREE.Mesh(new THREE.SphereGeometry(0.21, 8, 8), hairMat);
+            hair.position.y = 0.75;
+            hair.scale.y = 0.4;
+            hair.castShadow = true;
+            group.add(hair);
+
+            // Ojos
             const eyeMat = new THREE.MeshStandardMaterial({ 
-                color: 0xa2ff00, 
-                emissive: new THREE.Color(0xa2ff00), 
-                emissiveIntensity: 0.3,
-                roughness: 0.1,
-                metalness: 0.0
+                color: 0xffffff, 
+                roughness: 0.1
             });
             const eye1 = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), eyeMat);
-            eye1.position.set(0.1, 0.79, 0.2);
+            eye1.position.set(0.1, 0.73, 0.18);
             group.add(eye1);
             const eye2 = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), eyeMat);
-            eye2.position.set(-0.1, 0.79, 0.2);
+            eye2.position.set(-0.1, 0.73, 0.18);
             group.add(eye2);
 
-            // Pupilas (puntos negros)
-            const pupilMat = new THREE.MeshStandardMaterial({ color: 0x000000 });
-            const pupil1 = new THREE.Mesh(new THREE.SphereGeometry(0.02, 6, 6), pupilMat);
-            pupil1.position.set(0.12, 0.79, 0.25);
+            // Pupilas
+            const pupilMat = new THREE.MeshStandardMaterial({ color: 0x222222 });
+            const pupil1 = new THREE.Mesh(new THREE.SphereGeometry(0.025, 6, 6), pupilMat);
+            pupil1.position.set(0.1, 0.72, 0.22);
             group.add(pupil1);
-            const pupil2 = new THREE.Mesh(new THREE.SphereGeometry(0.02, 6, 6), pupilMat);
-            pupil2.position.set(-0.08, 0.79, 0.25);
+            const pupil2 = new THREE.Mesh(new THREE.SphereGeometry(0.025, 6, 6), pupilMat);
+            pupil2.position.set(-0.1, 0.72, 0.22);
             group.add(pupil2);
 
-            // Boca (con expresión)
-            const mouthMat = new THREE.MeshStandardMaterial({ color: 0x442222 });
-            const mouth = new THREE.Mesh(new THREE.TorusGeometry(0.04, 0.015, 6, 10, Math.PI), mouthMat);
-            mouth.position.set(0, 0.69, 0.22);
+            // Boca (sonrisa)
+            const mouthMat = new THREE.MeshStandardMaterial({ color: 0xcc5555 });
+            const mouth = new THREE.Mesh(new THREE.TorusGeometry(0.04, 0.012, 6, 10, Math.PI), mouthMat);
+            mouth.position.set(0, 0.65, 0.2);
             mouth.rotation.x = 0.1;
             mouth.rotation.z = 0.1;
             group.add(mouth);
 
-            // Brazos (con articulación)
+            // Brazos
             const armMat = new THREE.MeshStandardMaterial({ 
-                color: 0x88dd88,
-                roughness: 0.7
+                color: 0xf5d0b8,
+                roughness: 0.6
             });
             // Brazo izquierdo
-            const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.35, 6), armMat);
-            armL.position.set(-0.32, 0.5, 0);
+            const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.045, 0.3, 6), armMat);
+            armL.position.set(-0.3, 0.5, 0);
             armL.rotation.z = 0.3;
             armL.rotation.x = 0.1;
             armL.castShadow = true;
             group.add(armL);
             // Antebrazo izquierdo
-            const forearmL = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.04, 0.3, 6), armMat);
-            forearmL.position.set(-0.42, 0.28, 0);
+            const forearmL = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.035, 0.25, 6), armMat);
+            forearmL.position.set(-0.38, 0.28, 0);
             forearmL.rotation.z = 0.1;
             forearmL.castShadow = true;
             group.add(forearmL);
             
             // Brazo derecho
-            const armR = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.35, 6), armMat);
-            armR.position.set(0.32, 0.5, 0);
+            const armR = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.045, 0.3, 6), armMat);
+            armR.position.set(0.3, 0.5, 0);
             armR.rotation.z = -0.3;
             armR.rotation.x = -0.1;
             armR.castShadow = true;
             group.add(armR);
-            const forearmR = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.04, 0.3, 6), armMat);
-            forearmR.position.set(0.42, 0.28, 0);
+            const forearmR = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.035, 0.25, 6), armMat);
+            forearmR.position.set(0.38, 0.28, 0);
             forearmR.rotation.z = -0.1;
             forearmR.castShadow = true;
             group.add(forearmR);
 
             // Piernas
             const legMat = new THREE.MeshStandardMaterial({ 
-                color: 0x446644,
+                color: 0x445566,
                 roughness: 0.8
             });
-            const legL = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 0.3, 6), legMat);
+            const legL = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.06, 0.25, 6), legMat);
             legL.position.set(-0.1, 0.0, 0);
             legL.castShadow = true;
             group.add(legL);
-            const legR = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 0.3, 6), legMat);
+            const legR = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.06, 0.25, 6), legMat);
             legR.position.set(0.1, 0.0, 0);
             legR.castShadow = true;
             group.add(legR);
+
+            // Zapatos
+            const shoeMat = new THREE.MeshStandardMaterial({ color: 0x332211, roughness: 0.9 });
+            const shoeL = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.04, 0.1), shoeMat);
+            shoeL.position.set(-0.1, -0.02, 0.03);
+            group.add(shoeL);
+            const shoeR = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.04, 0.1), shoeMat);
+            shoeR.position.set(0.1, -0.02, 0.03);
+            group.add(shoeR);
 
             // Nombre
             if (name) {
                 const nameSprite = createAsciiSprite(
                     isMine ? `✦ ${name}` : name, 
-                    isMine ? '#ff8800' : '#a2ff00', 
-                    0.08
+                    isMine ? '#ff8800' : '#2a5a2a', 
+                    0.07
                 );
-                nameSprite.position.y = 1.0;
+                nameSprite.position.y = 0.95;
                 group.add(nameSprite);
             }
 
             // Alma flotante
-            const soul = createAsciiSprite(char, isMine ? '#ff8800' : '#88dd88', 0.1);
-            soul.position.set(0.35, 0.45, 0);
+            const soul = createAsciiSprite(char, isMine ? '#ff8800' : '#88bb88', 0.08);
+            soul.position.set(0.35, 0.4, 0);
             group.add(soul);
 
             group.userData = {
                 walkCycle: 0,
                 idleSway: Math.random() * Math.PI * 2,
-                armSway: 0,
-                expression: 'normal'
+                armSway: 0
             };
 
             return group;
@@ -831,15 +851,14 @@
         // 8. CONSTRUIR MUNDO ESFÉRICO
         // ============================================================
 
-        // 8.1 TERRAZO ESFÉRICO (semiesfera)
+        // 8.1 TERRENO
         const sphereGeo = new THREE.SphereGeometry(18, 64, 48, 0, Math.PI * 2, 0, Math.PI / 2.1);
         const sphereMat = new THREE.MeshStandardMaterial({
-            color: 0x1a2a1a,
-            roughness: 0.95,
+            color: 0x5a8a4a,
+            roughness: 0.9,
             metalness: 0.0,
-            emissive: new THREE.Color(0x0a1a0a),
-            emissiveIntensity: 0.1,
-            flatShading: false,
+            emissive: new THREE.Color(0x2a5a2a),
+            emissiveIntensity: 0.05,
             side: THREE.DoubleSide
         });
         const terrain = new THREE.Mesh(sphereGeo, sphereMat);
@@ -849,43 +868,41 @@
         terrain.castShadow = true;
         scene.add(terrain);
 
-        // 8.2 ÁRBOLES GRANDES (laberinto)
-        function createArbol(x, z, scale = 1, type = 'normal') {
+        // 8.2 ÁRBOLES GRANDES (con tronco y copa verde clara)
+        function createArbol(x, z, scale = 1) {
             const group = new THREE.Group();
-            const altura = type === 'grande' ? 2.5 + Math.random() * 1.5 : 1.5 + Math.random() * 1;
-            const ancho = type === 'grande' ? 0.8 + Math.random() * 0.6 : 0.4 + Math.random() * 0.4;
+            const altura = 1.8 + Math.random() * 1.5;
             
             // Tronco
             const trunkMat = new THREE.MeshStandardMaterial({ 
-                color: 0x4a3a2a, 
-                roughness: 0.9,
-                metalness: 0.0
+                color: 0x6a4a2a, 
+                roughness: 0.9
             });
-            const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.15 * scale, 0.3 * scale, altura * 0.6, 6), trunkMat);
-            trunk.position.y = altura * 0.3;
+            const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.12 * scale, 0.25 * scale, altura * 0.5, 6), trunkMat);
+            trunk.position.y = altura * 0.25;
             trunk.castShadow = true;
             trunk.receiveShadow = true;
             group.add(trunk);
 
-            // Copa (más voluminosa)
+            // Copa (verde claro)
             const leafMat = new THREE.MeshStandardMaterial({
-                color: type === 'grande' ? 0x1a4a1a : 0x2a5a2a,
+                color: 0x4a8a3a,
                 roughness: 0.8,
-                emissive: new THREE.Color(0x0a1a0a),
-                emissiveIntensity: 0.1
+                emissive: new THREE.Color(0x2a5a2a),
+                emissiveIntensity: 0.05
             });
-            const copa = new THREE.Mesh(new THREE.SphereGeometry(ancho * 0.6, 6, 6), leafMat);
-            copa.position.y = altura * 0.6 + ancho * 0.2;
+            const copa = new THREE.Mesh(new THREE.SphereGeometry(0.6 * scale, 6, 6), leafMat);
+            copa.position.y = altura * 0.55 + 0.2 * scale;
             copa.scale.y = 0.7 + Math.random() * 0.2;
             copa.castShadow = true;
             copa.receiveShadow = true;
             group.add(copa);
 
-            const copa2 = new THREE.Mesh(new THREE.SphereGeometry(ancho * 0.4, 6, 6), leafMat);
+            const copa2 = new THREE.Mesh(new THREE.SphereGeometry(0.4 * scale, 6, 6), leafMat);
             copa2.position.set(
-                (Math.random() - 0.5) * ancho * 0.4,
-                altura * 0.7 + ancho * 0.3,
-                (Math.random() - 0.5) * ancho * 0.4
+                (Math.random() - 0.5) * 0.4 * scale,
+                altura * 0.65 + 0.3 * scale,
+                (Math.random() - 0.5) * 0.4 * scale
             );
             copa2.castShadow = true;
             copa2.receiveShadow = true;
@@ -896,44 +913,40 @@
             return group;
         }
 
-        // Árboles grandes (laberinto)
-        const arboles = [];
-        for (let i = 0; i < 120; i++) {
+        // Árboles (más claros para que se vean bien)
+        for (let i = 0; i < 150; i++) {
             const angle = Math.random() * Math.PI * 2;
-            const radius = 2 + Math.random() * 16;
+            const radius = 1.5 + Math.random() * 16;
             const x = Math.sin(angle) * radius;
             const z = Math.cos(angle) * radius;
             
             // Evitar el centro (donde está la fogata)
-            if (Math.abs(x) < 3 && Math.abs(z) < 3) continue;
+            if (Math.abs(x) < 3.5 && Math.abs(z) < 3.5) continue;
             
-            const tipo = radius < 6 ? 'grande' : (Math.random() > 0.6 ? 'grande' : 'normal');
             const scale = 0.6 + Math.random() * 0.8;
-            const arbol = createArbol(x, z, scale, tipo);
+            const arbol = createArbol(x, z, scale);
             scene.add(arbol);
-            arboles.push(arbol);
         }
 
-        // 8.3 MADERA ALREDEDOR DE LA FOGATA (para sentarse)
+        // 8.3 MADERA ALREDEDOR DE LA FOGATA
         function createMadera(angle, radius) {
             const group = new THREE.Group();
             const mat = new THREE.MeshStandardMaterial({ 
-                color: 0x6a4a2a, 
-                roughness: 0.95,
-                metalness: 0.0
+                color: 0x8a6a3a, 
+                roughness: 0.95
             });
-            const tronco = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.35, 0.15, 6), mat);
+            const tronco = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.3, 0.12, 6), mat);
             tronco.rotation.z = 0.2;
             tronco.rotation.x = 0.3;
-            tronco.position.y = 0.08;
+            tronco.position.y = 0.06;
             tronco.castShadow = true;
             tronco.receiveShadow = true;
             group.add(tronco);
             
-            const tronco2 = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.3, 0.15, 6), mat);
+            const tronco2 = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.25, 0.12, 6), mat);
             tronco2.rotation.z = -0.2;
             tronco2.rotation.x = -0.3;
-            tronco2.position.set(0.2, 0.08, 0.1);
+            tronco2.position.set(0.15, 0.06, 0.08);
             tronco2.castShadow = true;
             tronco2.receiveShadow = true;
             group.add(tronco2);
@@ -947,23 +960,22 @@
             return group;
         }
 
-        const maderas = [];
         for (let i = 0; i < 8; i++) {
             const angle = (i / 8) * Math.PI * 2 + 0.1;
-            const radius = 1.8 + Math.random() * 0.3;
+            const radius = 1.8 + Math.random() * 0.2;
             const madera = createMadera(angle, radius);
             scene.add(madera);
-            maderas.push(madera);
         }
 
-        // 8.4 FOGATA (con fuego realista)
+        // 8.4 FOGATA
         const fogataGroup = new THREE.Group();
-        // Base de piedras
-        const stoneMat = new THREE.MeshStandardMaterial({ color: 0x555555, roughness: 0.9 });
+        
+        // Piedras
+        const stoneMat = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.9 });
         for (let i = 0; i < 10; i++) {
             const angle = (i / 10) * Math.PI * 2 + Math.random() * 0.2;
-            const radius = 0.6 + Math.random() * 0.2;
-            const stone = new THREE.Mesh(new THREE.SphereGeometry(0.08 + Math.random() * 0.06, 5), stoneMat);
+            const radius = 0.5 + Math.random() * 0.2;
+            const stone = new THREE.Mesh(new THREE.SphereGeometry(0.06 + Math.random() * 0.05, 5), stoneMat);
             stone.position.set(
                 Math.cos(angle) * radius,
                 0.0 + Math.random() * 0.05,
@@ -975,30 +987,30 @@
             fogataGroup.add(stone);
         }
 
-        // Fuego (partículas)
+        // Fuego
         const fireParticles = [];
         const fireMat = new THREE.MeshStandardMaterial({
-            color: 0xff4400,
-            emissive: new THREE.Color(0xff4400),
-            emissiveIntensity: 0.8,
+            color: 0xff6600,
+            emissive: new THREE.Color(0xff6600),
+            emissiveIntensity: 0.6,
             transparent: true,
             opacity: 0.8
         });
-        for (let i = 0; i < 15; i++) {
-            const size = 0.05 + Math.random() * 0.1;
+        for (let i = 0; i < 12; i++) {
+            const size = 0.04 + Math.random() * 0.08;
             const fire = new THREE.Mesh(new THREE.SphereGeometry(size, 5), fireMat);
             const angle = Math.random() * Math.PI * 2;
-            const radius = 0.1 + Math.random() * 0.3;
+            const radius = 0.05 + Math.random() * 0.2;
             fire.position.set(
                 Math.cos(angle) * radius,
-                0.05 + Math.random() * 0.3,
+                0.05 + Math.random() * 0.25,
                 Math.sin(angle) * radius
             );
             fire.userData = {
                 angle: angle,
                 radius: radius,
                 speed: 0.5 + Math.random() * 1.5,
-                height: 0.05 + Math.random() * 0.3,
+                height: 0.05 + Math.random() * 0.25,
                 phase: Math.random() * Math.PI * 2
             };
             fogataGroup.add(fire);
@@ -1009,8 +1021,8 @@
 
         // 8.5 BÚHOS
         const buhos = [];
-        for (let i = 0; i < 10; i++) {
-            const buho = createAsciiSprite('🦉', '#ffdd88', 0.15 + Math.random() * 0.1);
+        for (let i = 0; i < 8; i++) {
+            const buho = createAsciiSprite('🦉', '#8a7a5a', 0.15 + Math.random() * 0.1);
             const angle = Math.random() * Math.PI * 2;
             const radius = 3 + Math.random() * 14;
             buho.position.set(
@@ -1035,7 +1047,7 @@
         for (let i = 0; i < 8; i++) {
             const animal = createAsciiSprite(
                 animalChars[Math.floor(Math.random() * animalChars.length)],
-                '#ddbb88',
+                '#8a7a5a',
                 0.12 + Math.random() * 0.1
             );
             const angle = Math.random() * Math.PI * 2;
@@ -1058,26 +1070,28 @@
             animales.push(animal);
         }
 
-        // 8.7 ESTRELLAS
-        for (let i = 0; i < 400; i++) {
-            const star = createAsciiSprite(
-                ['·', '•', '○', '✧', '✦'][Math.floor(Math.random() * 5)],
-                `rgba(255,255,255,${0.3 + Math.random() * 0.7})`,
-                0.04 + Math.random() * 0.08
+        // 8.7 CIELO (nubes)
+        const cloudMat = new THREE.MeshStandardMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 0.7,
+            roughness: 0.1,
+            metalness: 0.0
+        });
+        for (let i = 0; i < 15; i++) {
+            const cloud = new THREE.Mesh(new THREE.SphereGeometry(0.5 + Math.random() * 0.8, 6), cloudMat);
+            cloud.position.set(
+                (Math.random() - 0.5) * 50,
+                8 + Math.random() * 6,
+                (Math.random() - 0.5) * 50
             );
-            const theta = Math.random() * Math.PI * 2;
-            const phi = Math.acos(2 * Math.random() - 1);
-            const radius = 45 + Math.random() * 30;
-            star.position.set(
-                radius * Math.sin(theta) * Math.cos(phi),
-                Math.abs(radius * Math.cos(theta) * Math.sin(phi)),
-                radius * Math.sin(theta) * Math.sin(phi)
-            );
-            scene.add(star);
+            cloud.scale.x = 2 + Math.random() * 2;
+            cloud.scale.z = 1 + Math.random() * 0.5;
+            scene.add(cloud);
         }
 
         // ============================================================
-        // 9. CONTENEDOR DE AVATARES
+        // 9. AVATARES
         // ============================================================
         const avatarContainer = new THREE.Group();
         scene.add(avatarContainer);
@@ -1144,12 +1158,12 @@
             const msg = input.value.trim();
             if (msg) {
                 broadcast({ type: 'chat', id: myId, name: playerName, message: msg });
-                addChatMessage(playerName, msg, '#a2ff00');
+                addChatMessage(playerName, msg, '#ff8800');
                 input.value = '';
             }
         }
 
-        function addChatMessage(name, message, color = '#a2ff00') {
+        function addChatMessage(name, message, color = '#ff8800') {
             const box = document.getElementById('chat-box');
             const div = document.createElement('div');
             div.className = 'msg';
@@ -1165,11 +1179,11 @@
         });
 
         // ============================================================
-        // 12. INTERACCIÓN FLOTANTE
+        // 12. INTERACCIÓN
         // ============================================================
         function checkInteraction() {
             const now = Date.now();
-            if (now - lastInteractionCheck < 800) return;
+            if (now - lastInteractionCheck < 600) return;
             lastInteractionCheck = now;
 
             let nearest = null;
@@ -1203,8 +1217,8 @@
                     if (audioCtx) {
                         const osc = audioCtx.createOscillator();
                         const gain = audioCtx.createGain();
-                        gain.gain.value = 0.06;
-                        osc.frequency.value = 440;
+                        gain.gain.value = 0.05;
+                        osc.frequency.value = 523;
                         osc.type = 'sine';
                         osc.connect(gain);
                         gain.connect(audioCtx.destination);
@@ -1224,9 +1238,7 @@
             panel.style.display = 'block';
             document.getElementById('interaction-player').textContent = name;
             
-            // Posición flotante (arriba-centro)
             const panelWidth = 210;
-            const panelHeight = 140;
             const x = (window.innerWidth - panelWidth) / 2;
             const y = window.innerHeight * 0.08;
             panel.style.left = x + 'px';
@@ -1272,16 +1284,7 @@
             const status = document.getElementById('cigarette-state-text');
             if (cigaretteState === '🔥' || cigaretteState === '💨') {
                 status.style.color = '#ff4400';
-                status.style.textShadow = '0 0 15px #ff4400';
-                // Luz de fuego en el personaje
-                if (myAvatar) {
-                    const light = new THREE.PointLight(0xff4400, 0.3, 2);
-                    light.position.set(0.1, 0.5, 0.2);
-                    myAvatar.add(light);
-                    setTimeout(() => {
-                        if (myAvatar) myAvatar.remove(light);
-                    }, 3000);
-                }
+                status.style.textShadow = '0 0 15px rgba(255,68,0,0.5)';
             } else {
                 status.style.color = '#ff8800';
                 status.style.textShadow = 'none';
@@ -1304,13 +1307,12 @@
         }
 
         // ============================================================
-        // 13. BOTONES DE INTERACCIÓN
+        // 13. BOTONES
         // ============================================================
         document.getElementById('btn-armar').addEventListener('click', () => {
             if (cigaretteState === '📦') {
                 updateCigarette('🔧');
                 document.getElementById('btn-armar').disabled = true;
-                // Animación de armar
                 if (myAvatar) {
                     myAvatar.children.forEach(child => {
                         if (child.geometry && child.geometry.type === 'CylinderGeometry' && child.position.x > 0.2) {
@@ -1338,16 +1340,14 @@
                 document.getElementById('btn-encender').disabled = true;
                 addChatMessage('Sistema', '🔥 Cigarrillo encendido!', '#ff8800');
                 
-                // Luz de fuego intensa
                 fireLight.intensity = 1.5;
                 setTimeout(() => {
                     fireLight.intensity = 0.8;
                 }, 500);
                 
-                // Partículas de chispa
                 if (myAvatar) {
-                    const spark = createAsciiSprite('✦', '#ff8800', 0.06);
-                    spark.position.set(0.05, 0.7, 0.22);
+                    const spark = createAsciiSprite('✦', '#ff8800', 0.05);
+                    spark.position.set(0.05, 0.65, 0.2);
                     myAvatar.add(spark);
                     setTimeout(() => {
                         myAvatar.remove(spark);
@@ -1362,13 +1362,11 @@
                 document.getElementById('btn-fumar').disabled = true;
                 addChatMessage('Sistema', '💨 *fuma profundamente*', '#ff8800');
                 
-                // Humo en cascada
                 if (myAvatar) {
                     const smokePositions = [
-                        { x: 0.15, y: 0.85, z: 0.15, size: 0.12 },
-                        { x: 0.1, y: 0.95, z: 0.1, size: 0.1 },
-                        { x: 0.05, y: 1.05, z: 0.05, size: 0.08 },
-                        { x: 0.0, y: 1.15, z: 0.0, size: 0.06 }
+                        { x: 0.15, y: 0.8, z: 0.15, size: 0.1 },
+                        { x: 0.1, y: 0.9, z: 0.1, size: 0.08 },
+                        { x: 0.05, y: 1.0, z: 0.05, size: 0.06 }
                     ];
                     smokePositions.forEach((pos, index) => {
                         setTimeout(() => {
@@ -1378,16 +1376,16 @@
                                 myAvatar.add(smoke);
                                 setTimeout(() => {
                                     if (myAvatar) myAvatar.remove(smoke);
-                                }, 800);
+                                }, 600);
                             }
-                        }, index * 400);
+                        }, index * 300);
                     });
                 }
                 
                 setTimeout(() => {
                     updateCigarette('🔥');
                     document.getElementById('btn-fumar').disabled = false;
-                }, 3000);
+                }, 2500);
             }
         });
 
@@ -1403,7 +1401,6 @@
                 });
                 addChatMessage('Sistema', `🔄 Le pasaste el cigarrillo a ${targetName}`, '#ff8800');
                 
-                // Animación de pasar
                 if (myAvatar) {
                     myAvatar.children.forEach(child => {
                         if (child.geometry && child.geometry.type === 'CylinderGeometry' && child.position.x > 0.2) {
@@ -1425,12 +1422,9 @@
         });
 
         // ============================================================
-        // 14. PEERJS - MULTIJUGADOR
+        // 14. PEERJS
         // ============================================================
-        const avatarColors = [
-            '#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6bff',
-            '#ff9f43', '#00d2d3', '#f368e0', '#ff9ff3', '#54a0ff'
-        ];
+        const avatarColors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6bff', '#ff9f43', '#00d2d3', '#f368e0'];
         const avatarChars = ['☺', '◉', '●', '♦', '★', '☻', '♥', '♣'];
 
         function connectToRoom() {
@@ -1443,11 +1437,20 @@
 
             myPeer.on('open', (id) => {
                 myId = id;
-                document.getElementById('status').textContent = `✅ Conectado`;
+                document.getElementById('status').textContent = '✅ Conectado';
                 document.getElementById('room-input').style.display = 'none';
                 
-                myAvatar = createPersonaje3D(playerColor, playerChar, playerName, true);
-                myAvatar.position.set(0, -0.2, 0);
+                myAvatar = createPersonaje(playerColor, playerChar, playerName, true);
+                // POSICIÓN CORREGIDA - lejos del fuego
+                const startAngle = Math.random() * Math.PI * 2;
+                const startRadius = 3 + Math.random() * 2;
+                myAvatar.position.set(
+                    Math.cos(startAngle) * startRadius,
+                    -0.1,
+                    Math.sin(startAngle) * startRadius
+                );
+                playerPos.x = myAvatar.position.x;
+                playerPos.z = myAvatar.position.z;
                 avatarContainer.add(myAvatar);
                 
                 try {
@@ -1478,10 +1481,18 @@
                     myPeer = new Peer(room, { debug: 0 });
                     myPeer.on('open', () => {
                         myId = room;
-                        document.getElementById('status').textContent = `✅ Sala creada`;
+                        document.getElementById('status').textContent = '✅ Sala creada';
                         document.getElementById('room-input').style.display = 'none';
-                        myAvatar = createPersonaje3D(playerColor, playerChar, playerName, true);
-                        myAvatar.position.set(0, -0.2, 0);
+                        myAvatar = createPersonaje(playerColor, playerChar, playerName, true);
+                        const startAngle = Math.random() * Math.PI * 2;
+                        const startRadius = 3 + Math.random() * 2;
+                        myAvatar.position.set(
+                            Math.cos(startAngle) * startRadius,
+                            -0.1,
+                            Math.sin(startAngle) * startRadius
+                        );
+                        playerPos.x = myAvatar.position.x;
+                        playerPos.z = myAvatar.position.z;
                         avatarContainer.add(myAvatar);
                         myPeer.on('connection', (conn) => {
                             connections[conn.peer] = conn;
@@ -1518,8 +1529,8 @@
                     color: playerColor,
                     char: playerChar,
                     x: playerPos.x,
-                    y: 0,
-                    z: playerPos.z
+                    y: playerPos.y || 0,
+                    z: playerPos.z || 0
                 });
             }, 500);
         }
@@ -1530,7 +1541,7 @@
                     players[data.id] = {
                         id: data.id,
                         name: data.name || 'Viajero',
-                        color: data.color || '#88dd88',
+                        color: data.color || '#6bcb77',
                         char: data.char || '☺',
                         x: data.x || 0,
                         y: data.y || 0,
@@ -1538,7 +1549,7 @@
                     };
                     updatePlayers();
                     document.getElementById('players-count').textContent = `👤 Jugadores: ${Object.keys(players).length + 1}`;
-                    addChatMessage(data.name || 'Alguien', '👋 Entró', '#44ff44');
+                    addChatMessage(data.name || 'Alguien', '👋 Entró', '#44aa44');
                     break;
 
                 case 'move':
@@ -1551,7 +1562,7 @@
                     break;
 
                 case 'chat':
-                    addChatMessage(data.name, data.message, players[data.id]?.color || '#a2ff00');
+                    addChatMessage(data.name, data.message, players[data.id]?.color || '#ff8800');
                     break;
 
                 case 'cigarette':
@@ -1611,7 +1622,7 @@
             for (const id in players) {
                 if (id === myId) continue;
                 const p = players[id];
-                const avatar = createPersonaje3D(p.color, p.char, p.name, false);
+                const avatar = createPersonaje(p.color, p.char, p.name, false);
                 avatar.position.set(p.x || 0, p.y || 0, p.z || 0);
                 avatarContainer.add(avatar);
             }
@@ -1640,7 +1651,6 @@
                 playerPos.x += dx;
                 playerPos.z += dz;
                 
-                // Limitar al terreno esférico
                 const radius = 17;
                 const dist = Math.sqrt(playerPos.x ** 2 + playerPos.z ** 2);
                 if (dist > radius) {
@@ -1648,9 +1658,8 @@
                     playerPos.z *= 0.97;
                 }
                 
-                // Altura según el terreno (efecto esférico)
                 const heightFactor = 1 - (dist / radius);
-                const y = -0.2 + heightFactor * 0.3;
+                const y = -0.1 + heightFactor * 0.3;
                 playerPos.y = y;
                 
                 myAvatar.position.x = playerPos.x;
@@ -1658,8 +1667,7 @@
                 myAvatar.position.z = playerPos.z;
                 myAvatar.rotation.y = Math.atan2(dx, dz);
                 
-                // Animación de caminar
-                const walkCycle = Math.sin(now * 8) * 0.25;
+                const walkCycle = Math.sin(now * 7) * 0.2;
                 myAvatar.children.forEach(child => {
                     if (child.geometry && child.geometry.type === 'CylinderGeometry') {
                         if (child.position.y < 0.1) {
@@ -1679,12 +1687,10 @@
                     z: playerPos.z
                 });
             } else {
-                // Balanceo
-                const idleSway = Math.sin(now * 0.5 + myAvatar.userData.idleSway) * 0.01;
+                const idleSway = Math.sin(now * 0.4 + myAvatar.userData.idleSway) * 0.01;
                 myAvatar.rotation.z = idleSway;
             }
 
-            // Verificar interacción
             if (!interactionActive) {
                 checkInteraction();
             }
@@ -1696,7 +1702,6 @@
         function animateWorld() {
             const time = Date.now() * 0.001;
             
-            // Búhos
             buhos.forEach((buho) => {
                 const data = buho.userData;
                 data.angle += data.speed;
@@ -1705,7 +1710,6 @@
                 buho.position.y = 1.5 + Math.sin(time * data.ySpeed + data.yOffset) * 1.5;
             });
             
-            // Animales
             animales.forEach((animal) => {
                 const data = animal.userData;
                 data.angle += data.speed;
@@ -1723,28 +1727,25 @@
                 }
             });
             
-            // Fuego
             const fireTime = Date.now() * 0.003;
             fireParticles.forEach((particle, i) => {
                 const data = particle.userData;
-                const heightOffset = Math.sin(fireTime * data.speed + data.phase) * 0.15;
+                const heightOffset = Math.sin(fireTime * data.speed + data.phase) * 0.12;
                 particle.position.y = 0.05 + data.height + heightOffset;
                 const scale = 1 + Math.sin(fireTime * data.speed + data.phase) * 0.3;
                 particle.scale.set(scale, scale * 1.5, scale);
                 
-                // Color del fuego
-                const colors = ['#ff4400', '#ff6600', '#ff8800', '#ffaa00', '#ffcc44'];
+                const colors = ['#ff6600', '#ff8800', '#ffaa00', '#ffcc44'];
                 const idx = Math.floor((fireTime + i * 0.3) % colors.length);
                 particle.material.color.set(colors[idx]);
                 particle.material.emissive.set(colors[idx]);
             });
             
-            // Luz de fuego parpadea
-            fireLight.intensity = 0.5 + Math.sin(fireTime * 2) * 0.3;
+            fireLight.intensity = 0.4 + Math.sin(fireTime * 2) * 0.2;
         }
 
         // ============================================================
-        // 18. LOOP PRINCIPAL
+        // 18. LOOP
         // ============================================================
         function animate() {
             requestAnimationFrame(animate);
@@ -1777,10 +1778,10 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        console.log('🌲 Ruta Cósmica - Mundo Esférico');
+        console.log('🌳 Ruta Cósmica - De Día');
         console.log('🎮 Flechas: mover | Click+arrastrar: girar cámara | Scroll: zoom');
         console.log('🚬 Acércate a otro jugador para interactuar');
-        console.log('🏔️ Terreno curvo, árboles grandes, madera para sentarse');
+        console.log('☀️ Modo día, colores claros, personajes humanos');
     </script>
 </body>
 </html>
