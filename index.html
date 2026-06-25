@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ruta Cósmica - Interacción Natural</title>
+    <title>Ruta Cósmica - Interacción Flotante</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { margin: 0; overflow: hidden; background: #0a0a0a; font-family: 'Courier New', monospace; }
@@ -40,7 +40,7 @@
             left: 50%;
             transform: translateX(-50%);
             color: #a2ff00;
-            font-size: 13px;
+            font-size: 12px;
             letter-spacing: 4px;
             background: rgba(0,0,0,0.6);
             padding: 4px 20px;
@@ -53,7 +53,7 @@
             top: 70px;
             right: 20px;
             color: #a2ff00;
-            font-size: 10px;
+            font-size: 9px;
             background: rgba(0,0,0,0.6);
             padding: 4px 12px;
             border: 1px solid #a2ff00;
@@ -65,7 +65,7 @@
             top: 70px;
             left: 20px;
             color: #44ff44;
-            font-size: 9px;
+            font-size: 8px;
             background: rgba(0,0,0,0.6);
             padding: 4px 12px;
             border: 1px solid #44ff44;
@@ -73,66 +73,90 @@
             pointer-events: none;
         }
 
-        /* ===== INTERACCIÓN - VENTANA AUTOMÁTICA ===== */
+        /* ===== INTERACCIÓN - VENTANA FLOTANTE PEQUEÑA ===== */
         #interaction-panel {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.95);
-            border: 2px solid #ff8800;
-            padding: 30px 40px;
+            background: rgba(0,0,0,0.92);
+            border: 1.5px solid #ff8800;
+            padding: 12px 16px;
             z-index: 100;
             display: none;
             text-align: center;
-            min-width: 340px;
-            border-radius: 12px;
-            box-shadow: 0 0 80px rgba(255,136,0,0.3);
-            animation: fadeIn 0.5s ease;
+            min-width: 200px;
+            max-width: 250px;
+            border-radius: 10px;
+            box-shadow: 0 0 40px rgba(255,136,0,0.2);
+            animation: floatIn 0.3s ease;
+            pointer-events: auto;
+            backdrop-filter: blur(4px);
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
-            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        @keyframes floatIn {
+            from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        #interaction-panel .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
         }
-        #interaction-panel h2 {
+        #interaction-panel .header h3 {
             color: #ff8800;
-            font-size: 18px;
-            font-weight: normal;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-        }
-        #interaction-panel .subtitle {
-            color: #aaa;
             font-size: 11px;
-            margin-bottom: 15px;
+            font-weight: normal;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+        #interaction-panel .header .close-btn {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 0 4px;
+            transition: 0.3s;
+        }
+        #interaction-panel .header .close-btn:hover {
+            color: #ff8800;
+            transform: rotate(90deg);
         }
         #interaction-panel .player-name {
             color: #ff8800;
             font-weight: bold;
+            font-size: 10px;
+        }
+        #interaction-panel .cigarette-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 4px 0;
+            font-size: 22px;
+        }
+        #interaction-panel .cigarette-status .status-text {
+            color: #ff8800;
+            font-size: 9px;
+            letter-spacing: 0.5px;
         }
         #interaction-panel .btn-group {
             display: flex;
-            gap: 10px;
+            gap: 4px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-top: 10px;
+            margin-top: 4px;
         }
         #interaction-panel button {
             background: transparent;
             border: 1px solid #ff8800;
             color: #ff8800;
-            padding: 10px 18px;
+            padding: 3px 8px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
-            font-size: 12px;
+            font-size: 8px;
             transition: all 0.3s;
-            border-radius: 6px;
-            min-width: 80px;
-            position: relative;
+            border-radius: 4px;
+            min-width: 50px;
+            white-space: nowrap;
         }
         #interaction-panel button:hover:not(:disabled) {
             background: #ff8800;
@@ -144,40 +168,17 @@
             cursor: not-allowed;
             transform: none;
         }
-        #interaction-panel button .emoji {
-            font-size: 16px;
-            display: block;
-            margin-bottom: 2px;
+        #interaction-panel button .btn-emoji {
+            display: inline;
+            margin-right: 2px;
         }
-        #interaction-panel .cigarette-status {
-            font-size: 40px;
-            margin: 10px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            animation: pulse 2s infinite;
-        }
-        #interaction-panel .status-text {
-            color: #ff8800;
-            font-size: 14px;
-            letter-spacing: 1px;
-        }
-        #interaction-panel .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: none;
-            border: none;
+        #interaction-panel .mini-hint {
+            font-size: 7px;
             color: #666;
-            font-size: 20px;
-            cursor: pointer;
-            transition: 0.3s;
+            margin-top: 3px;
         }
-        #interaction-panel .close-btn:hover {
-            color: #ff8800;
-            transform: rotate(90deg);
-        }
+
+        /* ===== NOTIFICACIÓN FLOTANTE ===== */
         .interaction-notification {
             position: fixed;
             bottom: 100px;
@@ -185,12 +186,12 @@
             transform: translateX(-50%);
             color: #ff8800;
             background: rgba(0,0,0,0.8);
-            padding: 8px 20px;
+            padding: 4px 16px;
             border: 1px solid #ff8800;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 10px;
             z-index: 50;
-            animation: fadeIn 0.5s ease;
+            animation: floatIn 0.3s ease;
             display: none;
             text-align: center;
         }
@@ -200,41 +201,41 @@
             position: fixed;
             top: 100px;
             right: 20px;
-            width: 200px;
+            width: 180px;
             background: rgba(0,0,0,0.85);
             border: 1px solid #a2ff00;
-            padding: 12px;
+            padding: 10px;
             color: #a2ff00;
             font-family: 'Courier New', monospace;
-            font-size: 9px;
+            font-size: 8px;
             z-index: 100;
             display: none;
-            border-radius: 8px;
+            border-radius: 6px;
         }
         #audio-panel h3 {
-            margin: 0 0 8px 0;
+            margin: 0 0 6px 0;
             font-weight: normal;
             letter-spacing: 2px;
-            font-size: 11px;
+            font-size: 10px;
             border-bottom: 1px solid #333;
-            padding-bottom: 4px;
+            padding-bottom: 3px;
             color: #a2ff00;
         }
         .row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         .row label {
-            flex: 0 0 50px;
-            font-size: 8px;
+            flex: 0 0 40px;
+            font-size: 7px;
             color: #aaa;
         }
         .row input[type="range"] {
             flex: 1;
             background: #222;
-            height: 3px;
+            height: 2px;
             -webkit-appearance: none;
             appearance: none;
             outline: none;
@@ -242,8 +243,8 @@
         .row input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: #a2ff00;
             border-radius: 50%;
             cursor: pointer;
@@ -256,10 +257,10 @@
             background: #0a0a0a;
             color: #a2ff00;
             border: 1px solid #a2ff00;
-            padding: 4px 10px;
+            padding: 3px 8px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
-            font-size: 9px;
+            font-size: 8px;
             border-radius: 4px;
         }
         #audio-toggle:hover {
@@ -267,26 +268,26 @@
             color: #000;
         }
 
-        /* ===== CHAT ===== */
+        /* ===== CHAT (más pequeño) ===== */
         #chat-box {
             position: fixed;
-            bottom: 70px;
+            bottom: 60px;
             left: 20px;
-            width: 250px;
-            max-height: 120px;
+            width: 200px;
+            max-height: 100px;
             overflow-y: auto;
             background: rgba(0,0,0,0.8);
             border: 1px solid #a2ff00;
-            padding: 6px;
+            padding: 4px 6px;
             z-index: 10;
             display: none;
-            font-size: 9px;
+            font-size: 8px;
             color: #ccc;
             border-radius: 4px;
         }
         #chat-box .msg {
-            margin: 2px 0;
-            padding: 2px 4px;
+            margin: 1px 0;
+            padding: 1px 3px;
             border-bottom: 1px solid #1a1a1a;
         }
         #chat-box .msg .name {
@@ -295,15 +296,15 @@
         }
         #chat-input {
             position: fixed;
-            bottom: 70px;
+            bottom: 60px;
             left: 20px;
-            width: 250px;
+            width: 200px;
             background: rgba(0,0,0,0.9);
             border: 1px solid #a2ff00;
             color: #a2ff00;
-            padding: 4px 8px;
+            padding: 3px 6px;
             font-family: 'Courier New', monospace;
-            font-size: 9px;
+            font-size: 8px;
             z-index: 10;
             display: none;
             outline: none;
@@ -311,16 +312,16 @@
         }
         #chat-toggle {
             position: fixed;
-            bottom: 60px;
-            left: 280px;
+            bottom: 52px;
+            left: 230px;
             z-index: 10;
             background: #000;
             color: #a2ff00;
             border: 1px solid #a2ff00;
-            padding: 2px 8px;
+            padding: 1px 6px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
-            font-size: 9px;
+            font-size: 7px;
             display: none;
             border-radius: 4px;
         }
@@ -332,25 +333,25 @@
             z-index: 100;
             background: rgba(0,0,0,0.95);
             border: 2px solid #a2ff00;
-            padding: 30px 40px;
+            padding: 25px 35px;
             text-align: center;
             border-radius: 8px;
         }
         #room-input h2 {
             color: #a2ff00;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: normal;
             letter-spacing: 2px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         #room-input input {
             background: #111;
             border: 1px solid #a2ff00;
             color: #a2ff00;
-            padding: 8px 16px;
+            padding: 6px 12px;
             font-family: 'Courier New', monospace;
-            font-size: 14px;
-            width: 200px;
+            font-size: 12px;
+            width: 180px;
             outline: none;
             text-align: center;
             border-radius: 4px;
@@ -359,11 +360,11 @@
             background: transparent;
             border: 1px solid #a2ff00;
             color: #a2ff00;
-            padding: 8px 24px;
-            margin: 8px 4px;
+            padding: 6px 18px;
+            margin: 6px 4px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
-            font-size: 12px;
+            font-size: 11px;
             transition: 0.3s;
             border-radius: 4px;
         }
@@ -372,16 +373,16 @@
             color: #000;
         }
         #room-input .small {
-            font-size: 9px;
+            font-size: 8px;
             color: #666;
-            margin-top: 10px;
+            margin-top: 8px;
         }
     </style>
 </head>
 <body>
 
     <div id="title">🌲 RUTA CÓSMICA</div>
-    <div id="ui">🎮 Interacción Natural • ASCII 3D</div>
+    <div id="ui">🎮 Interacción Flotante</div>
     <div id="controls">← ↑ → ↓ · T: chat</div>
     <div id="players-count">👤 Jugadores: 1</div>
     <div id="status">✅ Conectado</div>
@@ -390,31 +391,33 @@
 
     <div id="audio-panel">
         <h3>🌊 RUIDO BLANCO</h3>
-        <div class="row"><label>Volumen</label><input type="range" id="noise-vol" min="0" max="1" step="0.01" value="0.4"></div>
+        <div class="row"><label>Vol</label><input type="range" id="noise-vol" min="0" max="1" step="0.01" value="0.4"></div>
         <div class="row"><label>Filtro</label><input type="range" id="noise-filter" min="0" max="1" step="0.01" value="0.3"></div>
         <div class="row"><label>Olas</label><input type="range" id="noise-wave" min="0" max="1" step="0.01" value="0.5"></div>
-        <div style="margin-top:6px; display:flex; gap:6px;">
-            <button id="noise-play" style="background:#000;border:1px solid #a2ff00;color:#a2ff00;padding:2px 12px;cursor:pointer;font-size:9px;">▶</button>
-            <button id="noise-stop" style="background:#000;border:1px solid #ff4444;color:#ff4444;padding:2px 12px;cursor:pointer;font-size:9px;">⏹</button>
+        <div style="margin-top:4px; display:flex; gap:4px;">
+            <button id="noise-play" style="background:#000;border:1px solid #a2ff00;color:#a2ff00;padding:1px 10px;cursor:pointer;font-size:8px;">▶</button>
+            <button id="noise-stop" style="background:#000;border:1px solid #ff4444;color:#ff4444;padding:1px 10px;cursor:pointer;font-size:8px;">⏹</button>
         </div>
     </div>
 
-    <!-- INTERACCIÓN - VENTANA AUTOMÁTICA -->
+    <!-- INTERACCIÓN - VENTANA FLOTANTE PEQUEÑA -->
     <div id="interaction-panel">
-        <button class="close-btn" onclick="cerrarInteraccion()">✕</button>
-        <h2>🚬 ENCUENTRO</h2>
-        <div class="subtitle">Estás con <span class="player-name" id="interaction-player">Alguien</span></div>
+        <div class="header">
+            <h3>🚬</h3>
+            <button class="close-btn" onclick="cerrarInteraccion()">✕</button>
+        </div>
+        <div style="font-size:9px;color:#aaa;">con <span class="player-name" id="interaction-player">Alguien</span></div>
         <div class="cigarette-status">
             <span id="cigarette-emoji">🚬</span>
-            <span class="status-text" id="cigarette-state-text">📦 Listo</span>
+            <span class="status-text" id="cigarette-state-text">📦</span>
         </div>
         <div class="btn-group">
-            <button id="btn-armar"><span class="emoji">📦</span>ARMALO</button>
-            <button id="btn-encender" disabled><span class="emoji">🔥</span>ENCIENDE</button>
-            <button id="btn-fumar" disabled><span class="emoji">💨</span>FÚMALO</button>
-            <button id="btn-rotar" disabled><span class="emoji">🔄</span>ROTALO</button>
+            <button id="btn-armar"><span class="btn-emoji">📦</span>Armar</button>
+            <button id="btn-encender" disabled><span class="btn-emoji">🔥</span>Encender</button>
+            <button id="btn-fumar" disabled><span class="btn-emoji">💨</span>Fumar</button>
+            <button id="btn-rotar" disabled><span class="btn-emoji">🔄</span>Rotar</button>
         </div>
-        <div style="font-size:9px;color:#666;margin-top:15px;">🤝 Acércate a otro jugador para interactuar</div>
+        <div class="mini-hint">Acércate a otro jugador</div>
     </div>
 
     <div class="interaction-notification" id="interaction-notif">
@@ -423,20 +426,18 @@
 
     <div id="room-input">
         <h2>✦ SALA DE JUEGO ✦</h2>
-        <input type="text" id="room-field" placeholder="Nombre de la sala..." value="bosque">
+        <input type="text" id="room-field" placeholder="Nombre..." value="bosque">
         <br>
         <button id="room-create">🎮 ENTRAR</button>
-        <div class="small">Comparte el nombre de la sala con tus amigos</div>
+        <div class="small">Comparte el nombre con amigos</div>
     </div>
 
     <div id="chat-box"></div>
     <input id="chat-input" type="text" placeholder="Escribe..." maxlength="100">
     <button id="chat-toggle">💬</button>
 
-    <!-- PeerJS -->
     <script src="https://unpkg.com/peerjs@1.5.1/dist/peerjs.min.js"></script>
 
-    <!-- Three.js -->
     <script type="importmap">
         {
             "imports": {
@@ -551,9 +552,11 @@
         let playerColor = '#88dd88';
         let playerChar = '☺';
         let selectedPlayer = null;
-        let cigaretteState = '📦'; // 📦 → 🔧 → 📦✅ → 🔥 → 💨
+        let cigaretteState = '📦';
         let interactionActive = false;
         let lastInteractionCheck = 0;
+        let panelX = 0;
+        let panelY = 0;
 
         // ============================================================
         // 3. ESCENA 3D
@@ -611,93 +614,84 @@
         }
 
         // ============================================================
-        // 5. CREAR AVATAR (con expresiones y movimiento natural)
+        // 5. CREAR AVATAR
         // ============================================================
         function createAvatar3D(color, char = '☺', name = '', isMine = false) {
             const group = new THREE.Group();
 
-            // Cuerpo
             const bodyMat = new THREE.MeshStandardMaterial({ 
                 color: color, 
                 emissive: new THREE.Color(color), 
                 emissiveIntensity: 0.15 
             });
-            const body = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.65, 0.35), bodyMat);
-            body.position.y = 0.35;
+            const body = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.6, 0.3), bodyMat);
+            body.position.y = 0.32;
             body.castShadow = true;
             body.receiveShadow = true;
             group.add(body);
 
-            // Cabeza
             const headMat = new THREE.MeshStandardMaterial({ color: 0xddbb88 });
-            const head = new THREE.Mesh(new THREE.SphereGeometry(0.25, 8), headMat);
-            head.position.y = 0.78;
+            const head = new THREE.Mesh(new THREE.SphereGeometry(0.22, 8), headMat);
+            head.position.y = 0.72;
             head.castShadow = true;
             head.receiveShadow = true;
             group.add(head);
 
-            // Ojos (expresivos)
             const eyeMat = new THREE.MeshStandardMaterial({ 
                 color: 0xa2ff00, 
                 emissive: new THREE.Color(0xa2ff00), 
                 emissiveIntensity: 0.3 
             });
-            const eye1 = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8), eyeMat);
-            eye1.position.set(0.12, 0.82, 0.22);
+            const eye1 = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8), eyeMat);
+            eye1.position.set(0.1, 0.76, 0.2);
             group.add(eye1);
-            const eye2 = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8), eyeMat);
-            eye2.position.set(-0.12, 0.82, 0.22);
+            const eye2 = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8), eyeMat);
+            eye2.position.set(-0.1, 0.76, 0.2);
             group.add(eye2);
 
-            // Boca (expresión)
             const mouthMat = new THREE.MeshStandardMaterial({ color: 0x442222 });
-            const mouth = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.03, 0.02), mouthMat);
-            mouth.position.set(0, 0.72, 0.22);
+            const mouth = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.02, 0.02), mouthMat);
+            mouth.position.set(0, 0.67, 0.2);
             group.add(mouth);
 
-            // Brazos (con movimiento natural)
             const armMat = new THREE.MeshStandardMaterial({ color: 0x88dd88 });
-            const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.4, 6), armMat);
-            armL.position.set(-0.35, 0.55, 0);
+            const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.04, 0.35, 6), armMat);
+            armL.position.set(-0.3, 0.5, 0);
             armL.rotation.z = 0.2;
             armL.rotation.x = 0.1;
             armL.castShadow = true;
             group.add(armL);
-            const armR = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.4, 6), armMat);
-            armR.position.set(0.35, 0.55, 0);
+            const armR = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.04, 0.35, 6), armMat);
+            armR.position.set(0.3, 0.5, 0);
             armR.rotation.z = -0.2;
             armR.rotation.x = -0.1;
             armR.castShadow = true;
             group.add(armR);
 
-            // Piernas
             const legMat = new THREE.MeshStandardMaterial({ color: 0x446644 });
-            const legL = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 0.3, 6), legMat);
-            legL.position.set(-0.12, 0.0, 0);
+            const legL = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.06, 0.25, 6), legMat);
+            legL.position.set(-0.1, 0.0, 0);
             legL.castShadow = true;
             group.add(legL);
-            const legR = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 0.3, 6), legMat);
-            legR.position.set(0.12, 0.0, 0);
+            const legR = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.06, 0.25, 6), legMat);
+            legR.position.set(0.1, 0.0, 0);
             legR.castShadow = true;
             group.add(legR);
 
-            // Nombre
             if (name) {
                 const nameSprite = createAsciiSprite(
                     isMine ? `✦ ${name}` : name, 
                     isMine ? '#ff8800' : '#a2ff00', 
-                    0.1
+                    0.08
                 );
-                nameSprite.position.y = 1.05;
+                nameSprite.position.y = 0.95;
                 group.add(nameSprite);
             }
 
-            // Alma (símbolo flotante)
-            const soul = createAsciiSprite(char, isMine ? '#ff8800' : '#88dd88', 0.12);
-            soul.position.set(0.35, 0.5, 0);
+            const soul = createAsciiSprite(char, isMine ? '#ff8800' : '#88dd88', 0.1);
+            soul.position.set(0.3, 0.45, 0);
             group.add(soul);
 
-            // Datos de animación
             group.userData = {
                 walkCycle: 0,
                 idleSway: Math.random() * Math.PI * 2,
@@ -714,7 +708,7 @@
         const treeChars = ['🌲', '🌳', '▲', '♦', '♣', '⏚'];
         const treeColors = ['#2a6a2a', '#3a7a3a', '#1a5a1a', '#4a8a4a'];
 
-        for (let i = 0; i < 500; i++) {
+        for (let i = 0; i < 400; i++) {
             const angle = Math.random() * Math.PI * 2;
             const radius = 3 + Math.random() * 25;
             const x = Math.sin(angle) * radius;
@@ -746,16 +740,16 @@
         // FOGATA
         const fogataGroup = new THREE.Group();
         const fireChars = ['🔥', '✧', '✦'];
-        for (let i = 0; i < 25; i++) {
+        for (let i = 0; i < 20; i++) {
             const angle = Math.random() * Math.PI * 2;
-            const radius = 0.2 + Math.random() * 0.8;
+            const radius = 0.2 + Math.random() * 0.7;
             const char = fireChars[Math.floor(Math.random() * fireChars.length)];
             const colors = ['#ff4400', '#ff6600', '#ff8800', '#ffaa00'];
             const color = colors[Math.floor(Math.random() * colors.length)];
             const sprite = createAsciiSprite(char, color, 0.1 + Math.random() * 0.2);
             sprite.position.set(
                 Math.cos(angle) * radius,
-                0.1 + Math.random() * 0.8,
+                0.1 + Math.random() * 0.7,
                 Math.sin(angle) * radius
             );
             fogataGroup.add(sprite);
@@ -765,13 +759,13 @@
 
         // BÚHOS
         const buhos = [];
-        for (let i = 0; i < 10; i++) {
-            const buho = createAsciiSprite('🦉', '#ffdd88', 0.2 + Math.random() * 0.15);
+        for (let i = 0; i < 8; i++) {
+            const buho = createAsciiSprite('🦉', '#ffdd88', 0.15 + Math.random() * 0.1);
             const angle = Math.random() * Math.PI * 2;
             const radius = 5 + Math.random() * 15;
             buho.position.set(
                 Math.sin(angle) * radius,
-                1 + Math.random() * 5,
+                1 + Math.random() * 4,
                 Math.cos(angle) * radius
             );
             buho.userData = {
@@ -788,11 +782,11 @@
         // ANIMALES
         const animales = [];
         const animalChars = ['🦊', '🐺', '🦌', '🐇', '🦔', '🐿️'];
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < 6; i++) {
             const animal = createAsciiSprite(
                 animalChars[Math.floor(Math.random() * animalChars.length)],
                 '#ddbb88',
-                0.15 + Math.random() * 0.12
+                0.12 + Math.random() * 0.1
             );
             const angle = Math.random() * Math.PI * 2;
             const radius = 6 + Math.random() * 14;
@@ -814,7 +808,7 @@
             animales.push(animal);
         }
 
-        // CONTENEDOR DE AVATARES
+        // AVATARES
         const avatarContainer = new THREE.Group();
         scene.add(avatarContainer);
 
@@ -892,7 +886,7 @@
             div.innerHTML = `<span class="name" style="color:${color}">${name}:</span> ${message}`;
             box.appendChild(div);
             box.scrollTop = box.scrollHeight;
-            if (box.children.length > 50) box.removeChild(box.firstChild);
+            if (box.children.length > 30) box.removeChild(box.firstChild);
         }
 
         document.getElementById('chat-toggle').addEventListener('click', toggleChat);
@@ -901,11 +895,11 @@
         });
 
         // ============================================================
-        // 9. INTERACCIÓN AUTOMÁTICA
+        // 9. INTERACCIÓN FLOTANTE
         // ============================================================
         function checkInteraction() {
             const now = Date.now();
-            if (now - lastInteractionCheck < 1000) return;
+            if (now - lastInteractionCheck < 800) return;
             lastInteractionCheck = now;
 
             let nearest = null;
@@ -923,37 +917,33 @@
                 }
             }
 
-            // Si hay alguien cerca y no estamos en interacción
             if (nearest && players[nearest] && !interactionActive) {
                 selectedPlayer = nearest;
                 interactionActive = true;
                 mostrarInteraccion(players[nearest].name);
                 
-                // Notificación flotante
                 const notif = document.getElementById('interaction-notif');
                 document.getElementById('notif-text').textContent = `🔥 ${players[nearest].name} te encontró!`;
                 notif.style.display = 'block';
                 setTimeout(() => {
                     notif.style.display = 'none';
-                }, 3000);
+                }, 2000);
 
-                // Sonido de encuentro
                 try {
                     if (audioCtx) {
                         const osc = audioCtx.createOscillator();
                         const gain = audioCtx.createGain();
-                        gain.gain.value = 0.1;
+                        gain.gain.value = 0.08;
                         osc.frequency.value = 440;
                         osc.type = 'sine';
                         osc.connect(gain);
                         gain.connect(audioCtx.destination);
                         osc.start();
-                        osc.stop(audioCtx.currentTime + 0.15);
+                        osc.stop(audioCtx.currentTime + 0.1);
                     }
                 } catch(e) {}
 
             } else if ((!nearest || nearestDist > 5) && interactionActive) {
-                // Si se alejan, cerrar interacción
                 interactionActive = false;
                 cerrarInteraccion();
             }
@@ -963,9 +953,19 @@
             const panel = document.getElementById('interaction-panel');
             panel.style.display = 'block';
             document.getElementById('interaction-player').textContent = name;
+            
+            // Posicionar la ventana flotante encima de los personajes
+            // Usamos la posición del jugador en pantalla
+            const panelWidth = 220;
+            const panelHeight = 150;
+            const x = (window.innerWidth - panelWidth) / 2;
+            const y = window.innerHeight * 0.15;
+            panel.style.left = x + 'px';
+            panel.style.top = y + 'px';
+            panel.style.width = panelWidth + 'px';
+            
             actualizarEstadoCigarrillo();
             
-            // Resetear botones según estado actual
             const btnArmar = document.getElementById('btn-armar');
             const btnEncender = document.getElementById('btn-encender');
             const btnFumar = document.getElementById('btn-fumar');
@@ -992,19 +992,18 @@
             };
             const textos = {
                 '📦': '📦 Listo',
-                '🔧': '🔧 Armando...',
-                '📦✅': '📦✅ Armado!',
-                '🔥': '🔥 Encendido!',
-                '💨': '💨 Fumando...'
+                '🔧': '🔧 Armando',
+                '📦✅': '📦✅ Armado',
+                '🔥': '🔥 Encendido',
+                '💨': '💨 Fumando'
             };
             document.getElementById('cigarette-emoji').textContent = emojis[cigaretteState] || '🚬';
             document.getElementById('cigarette-state-text').textContent = textos[cigaretteState] || '📦 Listo';
             
-            // Efecto visual si está encendido
             const status = document.getElementById('cigarette-state-text');
             if (cigaretteState === '🔥' || cigaretteState === '💨') {
                 status.style.color = '#ff4400';
-                status.style.textShadow = '0 0 20px #ff4400';
+                status.style.textShadow = '0 0 15px #ff4400';
             } else {
                 status.style.color = '#ff8800';
                 status.style.textShadow = 'none';
@@ -1015,7 +1014,6 @@
             cigaretteState = state;
             actualizarEstadoCigarrillo();
             
-            // Notificar al otro jugador
             if (selectedPlayer) {
                 broadcast({
                     type: 'cigarette',
@@ -1028,12 +1026,23 @@
         }
 
         // ============================================================
-        // 10. BOTONES DE INTERACCIÓN
+        // 10. BOTONES
         // ============================================================
         document.getElementById('btn-armar').addEventListener('click', () => {
             if (cigaretteState === '📦') {
                 updateCigarette('🔧');
                 document.getElementById('btn-armar').disabled = true;
+                // Efecto visual en el personaje (brazo se mueve)
+                if (myAvatar) {
+                    myAvatar.children.forEach(child => {
+                        if (child.geometry && child.geometry.type === 'CylinderGeometry' && child.position.x > 0.2) {
+                            child.rotation.x = -1.5;
+                            setTimeout(() => {
+                                child.rotation.x = -0.1;
+                            }, 1500);
+                        }
+                    });
+                }
                 setTimeout(() => {
                     updateCigarette('📦✅');
                     document.getElementById('btn-encender').disabled = false;
@@ -1051,17 +1060,27 @@
                 document.getElementById('btn-encender').disabled = true;
                 addChatMessage('Sistema', '🔥 Cigarrillo encendido!', '#ff8800');
                 
-                // Efecto de fuego en la fogata
+                // Efecto de fuego
                 const fireTime = Date.now() * 0.003;
                 fogataGroup.children.forEach((child, i) => {
                     if (child.isSprite && child.material) {
                         const colors = ['#ff4400', '#ff6600', '#ff8800', '#ffaa00'];
                         const idx = Math.floor((fireTime + i * 0.3) % colors.length);
                         child.material.color.set(colors[idx]);
-                        const s = 1.2 + Math.sin(fireTime + i) * 0.2;
+                        const s = 1.2 + Math.sin(fireTime + i) * 0.15;
                         child.scale.set(s, s, 1);
                     }
                 });
+                
+                // Chispa en la boca del personaje
+                if (myAvatar) {
+                    const spark = createAsciiSprite('✦', '#ff8800', 0.06);
+                    spark.position.set(0.05, 0.7, 0.22);
+                    myAvatar.add(spark);
+                    setTimeout(() => {
+                        myAvatar.remove(spark);
+                    }, 500);
+                }
             }
         });
 
@@ -1071,14 +1090,27 @@
                 document.getElementById('btn-fumar').disabled = true;
                 addChatMessage('Sistema', '💨 *fuma profundamente*', '#ff8800');
                 
-                // Animación de humo (cambiar el sprite del personaje)
+                // Humo
                 if (myAvatar) {
-                    const smoke = createAsciiSprite('💨', '#88aaff', 0.2);
-                    smoke.position.set(0.2, 0.9, 0.15);
+                    const smoke = createAsciiSprite('💨', '#88aaff', 0.12);
+                    smoke.position.set(0.15, 0.85, 0.15);
                     myAvatar.add(smoke);
                     setTimeout(() => {
                         myAvatar.remove(smoke);
-                    }, 2000);
+                        // Humo se eleva
+                        const smoke2 = createAsciiSprite('💨', '#88aaff', 0.1);
+                        smoke2.position.set(0.1, 0.95, 0.1);
+                        myAvatar.add(smoke2);
+                        setTimeout(() => {
+                            myAvatar.remove(smoke2);
+                            const smoke3 = createAsciiSprite('💨', '#88aaff', 0.08);
+                            smoke3.position.set(0.05, 1.05, 0.05);
+                            myAvatar.add(smoke3);
+                            setTimeout(() => {
+                                myAvatar.remove(smoke3);
+                            }, 800);
+                        }, 500);
+                    }, 1500);
                 }
                 
                 setTimeout(() => {
@@ -1099,6 +1131,19 @@
                     name: playerName
                 });
                 addChatMessage('Sistema', `🔄 Le pasaste el cigarrillo a ${targetName}`, '#ff8800');
+                
+                // Animación de pasar
+                if (myAvatar) {
+                    myAvatar.children.forEach(child => {
+                        if (child.geometry && child.geometry.type === 'CylinderGeometry' && child.position.x > 0.2) {
+                            child.rotation.x = 1.5;
+                            setTimeout(() => {
+                                child.rotation.x = -0.1;
+                            }, 500);
+                        }
+                    });
+                }
+                
                 cigaretteState = '📦';
                 actualizarEstadoCigarrillo();
                 document.getElementById('btn-encender').disabled = true;
@@ -1127,7 +1172,7 @@
 
             myPeer.on('open', (id) => {
                 myId = id;
-                document.getElementById('status').textContent = `✅ Conectado (ID: ${id.substring(0,6)})`;
+                document.getElementById('status').textContent = `✅ Conectado`;
                 document.getElementById('room-input').style.display = 'none';
                 
                 myAvatar = createAvatar3D(playerColor, playerChar, playerName, true);
@@ -1162,7 +1207,7 @@
                     myPeer = new Peer(room, { debug: 0 });
                     myPeer.on('open', () => {
                         myId = room;
-                        document.getElementById('status').textContent = `✅ Sala creada (${room})`;
+                        document.getElementById('status').textContent = `✅ Sala creada`;
                         document.getElementById('room-input').style.display = 'none';
                         myAvatar = createAvatar3D(playerColor, playerChar, playerName, true);
                         myAvatar.position.set(0, -0.3, 0);
@@ -1184,10 +1229,10 @@
                 delete connections[conn.peer];
                 if (players[conn.peer]) {
                     const name = players[conn.peer].name || 'Alguien';
-                    addChatMessage(name, '🚶 Se fue del bosque', '#ff4444');
+                    addChatMessage(name, '🚶 Se fue', '#ff4444');
                     delete players[conn.peer];
                     updatePlayers();
-                    document.getElementById('players-count').textContent = `👥 Jugadores: ${Object.keys(players).length + 1}`;
+                    document.getElementById('players-count').textContent = `👤 Jugadores: ${Object.keys(players).length + 1}`;
                 }
                 if (selectedPlayer === conn.peer) {
                     cerrarInteraccion();
@@ -1221,8 +1266,8 @@
                         z: data.z || 0
                     };
                     updatePlayers();
-                    document.getElementById('players-count').textContent = `👥 Jugadores: ${Object.keys(players).length + 1}`;
-                    addChatMessage(data.name || 'Alguien', '👋 Entró al bosque', '#44ff44');
+                    document.getElementById('players-count').textContent = `👤 Jugadores: ${Object.keys(players).length + 1}`;
+                    addChatMessage(data.name || 'Alguien', '👋 Entró', '#44ff44');
                     break;
 
                 case 'move':
@@ -1249,14 +1294,13 @@
                             '💨': '💨 fumando...'
                         };
                         addChatMessage(name, `🚬 ${states[data.state] || data.state}`, '#ff8800');
-                        // Si el otro encendió, mostrar efecto
                         if (data.state === '🔥') {
                             const notif = document.getElementById('interaction-notif');
-                            document.getElementById('notif-text').textContent = `🔥 ${name} encendió un cigarrillo!`;
+                            document.getElementById('notif-text').textContent = `🔥 ${name} encendió!`;
                             notif.style.display = 'block';
                             setTimeout(() => {
                                 notif.style.display = 'none';
-                            }, 3000);
+                            }, 2000);
                         }
                     }
                     break;
@@ -1267,7 +1311,6 @@
                         cigaretteState = data.state || '📦';
                         actualizarEstadoCigarrillo();
                         addChatMessage('Sistema', `🚬 ${name} te pasó un cigarrillo!`, '#ff8800');
-                        // Mostrar panel automáticamente
                         if (!interactionActive) {
                             interactionActive = true;
                             selectedPlayer = data.id;
@@ -1304,12 +1347,11 @@
         }
 
         function updatePlayerPosition(id) {
-            // Reconstruir todos los avatares (simple y efectivo)
             updatePlayers();
         }
 
         // ============================================================
-        // 13. MOVIMIENTO Y ANIMACIÓN NATURAL
+        // 13. MOVIMIENTO
         // ============================================================
         function updateMyPosition() {
             if (!myAvatar) return;
@@ -1338,24 +1380,15 @@
                 myAvatar.position.z = playerPos.z;
                 myAvatar.rotation.y = Math.atan2(dx, dz);
                 
-                // Animación de caminar (piernas y brazos)
-                const walkCycle = Math.sin(now * 8) * 0.3;
+                const walkCycle = Math.sin(now * 8) * 0.25;
                 myAvatar.children.forEach(child => {
                     if (child.geometry && child.geometry.type === 'CylinderGeometry') {
                         if (child.position.y < 0.1) {
                             child.rotation.x = walkCycle * (child.position.x > 0 ? 1 : -1);
                         }
-                        if (child.position.y > 0.4 && child.position.y < 0.7) {
-                            child.rotation.x = -walkCycle * 0.5 * (child.position.x > 0 ? 1 : -1);
+                        if (child.position.y > 0.35 && child.position.y < 0.6) {
+                            child.rotation.x = -walkCycle * 0.4 * (child.position.x > 0 ? 1 : -1);
                         }
-                    }
-                });
-                
-                // Movimiento natural de la cabeza
-                myAvatar.children.forEach(child => {
-                    if (child.geometry && child.geometry.type === 'SphereGeometry' && child.position.y > 0.7) {
-                        child.rotation.z = Math.sin(now * 2) * 0.02;
-                        child.rotation.x = Math.sin(now * 1.5) * 0.02;
                     }
                 });
 
@@ -1367,25 +1400,10 @@
                     z: playerPos.z
                 });
             } else {
-                // Balanceo natural cuando está quieto
-                const idleSway = Math.sin(now * 0.5 + myAvatar.userData.idleSway) * 0.02;
+                const idleSway = Math.sin(now * 0.5 + myAvatar.userData.idleSway) * 0.015;
                 myAvatar.rotation.z = idleSway;
-                myAvatar.rotation.x = Math.sin(now * 0.3 + myAvatar.userData.idleSway) * 0.01;
-                
-                // Ojos parpadean
-                if (Math.random() < 0.001) {
-                    myAvatar.children.forEach(child => {
-                        if (child.geometry && child.geometry.type === 'SphereGeometry' && child.position.y > 0.8) {
-                            child.scale.y = 0.1;
-                            setTimeout(() => {
-                                child.scale.y = 1;
-                            }, 150);
-                        }
-                    });
-                }
             }
 
-            // Verificar interacción automáticamente
             if (!interactionActive) {
                 checkInteraction();
             }
@@ -1396,7 +1414,7 @@
         // ============================================================
         function updateCamera() {
             const target = new THREE.Vector3(playerPos.x, 0, playerPos.z);
-            const offset = new THREE.Vector3(7, 5, 9);
+            const offset = new THREE.Vector3(6, 4.5, 8);
             camera.position.lerp(target.clone().add(offset), 0.05);
             camera.lookAt(target);
         }
@@ -1413,10 +1431,6 @@
                 buho.position.x = Math.sin(data.angle) * data.radius;
                 buho.position.z = Math.cos(data.angle) * data.radius;
                 buho.position.y = 1.5 + Math.sin(time * data.ySpeed + data.yOffset) * 1.5;
-                // Aleteo
-                const flap = 1 + Math.sin(time * 3 + data.angle) * 0.1;
-                buho.scale.x = flap;
-                buho.scale.y = 1/flap;
             });
             
             animales.forEach((animal) => {
@@ -1436,7 +1450,6 @@
                 }
             });
             
-            // Fogata con efecto de cigarrillo encendido
             if (cigaretteState === '🔥' || cigaretteState === '💨') {
                 const fireTime = Date.now() * 0.003;
                 fogataGroup.children.forEach((child, i) => {
@@ -1444,7 +1457,7 @@
                         const colors = ['#ff4400', '#ff6600', '#ff8800', '#ffaa00', '#ffcc44'];
                         const idx = Math.floor((fireTime + i * 0.5) % colors.length);
                         child.material.color.set(colors[idx]);
-                        const s = 1 + Math.sin(fireTime + i) * 0.15;
+                        const s = 1 + Math.sin(fireTime + i) * 0.12;
                         child.scale.set(s, s, 1);
                     }
                 });
@@ -1485,10 +1498,10 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        console.log('🌲 Ruta Cósmica - Interacción Natural');
+        console.log('🌲 Ruta Cósmica - Interacción Flotante');
         console.log('🎮 Flechas para moverte | T: chat');
-        console.log('🚬 Acércate a otro jugador para interactuar automáticamente');
-        console.log('🌊 Sonido de ruido blanco (olas)');
+        console.log('🚬 Acércate a otro jugador para interactuar');
+        console.log('📱 Ventana pequeña flotando sobre los personajes');
     </script>
 </body>
 </html>
