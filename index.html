@@ -3,15 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🌲 Bosque Mágico - Multijugador</title>
+    <title>Ruta Cósmica - Interacción Natural</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            margin: 0;
-            overflow: hidden;
-            background: #0a0a0a;
-            font-family: 'Courier New', monospace;
-        }
+        body { margin: 0; overflow: hidden; background: #0a0a0a; font-family: 'Courier New', monospace; }
         canvas { display: block; }
 
         #ui {
@@ -52,7 +47,6 @@
             border: 1px solid #a2ff00;
             z-index: 10;
             pointer-events: none;
-            text-shadow: 0 0 20px rgba(162,255,0,0.2);
         }
         #players-count {
             position: fixed;
@@ -78,25 +72,202 @@
             z-index: 10;
             pointer-events: none;
         }
-        #fogata-msg {
+
+        /* ===== INTERACCIÓN - VENTANA AUTOMÁTICA ===== */
+        #interaction-panel {
             position: fixed;
-            bottom: 80px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.95);
+            border: 2px solid #ff8800;
+            padding: 30px 40px;
+            z-index: 100;
+            display: none;
+            text-align: center;
+            min-width: 340px;
+            border-radius: 12px;
+            box-shadow: 0 0 80px rgba(255,136,0,0.3);
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        #interaction-panel h2 {
+            color: #ff8800;
+            font-size: 18px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+        #interaction-panel .subtitle {
+            color: #aaa;
+            font-size: 11px;
+            margin-bottom: 15px;
+        }
+        #interaction-panel .player-name {
+            color: #ff8800;
+            font-weight: bold;
+        }
+        #interaction-panel .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        #interaction-panel button {
+            background: transparent;
+            border: 1px solid #ff8800;
+            color: #ff8800;
+            padding: 10px 18px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            transition: all 0.3s;
+            border-radius: 6px;
+            min-width: 80px;
+            position: relative;
+        }
+        #interaction-panel button:hover:not(:disabled) {
+            background: #ff8800;
+            color: #000;
+            transform: scale(1.05);
+        }
+        #interaction-panel button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+        #interaction-panel button .emoji {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 2px;
+        }
+        #interaction-panel .cigarette-status {
+            font-size: 40px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            animation: pulse 2s infinite;
+        }
+        #interaction-panel .status-text {
+            color: #ff8800;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        #interaction-panel .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #interaction-panel .close-btn:hover {
+            color: #ff8800;
+            transform: rotate(90deg);
+        }
+        .interaction-notification {
+            position: fixed;
+            bottom: 100px;
             left: 50%;
             transform: translateX(-50%);
             color: #ff8800;
-            background: rgba(0,0,0,0.85);
-            padding: 6px 18px;
+            background: rgba(0,0,0,0.8);
+            padding: 8px 20px;
             border: 1px solid #ff8800;
-            font-size: 11px;
-            z-index: 20;
-            pointer-events: none;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 50;
+            animation: fadeIn 0.5s ease;
             display: none;
-            animation: pulse 1.5s infinite;
+            text-align: center;
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+
+        /* ===== AUDIO ===== */
+        #audio-panel {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            width: 200px;
+            background: rgba(0,0,0,0.85);
+            border: 1px solid #a2ff00;
+            padding: 12px;
+            color: #a2ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 9px;
+            z-index: 100;
+            display: none;
+            border-radius: 8px;
         }
+        #audio-panel h3 {
+            margin: 0 0 8px 0;
+            font-weight: normal;
+            letter-spacing: 2px;
+            font-size: 11px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 4px;
+            color: #a2ff00;
+        }
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .row label {
+            flex: 0 0 50px;
+            font-size: 8px;
+            color: #aaa;
+        }
+        .row input[type="range"] {
+            flex: 1;
+            background: #222;
+            height: 3px;
+            -webkit-appearance: none;
+            appearance: none;
+            outline: none;
+        }
+        .row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 8px;
+            height: 8px;
+            background: #a2ff00;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        #audio-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: 100;
+            background: #0a0a0a;
+            color: #a2ff00;
+            border: 1px solid #a2ff00;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 9px;
+            border-radius: 4px;
+        }
+        #audio-toggle:hover {
+            background: #a2ff00;
+            color: #000;
+        }
+
+        /* ===== CHAT ===== */
         #chat-box {
             position: fixed;
             bottom: 70px;
@@ -111,6 +282,7 @@
             display: none;
             font-size: 9px;
             color: #ccc;
+            border-radius: 4px;
         }
         #chat-box .msg {
             margin: 2px 0;
@@ -135,6 +307,7 @@
             z-index: 10;
             display: none;
             outline: none;
+            border-radius: 4px;
         }
         #chat-toggle {
             position: fixed;
@@ -149,6 +322,7 @@
             font-family: 'Courier New', monospace;
             font-size: 9px;
             display: none;
+            border-radius: 4px;
         }
         #room-input {
             position: fixed;
@@ -160,6 +334,7 @@
             border: 2px solid #a2ff00;
             padding: 30px 40px;
             text-align: center;
+            border-radius: 8px;
         }
         #room-input h2 {
             color: #a2ff00;
@@ -178,6 +353,7 @@
             width: 200px;
             outline: none;
             text-align: center;
+            border-radius: 4px;
         }
         #room-input button {
             background: transparent;
@@ -189,6 +365,7 @@
             font-family: 'Courier New', monospace;
             font-size: 12px;
             transition: 0.3s;
+            border-radius: 4px;
         }
         #room-input button:hover {
             background: #a2ff00;
@@ -203,12 +380,46 @@
 </head>
 <body>
 
-    <div id="title">🌲 BOSQUE MÁGICO</div>
-    <div id="ui">🎮 Multijugador • ASCII 3D</div>
-    <div id="controls">← ↑ → ↓ · T: chat · ESP: fogata</div>
+    <div id="title">🌲 RUTA CÓSMICA</div>
+    <div id="ui">🎮 Interacción Natural • ASCII 3D</div>
+    <div id="controls">← ↑ → ↓ · T: chat</div>
     <div id="players-count">👤 Jugadores: 1</div>
     <div id="status">✅ Conectado</div>
-    <div id="fogata-msg">🔥 HAS ENCONTRADO LA FOGATA 🔥</div>
+
+    <button id="audio-toggle">🎛️ SONIDO</button>
+
+    <div id="audio-panel">
+        <h3>🌊 RUIDO BLANCO</h3>
+        <div class="row"><label>Volumen</label><input type="range" id="noise-vol" min="0" max="1" step="0.01" value="0.4"></div>
+        <div class="row"><label>Filtro</label><input type="range" id="noise-filter" min="0" max="1" step="0.01" value="0.3"></div>
+        <div class="row"><label>Olas</label><input type="range" id="noise-wave" min="0" max="1" step="0.01" value="0.5"></div>
+        <div style="margin-top:6px; display:flex; gap:6px;">
+            <button id="noise-play" style="background:#000;border:1px solid #a2ff00;color:#a2ff00;padding:2px 12px;cursor:pointer;font-size:9px;">▶</button>
+            <button id="noise-stop" style="background:#000;border:1px solid #ff4444;color:#ff4444;padding:2px 12px;cursor:pointer;font-size:9px;">⏹</button>
+        </div>
+    </div>
+
+    <!-- INTERACCIÓN - VENTANA AUTOMÁTICA -->
+    <div id="interaction-panel">
+        <button class="close-btn" onclick="cerrarInteraccion()">✕</button>
+        <h2>🚬 ENCUENTRO</h2>
+        <div class="subtitle">Estás con <span class="player-name" id="interaction-player">Alguien</span></div>
+        <div class="cigarette-status">
+            <span id="cigarette-emoji">🚬</span>
+            <span class="status-text" id="cigarette-state-text">📦 Listo</span>
+        </div>
+        <div class="btn-group">
+            <button id="btn-armar"><span class="emoji">📦</span>ARMALO</button>
+            <button id="btn-encender" disabled><span class="emoji">🔥</span>ENCIENDE</button>
+            <button id="btn-fumar" disabled><span class="emoji">💨</span>FÚMALO</button>
+            <button id="btn-rotar" disabled><span class="emoji">🔄</span>ROTALO</button>
+        </div>
+        <div style="font-size:9px;color:#666;margin-top:15px;">🤝 Acércate a otro jugador para interactuar</div>
+    </div>
+
+    <div class="interaction-notification" id="interaction-notif">
+        🔥 <span id="notif-text">Alguien te encontró!</span>
+    </div>
 
     <div id="room-input">
         <h2>✦ SALA DE JUEGO ✦</h2>
@@ -222,7 +433,7 @@
     <input id="chat-input" type="text" placeholder="Escribe..." maxlength="100">
     <button id="chat-toggle">💬</button>
 
-    <!-- PeerJS para multijugador -->
+    <!-- PeerJS -->
     <script src="https://unpkg.com/peerjs@1.5.1/dist/peerjs.min.js"></script>
 
     <!-- Three.js -->
@@ -237,9 +448,100 @@
     <script type="module">
         import * as THREE from 'three';
 
-        // ============================================
-        // 1. CONFIGURACIÓN INICIAL
-        // ============================================
+        // ============================================================
+        // 1. SONIDO
+        // ============================================================
+        let audioCtx = null;
+        let noiseNode = null;
+        let noiseGain = null;
+        let filterNode = null;
+        let waveOsc = null;
+        let isNoisePlaying = false;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                noiseGain = audioCtx.createGain();
+                noiseGain.gain.value = 0.4;
+                noiseGain.connect(audioCtx.destination);
+                filterNode = audioCtx.createBiquadFilter();
+                filterNode.type = 'lowpass';
+                filterNode.frequency.value = 800;
+                filterNode.connect(noiseGain);
+                waveOsc = audioCtx.createOscillator();
+                waveOsc.frequency.value = 0.5;
+                waveOsc.type = 'sine';
+                const waveGain = audioCtx.createGain();
+                waveGain.gain.value = 0.08;
+                waveOsc.connect(waveGain);
+                waveGain.connect(noiseGain);
+            }
+        }
+
+        function playNoise() {
+            try {
+                initAudio();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                if (isNoisePlaying) return;
+                const bufferSize = audioCtx.sampleRate * 0.05;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = (Math.random() * 2 - 1) * 0.3;
+                }
+                noiseNode = audioCtx.createBufferSource();
+                noiseNode.buffer = buffer;
+                noiseNode.loop = true;
+                noiseNode.connect(filterNode);
+                noiseNode.start();
+                if (waveOsc) waveOsc.start();
+                isNoisePlaying = true;
+                document.getElementById('noise-play').textContent = '▶▶';
+            } catch(e) { console.log('Audio error:', e); }
+        }
+
+        function stopNoise() {
+            try {
+                if (noiseNode) {
+                    noiseNode.stop();
+                    noiseNode.disconnect();
+                    noiseNode = null;
+                }
+                if (waveOsc) {
+                    waveOsc.stop();
+                    waveOsc = audioCtx.createOscillator();
+                    waveOsc.frequency.value = 0.5;
+                    waveOsc.type = 'sine';
+                    const waveGain = audioCtx.createGain();
+                    waveGain.gain.value = 0.08;
+                    waveOsc.connect(waveGain);
+                    waveGain.connect(noiseGain);
+                }
+                isNoisePlaying = false;
+                document.getElementById('noise-play').textContent = '▶';
+            } catch(e) {}
+        }
+
+        document.getElementById('noise-play').addEventListener('click', playNoise);
+        document.getElementById('noise-stop').addEventListener('click', stopNoise);
+        document.getElementById('noise-vol').addEventListener('input', (e) => {
+            if (noiseGain) noiseGain.gain.value = parseFloat(e.target.value);
+        });
+        document.getElementById('noise-filter').addEventListener('input', (e) => {
+            if (filterNode) filterNode.frequency.value = 100 + parseFloat(e.target.value) * 4000;
+        });
+        document.getElementById('noise-wave').addEventListener('input', (e) => {
+            if (waveOsc) waveOsc.frequency.value = 0.1 + parseFloat(e.target.value) * 1.5;
+        });
+
+        document.getElementById('audio-toggle').addEventListener('click', () => {
+            const panel = document.getElementById('audio-panel');
+            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // ============================================================
+        // 2. CONFIGURACIÓN
+        // ============================================================
         let myPeer = null;
         let connections = {};
         let players = {};
@@ -248,11 +550,14 @@
         let playerName = 'Viajero';
         let playerColor = '#88dd88';
         let playerChar = '☺';
-        let foundFogata = false;
+        let selectedPlayer = null;
+        let cigaretteState = '📦'; // 📦 → 🔧 → 📦✅ → 🔥 → 💨
+        let interactionActive = false;
+        let lastInteractionCheck = 0;
 
-        // ============================================
-        // 2. ESCENA 3D
-        // ============================================
+        // ============================================================
+        // 3. ESCENA 3D
+        // ============================================================
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x0a0a0a);
         scene.fog = new THREE.FogExp2(0x0a0a0a, 0.008);
@@ -267,26 +572,20 @@
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         document.body.prepend(renderer.domElement);
 
-        // ============================================
-        // 3. LUCES
-        // ============================================
+        // LUCES
         const ambient = new THREE.AmbientLight(0x223355, 0.4);
         scene.add(ambient);
-        
         const moonLight = new THREE.DirectionalLight(0x6688cc, 0.3);
         moonLight.position.set(-10, 15, -10);
         scene.add(moonLight);
-        
         const dirLight = new THREE.DirectionalLight(0xffeedd, 0.5);
         dirLight.position.set(10, 20, 5);
         dirLight.castShadow = true;
-        dirLight.shadow.mapSize.width = 1024;
-        dirLight.shadow.mapSize.height = 1024;
         scene.add(dirLight);
 
-        // ============================================
-        // 4. FUNCIÓN: CREAR SPRITE ASCII 3D
-        // ============================================
+        // ============================================================
+        // 4. FUNCIONES ASCII
+        // ============================================================
         function createAsciiSprite(char, color, size = 0.4) {
             const canvas = document.createElement('canvas');
             canvas.width = 64;
@@ -311,81 +610,107 @@
             return sprite;
         }
 
-        // ============================================
-        // 5. CREAR AVATAR 3D (personaje completo)
-        // ============================================
+        // ============================================================
+        // 5. CREAR AVATAR (con expresiones y movimiento natural)
+        // ============================================================
         function createAvatar3D(color, char = '☺', name = '', isMine = false) {
             const group = new THREE.Group();
 
-            // Cuerpo (cubo)
+            // Cuerpo
             const bodyMat = new THREE.MeshStandardMaterial({ 
                 color: color, 
                 emissive: new THREE.Color(color), 
-                emissiveIntensity: 0.2 
+                emissiveIntensity: 0.15 
             });
-            const body = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.7, 0.4), bodyMat);
+            const body = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.65, 0.35), bodyMat);
             body.position.y = 0.35;
             body.castShadow = true;
             body.receiveShadow = true;
             group.add(body);
 
-            // Cabeza (esfera)
+            // Cabeza
             const headMat = new THREE.MeshStandardMaterial({ color: 0xddbb88 });
-            const head = new THREE.Mesh(new THREE.SphereGeometry(0.25, 6), headMat);
-            head.position.y = 0.8;
+            const head = new THREE.Mesh(new THREE.SphereGeometry(0.25, 8), headMat);
+            head.position.y = 0.78;
             head.castShadow = true;
             head.receiveShadow = true;
             group.add(head);
 
-            // Ojos (brillantes)
+            // Ojos (expresivos)
             const eyeMat = new THREE.MeshStandardMaterial({ 
                 color: 0xa2ff00, 
                 emissive: new THREE.Color(0xa2ff00), 
-                emissiveIntensity: 0.5 
+                emissiveIntensity: 0.3 
             });
-            const eye1 = new THREE.Mesh(new THREE.SphereGeometry(0.05, 6), eyeMat);
-            eye1.position.set(0.13, 0.85, 0.22);
+            const eye1 = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8), eyeMat);
+            eye1.position.set(0.12, 0.82, 0.22);
             group.add(eye1);
-            const eye2 = new THREE.Mesh(new THREE.SphereGeometry(0.05, 6), eyeMat);
-            eye2.position.set(-0.13, 0.85, 0.22);
+            const eye2 = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8), eyeMat);
+            eye2.position.set(-0.12, 0.82, 0.22);
             group.add(eye2);
 
-            // Sombrero (opcional)
-            if (isMine) {
-                const hatMat = new THREE.MeshStandardMaterial({ color: 0x8844aa });
-                const hat = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.3, 5), hatMat);
-                hat.position.y = 1.0;
-                hat.rotation.x = 0.1;
-                group.add(hat);
-                const hatBall = new THREE.Mesh(new THREE.SphereGeometry(0.05, 4), 
-                    new THREE.MeshStandardMaterial({ color: 0xff8800 }));
-                hatBall.position.set(0, 1.15, 0);
-                group.add(hatBall);
-            }
+            // Boca (expresión)
+            const mouthMat = new THREE.MeshStandardMaterial({ color: 0x442222 });
+            const mouth = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.03, 0.02), mouthMat);
+            mouth.position.set(0, 0.72, 0.22);
+            group.add(mouth);
 
-            // Nombre encima
+            // Brazos (con movimiento natural)
+            const armMat = new THREE.MeshStandardMaterial({ color: 0x88dd88 });
+            const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.4, 6), armMat);
+            armL.position.set(-0.35, 0.55, 0);
+            armL.rotation.z = 0.2;
+            armL.rotation.x = 0.1;
+            armL.castShadow = true;
+            group.add(armL);
+            const armR = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.4, 6), armMat);
+            armR.position.set(0.35, 0.55, 0);
+            armR.rotation.z = -0.2;
+            armR.rotation.x = -0.1;
+            armR.castShadow = true;
+            group.add(armR);
+
+            // Piernas
+            const legMat = new THREE.MeshStandardMaterial({ color: 0x446644 });
+            const legL = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 0.3, 6), legMat);
+            legL.position.set(-0.12, 0.0, 0);
+            legL.castShadow = true;
+            group.add(legL);
+            const legR = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 0.3, 6), legMat);
+            legR.position.set(0.12, 0.0, 0);
+            legR.castShadow = true;
+            group.add(legR);
+
+            // Nombre
             if (name) {
                 const nameSprite = createAsciiSprite(
-                    isMine ? `✨ ${name}` : name, 
+                    isMine ? `✦ ${name}` : name, 
                     isMine ? '#ff8800' : '#a2ff00', 
-                    0.12
+                    0.1
                 );
-                nameSprite.position.y = 1.1;
+                nameSprite.position.y = 1.05;
                 group.add(nameSprite);
             }
 
-            // Símbolo ASCII flotante (el "alma" del personaje)
-            const soul = createAsciiSprite(char, '#ffffff', 0.15);
-            soul.position.y = 0.6;
-            soul.position.x = 0.3;
+            // Alma (símbolo flotante)
+            const soul = createAsciiSprite(char, isMine ? '#ff8800' : '#88dd88', 0.12);
+            soul.position.set(0.35, 0.5, 0);
             group.add(soul);
+
+            // Datos de animación
+            group.userData = {
+                walkCycle: 0,
+                idleSway: Math.random() * Math.PI * 2,
+                armSway: 0,
+                expression: 'normal'
+            };
 
             return group;
         }
 
-        // ============================================
+        // ============================================================
         // 6. CONSTRUIR BOSQUE
-        // ============================================
+        // ============================================================
         const treeChars = ['🌲', '🌳', '▲', '♦', '♣', '⏚'];
         const treeColors = ['#2a6a2a', '#3a7a3a', '#1a5a1a', '#4a8a4a'];
 
@@ -395,7 +720,6 @@
             const x = Math.sin(angle) * radius;
             const z = Math.cos(angle) * radius;
             if (Math.abs(x) < 4 && Math.abs(z) < 4) continue;
-            
             const char = treeChars[Math.floor(Math.random() * treeChars.length)];
             const color = treeColors[Math.floor(Math.random() * treeColors.length)];
             const size = 0.3 + Math.random() * 0.9;
@@ -404,9 +728,7 @@
             scene.add(sprite);
         }
 
-        // ============================================
-        // 7. SUELO
-        // ============================================
+        // SUELO
         const groundGeo = new THREE.CircleGeometry(30, 32);
         const groundMat = new THREE.MeshStandardMaterial({ 
             color: 0x1a2a1a, 
@@ -421,9 +743,7 @@
         ground.receiveShadow = true;
         scene.add(ground);
 
-        // ============================================
-        // 8. FOGATA (oculta al principio)
-        // ============================================
+        // FOGATA
         const fogataGroup = new THREE.Group();
         const fireChars = ['🔥', '✧', '✦'];
         for (let i = 0; i < 25; i++) {
@@ -443,9 +763,7 @@
         fogataGroup.position.set(0, -0.3, 0);
         scene.add(fogataGroup);
 
-        // ============================================
-        // 9. BÚHOS VOLANDO
-        // ============================================
+        // BÚHOS
         const buhos = [];
         for (let i = 0; i < 10; i++) {
             const buho = createAsciiSprite('🦉', '#ffdd88', 0.2 + Math.random() * 0.15);
@@ -467,9 +785,7 @@
             buhos.push(buho);
         }
 
-        // ============================================
-        // 10. ANIMALES (aparecen/desaparecen)
-        // ============================================
+        // ANIMALES
         const animales = [];
         const animalChars = ['🦊', '🐺', '🦌', '🐇', '🦔', '🐿️'];
         for (let i = 0; i < 8; i++) {
@@ -498,20 +814,17 @@
             animales.push(animal);
         }
 
-        // ============================================
-        // 11. CONTENEDOR DE AVATARES
-        // ============================================
+        // CONTENEDOR DE AVATARES
         const avatarContainer = new THREE.Group();
         scene.add(avatarContainer);
 
-        // Mi personaje (se creará después de conectarse)
         let myAvatar = null;
         let playerPos = { x: 0, y: 0, z: 0 };
         const speed = 0.10;
 
-        // ============================================
-        // 12. CONTROLES DE TECLADO
-        // ============================================
+        // ============================================================
+        // 7. CONTROLES
+        // ============================================================
         const keys = { up: false, down: false, left: false, right: false };
         let chatOpen = false;
 
@@ -524,17 +837,6 @@
                 case 't': case 'T': e.preventDefault(); toggleChat(); break;
                 case 'Enter': if (chatOpen) sendChat(); break;
                 case 'Escape': if (chatOpen) closeChat(); break;
-                case ' ':
-                    e.preventDefault();
-                    if (Math.abs(playerPos.x) < 3 && Math.abs(playerPos.z) < 3) {
-                        foundFogata = true;
-                        document.getElementById('fogata-msg').style.display = 'block';
-                        setTimeout(() => {
-                            document.getElementById('fogata-msg').style.display = 'none';
-                        }, 4000);
-                        broadcast({ type: 'fogata', id: myId, name: playerName });
-                    }
-                    break;
             }
         });
         document.addEventListener('keyup', (e) => {
@@ -546,9 +848,9 @@
             }
         });
 
-        // ============================================
-        // 13. CHAT
-        // ============================================
+        // ============================================================
+        // 8. CHAT
+        // ============================================================
         function toggleChat() {
             chatOpen = !chatOpen;
             const input = document.getElementById('chat-input');
@@ -598,9 +900,217 @@
             if (e.key === 'Enter') sendChat();
         });
 
-        // ============================================
-        // 14. PEERJS - MULTIJUGADOR
-        // ============================================
+        // ============================================================
+        // 9. INTERACCIÓN AUTOMÁTICA
+        // ============================================================
+        function checkInteraction() {
+            const now = Date.now();
+            if (now - lastInteractionCheck < 1000) return;
+            lastInteractionCheck = now;
+
+            let nearest = null;
+            let nearestDist = 4.5;
+
+            for (const id in players) {
+                if (id === myId) continue;
+                const p = players[id];
+                const dx = playerPos.x - (p.x || 0);
+                const dz = playerPos.z - (p.z || 0);
+                const dist = Math.sqrt(dx*dx + dz*dz);
+                if (dist < nearestDist) {
+                    nearestDist = dist;
+                    nearest = id;
+                }
+            }
+
+            // Si hay alguien cerca y no estamos en interacción
+            if (nearest && players[nearest] && !interactionActive) {
+                selectedPlayer = nearest;
+                interactionActive = true;
+                mostrarInteraccion(players[nearest].name);
+                
+                // Notificación flotante
+                const notif = document.getElementById('interaction-notif');
+                document.getElementById('notif-text').textContent = `🔥 ${players[nearest].name} te encontró!`;
+                notif.style.display = 'block';
+                setTimeout(() => {
+                    notif.style.display = 'none';
+                }, 3000);
+
+                // Sonido de encuentro
+                try {
+                    if (audioCtx) {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        gain.gain.value = 0.1;
+                        osc.frequency.value = 440;
+                        osc.type = 'sine';
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.15);
+                    }
+                } catch(e) {}
+
+            } else if ((!nearest || nearestDist > 5) && interactionActive) {
+                // Si se alejan, cerrar interacción
+                interactionActive = false;
+                cerrarInteraccion();
+            }
+        }
+
+        function mostrarInteraccion(name) {
+            const panel = document.getElementById('interaction-panel');
+            panel.style.display = 'block';
+            document.getElementById('interaction-player').textContent = name;
+            actualizarEstadoCigarrillo();
+            
+            // Resetear botones según estado actual
+            const btnArmar = document.getElementById('btn-armar');
+            const btnEncender = document.getElementById('btn-encender');
+            const btnFumar = document.getElementById('btn-fumar');
+            const btnRotar = document.getElementById('btn-rotar');
+            
+            btnArmar.disabled = cigaretteState !== '📦';
+            btnEncender.disabled = cigaretteState !== '📦✅';
+            btnFumar.disabled = cigaretteState !== '🔥';
+            btnRotar.disabled = cigaretteState !== '🔥' && cigaretteState !== '💨';
+        }
+
+        function cerrarInteraccion() {
+            document.getElementById('interaction-panel').style.display = 'none';
+            interactionActive = false;
+        }
+
+        function actualizarEstadoCigarrillo() {
+            const emojis = {
+                '📦': '🚬',
+                '🔧': '🔧',
+                '📦✅': '📦✅',
+                '🔥': '🔥',
+                '💨': '💨'
+            };
+            const textos = {
+                '📦': '📦 Listo',
+                '🔧': '🔧 Armando...',
+                '📦✅': '📦✅ Armado!',
+                '🔥': '🔥 Encendido!',
+                '💨': '💨 Fumando...'
+            };
+            document.getElementById('cigarette-emoji').textContent = emojis[cigaretteState] || '🚬';
+            document.getElementById('cigarette-state-text').textContent = textos[cigaretteState] || '📦 Listo';
+            
+            // Efecto visual si está encendido
+            const status = document.getElementById('cigarette-state-text');
+            if (cigaretteState === '🔥' || cigaretteState === '💨') {
+                status.style.color = '#ff4400';
+                status.style.textShadow = '0 0 20px #ff4400';
+            } else {
+                status.style.color = '#ff8800';
+                status.style.textShadow = 'none';
+            }
+        }
+
+        function updateCigarette(state) {
+            cigaretteState = state;
+            actualizarEstadoCigarrillo();
+            
+            // Notificar al otro jugador
+            if (selectedPlayer) {
+                broadcast({
+                    type: 'cigarette',
+                    id: myId,
+                    state: state,
+                    target: selectedPlayer,
+                    name: playerName
+                });
+            }
+        }
+
+        // ============================================================
+        // 10. BOTONES DE INTERACCIÓN
+        // ============================================================
+        document.getElementById('btn-armar').addEventListener('click', () => {
+            if (cigaretteState === '📦') {
+                updateCigarette('🔧');
+                document.getElementById('btn-armar').disabled = true;
+                setTimeout(() => {
+                    updateCigarette('📦✅');
+                    document.getElementById('btn-encender').disabled = false;
+                    document.getElementById('btn-armar').disabled = false;
+                    addChatMessage('Sistema', '🚬 Cigarrillo armado!', '#ff8800');
+                }, 1500);
+            }
+        });
+
+        document.getElementById('btn-encender').addEventListener('click', () => {
+            if (cigaretteState === '📦✅') {
+                updateCigarette('🔥');
+                document.getElementById('btn-fumar').disabled = false;
+                document.getElementById('btn-rotar').disabled = false;
+                document.getElementById('btn-encender').disabled = true;
+                addChatMessage('Sistema', '🔥 Cigarrillo encendido!', '#ff8800');
+                
+                // Efecto de fuego en la fogata
+                const fireTime = Date.now() * 0.003;
+                fogataGroup.children.forEach((child, i) => {
+                    if (child.isSprite && child.material) {
+                        const colors = ['#ff4400', '#ff6600', '#ff8800', '#ffaa00'];
+                        const idx = Math.floor((fireTime + i * 0.3) % colors.length);
+                        child.material.color.set(colors[idx]);
+                        const s = 1.2 + Math.sin(fireTime + i) * 0.2;
+                        child.scale.set(s, s, 1);
+                    }
+                });
+            }
+        });
+
+        document.getElementById('btn-fumar').addEventListener('click', () => {
+            if (cigaretteState === '🔥') {
+                updateCigarette('💨');
+                document.getElementById('btn-fumar').disabled = true;
+                addChatMessage('Sistema', '💨 *fuma profundamente*', '#ff8800');
+                
+                // Animación de humo (cambiar el sprite del personaje)
+                if (myAvatar) {
+                    const smoke = createAsciiSprite('💨', '#88aaff', 0.2);
+                    smoke.position.set(0.2, 0.9, 0.15);
+                    myAvatar.add(smoke);
+                    setTimeout(() => {
+                        myAvatar.remove(smoke);
+                    }, 2000);
+                }
+                
+                setTimeout(() => {
+                    updateCigarette('🔥');
+                    document.getElementById('btn-fumar').disabled = false;
+                }, 3000);
+            }
+        });
+
+        document.getElementById('btn-rotar').addEventListener('click', () => {
+            if (selectedPlayer && players[selectedPlayer] && (cigaretteState === '🔥' || cigaretteState === '💨')) {
+                const targetName = players[selectedPlayer].name;
+                broadcast({
+                    type: 'cigarette_pass',
+                    id: myId,
+                    target: selectedPlayer,
+                    state: cigaretteState,
+                    name: playerName
+                });
+                addChatMessage('Sistema', `🔄 Le pasaste el cigarrillo a ${targetName}`, '#ff8800');
+                cigaretteState = '📦';
+                actualizarEstadoCigarrillo();
+                document.getElementById('btn-encender').disabled = true;
+                document.getElementById('btn-fumar').disabled = true;
+                document.getElementById('btn-rotar').disabled = true;
+                cerrarInteraccion();
+            }
+        });
+
+        // ============================================================
+        // 11. PEERJS
+        // ============================================================
         const avatarColors = [
             '#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6bff',
             '#ff9f43', '#00d2d3', '#f368e0', '#ff9ff3', '#54a0ff'
@@ -610,8 +1120,6 @@
         function connectToRoom() {
             const room = document.getElementById('room-field').value.trim() || 'bosque';
             roomName = room;
-            
-            // Elegir color y símbolo aleatorio
             playerColor = avatarColors[Math.floor(Math.random() * avatarColors.length)];
             playerChar = avatarChars[Math.floor(Math.random() * avatarChars.length)];
 
@@ -622,24 +1130,20 @@
                 document.getElementById('status').textContent = `✅ Conectado (ID: ${id.substring(0,6)})`;
                 document.getElementById('room-input').style.display = 'none';
                 
-                // Crear mi avatar
                 myAvatar = createAvatar3D(playerColor, playerChar, playerName, true);
                 myAvatar.position.set(0, -0.3, 0);
                 avatarContainer.add(myAvatar);
                 
-                // Unirse a la sala
-                const roomId = roomName;
                 try {
-                    const conn = myPeer.connect(roomId);
+                    const conn = myPeer.connect(room);
                     conn.on('open', () => {
-                        connections[roomId] = conn;
+                        connections[room] = conn;
                         setupConnection(conn);
                     });
                 } catch(e) {
-                    // Si no existe la sala, crearla
-                    myPeer = new Peer(roomName, { debug: 0 });
+                    myPeer = new Peer(room, { debug: 0 });
                     myPeer.on('open', () => {
-                        myId = roomName;
+                        myId = room;
                         myPeer.on('connection', (conn) => {
                             connections[conn.peer] = conn;
                             setupConnection(conn);
@@ -655,25 +1159,19 @@
 
             myPeer.on('error', (err) => {
                 if (err.type === 'peer-unavailable') {
-                    // Crear sala
-                    myPeer = new Peer(roomName, { debug: 0 });
+                    myPeer = new Peer(room, { debug: 0 });
                     myPeer.on('open', () => {
-                        myId = roomName;
-                        document.getElementById('status').textContent = `✅ Sala creada (${roomName})`;
+                        myId = room;
+                        document.getElementById('status').textContent = `✅ Sala creada (${room})`;
                         document.getElementById('room-input').style.display = 'none';
-                        
-                        // Crear mi avatar
                         myAvatar = createAvatar3D(playerColor, playerChar, playerName, true);
                         myAvatar.position.set(0, -0.3, 0);
                         avatarContainer.add(myAvatar);
-                        
                         myPeer.on('connection', (conn) => {
                             connections[conn.peer] = conn;
                             setupConnection(conn);
                         });
                     });
-                } else {
-                    console.error('Peer error:', err);
                 }
             });
         }
@@ -682,7 +1180,6 @@
             conn.on('data', (data) => {
                 handlePeerData(data, conn.peer);
             });
-            
             conn.on('close', () => {
                 delete connections[conn.peer];
                 if (players[conn.peer]) {
@@ -692,9 +1189,11 @@
                     updatePlayers();
                     document.getElementById('players-count').textContent = `👥 Jugadores: ${Object.keys(players).length + 1}`;
                 }
+                if (selectedPlayer === conn.peer) {
+                    cerrarInteraccion();
+                    interactionActive = false;
+                }
             });
-            
-            // Enviar nuestros datos al conectar
             setTimeout(() => {
                 conn.send({
                     type: 'join',
@@ -703,8 +1202,8 @@
                     color: playerColor,
                     char: playerChar,
                     x: playerPos.x,
-                    y: playerPos.y || 0,
-                    z: playerPos.z || 0
+                    y: 0,
+                    z: playerPos.z
                 });
             }, 500);
         }
@@ -739,18 +1238,41 @@
                     addChatMessage(data.name, data.message, players[data.id]?.color || '#a2ff00');
                     break;
 
-                case 'fogata':
-                    document.getElementById('fogata-msg').textContent = `🔥 ${data.name || 'Alguien'} encontró la fogata!`;
-                    document.getElementById('fogata-msg').style.display = 'block';
-                    setTimeout(() => {
-                        document.getElementById('fogata-msg').style.display = 'none';
-                    }, 4000);
+                case 'cigarette':
+                    if (data.id !== myId) {
+                        const name = data.name || players[data.id]?.name || 'Alguien';
+                        const states = {
+                            '📦': '📦 guardado',
+                            '🔧': '🔧 armando...',
+                            '📦✅': '📦✅ armado!',
+                            '🔥': '🔥 encendido!',
+                            '💨': '💨 fumando...'
+                        };
+                        addChatMessage(name, `🚬 ${states[data.state] || data.state}`, '#ff8800');
+                        // Si el otro encendió, mostrar efecto
+                        if (data.state === '🔥') {
+                            const notif = document.getElementById('interaction-notif');
+                            document.getElementById('notif-text').textContent = `🔥 ${name} encendió un cigarrillo!`;
+                            notif.style.display = 'block';
+                            setTimeout(() => {
+                                notif.style.display = 'none';
+                            }, 3000);
+                        }
+                    }
                     break;
 
-                case 'name_change':
-                    if (players[data.id]) {
-                        players[data.id].name = data.name;
-                        updatePlayers();
+                case 'cigarette_pass':
+                    if (data.target === myId) {
+                        const name = data.name || players[data.id]?.name || 'Alguien';
+                        cigaretteState = data.state || '📦';
+                        actualizarEstadoCigarrillo();
+                        addChatMessage('Sistema', `🚬 ${name} te pasó un cigarrillo!`, '#ff8800');
+                        // Mostrar panel automáticamente
+                        if (!interactionActive) {
+                            interactionActive = true;
+                            selectedPlayer = data.id;
+                            mostrarInteraccion(name);
+                        }
                     }
                     break;
             }
@@ -758,26 +1280,20 @@
 
         function broadcast(data) {
             for (const id in connections) {
-                try {
-                    connections[id].send(data);
-                } catch(e) {}
+                try { connections[id].send(data); } catch(e) {}
             }
         }
 
-        // ============================================
-        // 15. ACTUALIZAR JUGADORES EN PANTALLA
-        // ============================================
+        // ============================================================
+        // 12. ACTUALIZAR JUGADORES
+        // ============================================================
         function updatePlayers() {
-            // Limpiar avatares viejos (excepto el mío)
             const toRemove = [];
             avatarContainer.children.forEach(child => {
-                if (child !== myAvatar) {
-                    toRemove.push(child);
-                }
+                if (child !== myAvatar) toRemove.push(child);
             });
             toRemove.forEach(child => avatarContainer.remove(child));
             
-            // Crear avatares para otros jugadores
             for (const id in players) {
                 if (id === myId) continue;
                 const p = players[id];
@@ -788,33 +1304,13 @@
         }
 
         function updatePlayerPosition(id) {
-            const p = players[id];
-            if (!p) return;
-            
-            // Buscar el avatar correspondiente
-            for (let i = 0; i < avatarContainer.children.length; i++) {
-                const child = avatarContainer.children[i];
-                // El avatar tiene un nombre en su grupo
-                if (child !== myAvatar && child.children.length > 0) {
-                    // Buscar por nombre (simplificado)
-                    const nameSprite = child.children.find(c => 
-                        c.isSprite && c.material && c.material.map
-                    );
-                    if (nameSprite) {
-                        // No hay forma fácil de identificar, usamos posición como referencia
-                        // Mejor: guardar referencia de avatar por id
-                    }
-                }
-            }
-            
-            // Actualizar todos los avatares (más simple pero menos eficiente)
-            // Reconstruir todos los avatares
+            // Reconstruir todos los avatares (simple y efectivo)
             updatePlayers();
         }
 
-        // ============================================
-        // 16. MOVIMIENTO Y CÁMARA
-        // ============================================
+        // ============================================================
+        // 13. MOVIMIENTO Y ANIMACIÓN NATURAL
+        // ============================================================
         function updateMyPosition() {
             if (!myAvatar) return;
             
@@ -824,7 +1320,10 @@
             if (keys.left) dx -= speed;
             if (keys.right) dx += speed;
 
-            if (dx !== 0 || dz !== 0) {
+            const isMoving = dx !== 0 || dz !== 0;
+            const now = Date.now() * 0.001;
+
+            if (isMoving) {
                 playerPos.x += dx;
                 playerPos.z += dz;
                 
@@ -837,19 +1336,29 @@
                 
                 myAvatar.position.x = playerPos.x;
                 myAvatar.position.z = playerPos.z;
-                
-                // Rotar hacia la dirección
                 myAvatar.rotation.y = Math.atan2(dx, dz);
                 
-                // Animación de caminar
-                const time = Date.now() * 0.01;
+                // Animación de caminar (piernas y brazos)
+                const walkCycle = Math.sin(now * 8) * 0.3;
                 myAvatar.children.forEach(child => {
-                    if (child.geometry && child.geometry.type === 'BoxGeometry' && child.position.y < 0.5) {
-                        child.rotation.x = Math.sin(time) * 0.2;
+                    if (child.geometry && child.geometry.type === 'CylinderGeometry') {
+                        if (child.position.y < 0.1) {
+                            child.rotation.x = walkCycle * (child.position.x > 0 ? 1 : -1);
+                        }
+                        if (child.position.y > 0.4 && child.position.y < 0.7) {
+                            child.rotation.x = -walkCycle * 0.5 * (child.position.x > 0 ? 1 : -1);
+                        }
                     }
                 });
                 
-                // Enviar al servidor
+                // Movimiento natural de la cabeza
+                myAvatar.children.forEach(child => {
+                    if (child.geometry && child.geometry.type === 'SphereGeometry' && child.position.y > 0.7) {
+                        child.rotation.z = Math.sin(now * 2) * 0.02;
+                        child.rotation.x = Math.sin(now * 1.5) * 0.02;
+                    }
+                });
+
                 broadcast({
                     type: 'move',
                     id: myId,
@@ -857,42 +1366,59 @@
                     y: 0,
                     z: playerPos.z
                 });
+            } else {
+                // Balanceo natural cuando está quieto
+                const idleSway = Math.sin(now * 0.5 + myAvatar.userData.idleSway) * 0.02;
+                myAvatar.rotation.z = idleSway;
+                myAvatar.rotation.x = Math.sin(now * 0.3 + myAvatar.userData.idleSway) * 0.01;
+                
+                // Ojos parpadean
+                if (Math.random() < 0.001) {
+                    myAvatar.children.forEach(child => {
+                        if (child.geometry && child.geometry.type === 'SphereGeometry' && child.position.y > 0.8) {
+                            child.scale.y = 0.1;
+                            setTimeout(() => {
+                                child.scale.y = 1;
+                            }, 150);
+                        }
+                    });
+                }
             }
-            
-            // Verificar fogata
-            if (Math.abs(playerPos.x) < 2.5 && Math.abs(playerPos.z) < 2.5 && !foundFogata) {
-                foundFogata = true;
-                document.getElementById('fogata-msg').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('fogata-msg').style.display = 'none';
-                }, 4000);
-                broadcast({ type: 'fogata', id: myId, name: playerName });
+
+            // Verificar interacción automáticamente
+            if (!interactionActive) {
+                checkInteraction();
             }
         }
 
+        // ============================================================
+        // 14. CÁMARA
+        // ============================================================
         function updateCamera() {
             const target = new THREE.Vector3(playerPos.x, 0, playerPos.z);
-            const offset = new THREE.Vector3(8, 6, 10);
+            const offset = new THREE.Vector3(7, 5, 9);
             camera.position.lerp(target.clone().add(offset), 0.05);
             camera.lookAt(target);
         }
 
-        // ============================================
-        // 17. ANIMAR MUNDO
-        // ============================================
+        // ============================================================
+        // 15. ANIMAR MUNDO
+        // ============================================================
         function animateWorld() {
             const time = Date.now() * 0.001;
             
-            // Búhos
             buhos.forEach((buho) => {
                 const data = buho.userData;
                 data.angle += data.speed;
                 buho.position.x = Math.sin(data.angle) * data.radius;
                 buho.position.z = Math.cos(data.angle) * data.radius;
                 buho.position.y = 1.5 + Math.sin(time * data.ySpeed + data.yOffset) * 1.5;
+                // Aleteo
+                const flap = 1 + Math.sin(time * 3 + data.angle) * 0.1;
+                buho.scale.x = flap;
+                buho.scale.y = 1/flap;
             });
             
-            // Animales
             animales.forEach((animal) => {
                 const data = animal.userData;
                 data.angle += data.speed;
@@ -910,24 +1436,24 @@
                 }
             });
             
-            // Fogata
-            if (foundFogata) {
+            // Fogata con efecto de cigarrillo encendido
+            if (cigaretteState === '🔥' || cigaretteState === '💨') {
                 const fireTime = Date.now() * 0.003;
                 fogataGroup.children.forEach((child, i) => {
                     if (child.isSprite && child.material) {
                         const colors = ['#ff4400', '#ff6600', '#ff8800', '#ffaa00', '#ffcc44'];
                         const idx = Math.floor((fireTime + i * 0.5) % colors.length);
                         child.material.color.set(colors[idx]);
-                        const s = 1 + Math.sin(fireTime + i) * 0.1;
+                        const s = 1 + Math.sin(fireTime + i) * 0.15;
                         child.scale.set(s, s, 1);
                     }
                 });
             }
         }
 
-        // ============================================
-        // 18. LOOP PRINCIPAL
-        // ============================================
+        // ============================================================
+        // 16. LOOP
+        // ============================================================
         function animate() {
             requestAnimationFrame(animate);
             updateMyPosition();
@@ -936,14 +1462,15 @@
             renderer.render(scene, camera);
         }
 
-        // ============================================
-        // 19. INICIO
-        // ============================================
+        // ============================================================
+        // 17. INICIO
+        // ============================================================
         document.getElementById('room-create').addEventListener('click', () => {
             const name = document.getElementById('room-field').value.trim() || 'bosque';
             playerName = prompt('¿Cómo te llamas?', 'Viajero') || 'Viajero';
             document.getElementById('room-field').value = name;
             connectToRoom();
+            initAudio();
         });
 
         document.getElementById('room-field').addEventListener('keydown', (e) => {
@@ -952,19 +1479,16 @@
 
         animate();
 
-        // ============================================
-        // 20. RESIZE
-        // ============================================
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        console.log('🌲 Bosque Mágico Multijugador');
-        console.log('🎮 Flechas para moverte | T para chat');
-        console.log('🔥 Encuentra la fogata en el centro');
-        console.log('📡 Conectado a sala: ' + roomName);
+        console.log('🌲 Ruta Cósmica - Interacción Natural');
+        console.log('🎮 Flechas para moverte | T: chat');
+        console.log('🚬 Acércate a otro jugador para interactuar automáticamente');
+        console.log('🌊 Sonido de ruido blanco (olas)');
     </script>
 </body>
 </html>
