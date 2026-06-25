@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌲 Bosque Mágico - Multijugador</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #0a0a0a;
+            font-family: 'Courier New', monospace;
+        }
+        canvas { display: block; }
+
+        #ui {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: #a2ff00;
+            font-size: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 6px 12px;
+            border: 1px solid #a2ff00;
+            z-index: 10;
+            pointer-events: none;
+        }
+        #controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: #a2ff00;
+            font-size: 9px;
+            text-align: right;
+            background: rgba(0,0,0,0.7);
+            padding: 6px 12px;
+            border: 1px solid #a2ff00;
+            z-index: 10;
+            pointer-events: none;
+        }
+        #title {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #a2ff00;
+            font-size: 13px;
+            letter-spacing: 4px;
+            background: rgba(0,0,0,0.6);
+            padding: 4px 20px;
+            border: 1px solid #a2ff00;
+            z-index: 10;
+            pointer-events: none;
+            text-shadow: 0 0 20px rgba(162,255,0,0.2);
+        }
+        #players-count {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            color: #a2ff00;
+            font-size: 10px;
+            background: rgba(0,0,0,0.6);
+            padding: 4px 12px;
+            border: 1px solid #a2ff00;
+            z-index: 10;
+            pointer-events: none;
+        }
+        #status {
+            position: fixed;
+            top: 70px;
+            left: 20px;
+            color: #44ff44;
+            font-size: 9px;
+            background: rgba(0,0,0,0.6);
+            padding: 4px 12px;
+            border: 1px solid #44ff44;
+            z-index: 10;
+            pointer-events: none;
+        }
+        #fogata-msg {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff8800;
+            background: rgba(0,0,0,0.85);
+            padding: 6px 18px;
+            border: 1px solid #ff8800;
+            font-size: 11px;
+            z-index: 20;
+            pointer-events: none;
+            display: none;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        #chat-box {
+            position: fixed;
+            bottom: 70px;
+            left: 20px;
+            width: 250px;
+            max-height: 120px;
+            overflow-y: auto;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid #a2ff00;
+            padding: 6px;
+            z-index: 10;
+            display: none;
+            font-size: 9px;
+            color: #ccc;
+        }
+        #chat-box .msg {
+            margin: 2px 0;
+            padding: 2px 4px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        #chat-box .msg .name {
+            color: #a2ff00;
+            font-weight: bold;
+        }
+        #chat-input {
+            position: fixed;
+            bottom: 70px;
+            left: 20px;
+            width: 250px;
+            background: rgba(0,0,0,0.9);
+            border: 1px solid #a2ff00;
+            color: #a2ff00;
+            padding: 4px 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 9px;
+            z-index: 10;
+            display: none;
+            outline: none;
+        }
+        #chat-toggle {
+            position: fixed;
+            bottom: 60px;
+            left: 280px;
+            z-index: 10;
+            background: #000;
+            color: #a2ff00;
+            border: 1px solid #a2ff00;
+            padding: 2px 8px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 9px;
+            display: none;
+        }
+        #room-input {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            background: rgba(0,0,0,0.95);
+            border: 2px solid #a2ff00;
+            padding: 30px 40px;
+            text-align: center;
+        }
+        #room-input h2 {
+            color: #a2ff00;
+            font-size: 16px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+        #room-input input {
+            background: #111;
+            border: 1px solid #a2ff00;
+            color: #a2ff00;
+            padding: 8px 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            width: 200px;
+            outline: none;
+            text-align: center;
+        }
+        #room-input button {
+            background: transparent;
+            border: 1px solid #a2ff00;
+            color: #a2ff00;
+            padding: 8px 24px;
+            margin: 8px 4px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+        #room-input button:hover {
+            background: #a2ff00;
+            color: #000;
+        }
+        #room-input .small {
+            font-size: 9px;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="title">🌲 BOSQUE MÁGICO</div>
+    <div id="ui">🎮 Multijugador • ASCII 3D</div>
+    <div id="controls">← ↑ → ↓ · T: chat · ESP: fogata</div>
+    <div id="players-count">👤 Jugadores: 1</div>
+    <div id="status">✅ Conectado</div>
+    <div id="fogata-msg">🔥 HAS ENCONTRADO LA FOGATA 🔥</div>
+
+    <div id="room-input">
+        <h2>✦ SALA DE JUEGO ✦</h2>
+        <input type="text" id="room-field" placeholder="Nombre de la sala..." value="bosque">
+        <br>
+        <button id="room-create">🎮 ENTRAR</button>
+        <div class="small">Comparte el nombre de la sala con tus amigos</div>
+    </div>
+
+    <div id="chat-box"></div>
+    <input id="chat-input" type="text" placeholder="Escribe..." maxlength="100">
+    <button id="chat-toggle">💬</button>
+
+    <!-- PeerJS para multijugador -->
+    <script src="https://unpkg.com/peerjs@1.5.1/dist/peerjs.min.js"></script>
+
+    <!-- Three.js -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        // ============================================
+        // 1. CONFIGURACIÓN INICIAL
+        // ============================================
+        let myPeer = null;
+        let connections = {};
+        let players = {};
+        let myId = null;
+        let roomName = 'bosque';
+        let playerName = 'Viajero';
+        let playerColor = '#88dd88';
+        let playerChar = '☺';
+        let foundFogata = false;
+
+        // ============================================
+        // 2. ESCENA 3D
+        // ============================================
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0a0a0a);
+        scene.fog = new THREE.FogExp2(0x0a0a0a, 0.008);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 150);
+        camera.position.set(12, 8, 16);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.prepend(renderer.domElement);
+
+        // ============================================
+        // 3. LUCES
+        // ============================================
+        const ambient = new THREE.AmbientLight(0x223355, 0.4);
+        scene.add(ambient);
+        
+        const moonLight = new THREE.DirectionalLight(0x6688cc, 0.3);
+        moonLight.position.set(-10, 15, -10);
+        scene.add(moonLight);
+        
+        const dirLight = new THREE.DirectionalLight(0xffeedd, 0.5);
+        dirLight.position.set(10, 20, 5);
+        dirLight.castShadow = true;
+        dirLight.shadow.mapSize.width = 1024;
+        dirLight.shadow.mapSize.height = 1024;
+        scene.add(dirLight);
+
+        // ============================================
+        // 4. FUNCIÓN: CREAR SPRITE ASCII 3D
+        // ============================================
+        function createAsciiSprite(char, color, size = 0.4) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 64;
+            canvas.height = 64;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, 64, 64);
+            ctx.fillStyle = color;
+            ctx.font = '48px "Courier New", monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(char, 32, 34);
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.needsUpdate = true;
+            const material = new THREE.SpriteMaterial({
+                map: texture,
+                transparent: true,
+                depthTest: false,
+                depthWrite: false
+            });
+            const sprite = new THREE.Sprite(material);
+            sprite.scale.set(size, size, 1);
+            return sprite;
+        }
+
+        // ============================================
+        // 5. CREAR AVATAR 3D (personaje completo)
+        // ============================================
+        function createAvatar3D(color, char = '☺', name = '', isMine = false) {
+            const group = new THREE.Group();
+
+            // Cuerpo (cubo)
+            const bodyMat = new THREE.MeshStandardMaterial({ 
+                color: color, 
+                emissive: new THREE.Color(color), 
+                emissiveIntensity: 0.2 
+            });
+            const body = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.7, 0.4), bodyMat);
+            body.position.y = 0.35;
+            body.castShadow = true;
+            body.receiveShadow = true;
+            group.add(body);
+
+            // Cabeza (esfera)
+            const headMat = new THREE.MeshStandardMaterial({ color: 0xddbb88 });
+            const head = new THREE.Mesh(new THREE.SphereGeometry(0.25, 6), headMat);
+            head.position.y = 0.8;
+            head.castShadow = true;
+            head.receiveShadow = true;
+            group.add(head);
+
+            // Ojos (brillantes)
+            const eyeMat = new THREE.MeshStandardMaterial({ 
+                color: 0xa2ff00, 
+                emissive: new THREE.Color(0xa2ff00), 
+                emissiveIntensity: 0.5 
+            });
+            const eye1 = new THREE.Mesh(new THREE.SphereGeometry(0.05, 6), eyeMat);
+            eye1.position.set(0.13, 0.85, 0.22);
+            group.add(eye1);
+            const eye2 = new THREE.Mesh(new THREE.SphereGeometry(0.05, 6), eyeMat);
+            eye2.position.set(-0.13, 0.85, 0.22);
+            group.add(eye2);
+
+            // Sombrero (opcional)
+            if (isMine) {
+                const hatMat = new THREE.MeshStandardMaterial({ color: 0x8844aa });
+                const hat = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.3, 5), hatMat);
+                hat.position.y = 1.0;
+                hat.rotation.x = 0.1;
+                group.add(hat);
+                const hatBall = new THREE.Mesh(new THREE.SphereGeometry(0.05, 4), 
+                    new THREE.MeshStandardMaterial({ color: 0xff8800 }));
+                hatBall.position.set(0, 1.15, 0);
+                group.add(hatBall);
+            }
+
+            // Nombre encima
+            if (name) {
+                const nameSprite = createAsciiSprite(
+                    isMine ? `✨ ${name}` : name, 
+                    isMine ? '#ff8800' : '#a2ff00', 
+                    0.12
+                );
+                nameSprite.position.y = 1.1;
+                group.add(nameSprite);
+            }
+
+            // Símbolo ASCII flotante (el "alma" del personaje)
+            const soul = createAsciiSprite(char, '#ffffff', 0.15);
+            soul.position.y = 0.6;
+            soul.position.x = 0.3;
+            group.add(soul);
+
+            return group;
+        }
+
+        // ============================================
+        // 6. CONSTRUIR BOSQUE
+        // ============================================
+        const treeChars = ['🌲', '🌳', '▲', '♦', '♣', '⏚'];
+        const treeColors = ['#2a6a2a', '#3a7a3a', '#1a5a1a', '#4a8a4a'];
+
+        for (let i = 0; i < 500; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 3 + Math.random() * 25;
+            const x = Math.sin(angle) * radius;
+            const z = Math.cos(angle) * radius;
+            if (Math.abs(x) < 4 && Math.abs(z) < 4) continue;
+            
+            const char = treeChars[Math.floor(Math.random() * treeChars.length)];
+            const color = treeColors[Math.floor(Math.random() * treeColors.length)];
+            const size = 0.3 + Math.random() * 0.9;
+            const sprite = createAsciiSprite(char, color, size);
+            sprite.position.set(x, -0.3 + Math.random() * 0.5, z);
+            scene.add(sprite);
+        }
+
+        // ============================================
+        // 7. SUELO
+        // ============================================
+        const groundGeo = new THREE.CircleGeometry(30, 32);
+        const groundMat = new THREE.MeshStandardMaterial({ 
+            color: 0x1a2a1a, 
+            roughness: 0.9, 
+            metalness: 0.0,
+            transparent: true,
+            opacity: 0.6
+        });
+        const ground = new THREE.Mesh(groundGeo, groundMat);
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = -0.6;
+        ground.receiveShadow = true;
+        scene.add(ground);
+
+        // ============================================
+        // 8. FOGATA (oculta al principio)
+        // ============================================
+        const fogataGroup = new THREE.Group();
+        const fireChars = ['🔥', '✧', '✦'];
+        for (let i = 0; i < 25; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 0.2 + Math.random() * 0.8;
+            const char = fireChars[Math.floor(Math.random() * fireChars.length)];
+            const colors = ['#ff4400', '#ff6600', '#ff8800', '#ffaa00'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const sprite = createAsciiSprite(char, color, 0.1 + Math.random() * 0.2);
+            sprite.position.set(
+                Math.cos(angle) * radius,
+                0.1 + Math.random() * 0.8,
+                Math.sin(angle) * radius
+            );
+            fogataGroup.add(sprite);
+        }
+        fogataGroup.position.set(0, -0.3, 0);
+        scene.add(fogataGroup);
+
+        // ============================================
+        // 9. BÚHOS VOLANDO
+        // ============================================
+        const buhos = [];
+        for (let i = 0; i < 10; i++) {
+            const buho = createAsciiSprite('🦉', '#ffdd88', 0.2 + Math.random() * 0.15);
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 5 + Math.random() * 15;
+            buho.position.set(
+                Math.sin(angle) * radius,
+                1 + Math.random() * 5,
+                Math.cos(angle) * radius
+            );
+            buho.userData = {
+                angle: angle,
+                radius: radius,
+                speed: 0.001 + Math.random() * 0.003,
+                ySpeed: 0.001 + Math.random() * 0.002,
+                yOffset: Math.random() * Math.PI * 2
+            };
+            scene.add(buho);
+            buhos.push(buho);
+        }
+
+        // ============================================
+        // 10. ANIMALES (aparecen/desaparecen)
+        // ============================================
+        const animales = [];
+        const animalChars = ['🦊', '🐺', '🦌', '🐇', '🦔', '🐿️'];
+        for (let i = 0; i < 8; i++) {
+            const animal = createAsciiSprite(
+                animalChars[Math.floor(Math.random() * animalChars.length)],
+                '#ddbb88',
+                0.15 + Math.random() * 0.12
+            );
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 6 + Math.random() * 14;
+            animal.position.set(
+                Math.sin(angle) * radius,
+                -0.3,
+                Math.cos(angle) * radius
+            );
+            animal.visible = Math.random() < 0.3;
+            animal.userData = {
+                angle: angle,
+                radius: radius,
+                speed: 0.002 + Math.random() * 0.003,
+                visibleTimer: Math.random() * 100,
+                visibleDuration: 80 + Math.random() * 120,
+                hiddenDuration: 40 + Math.random() * 100
+            };
+            scene.add(animal);
+            animales.push(animal);
+        }
+
+        // ============================================
+        // 11. CONTENEDOR DE AVATARES
+        // ============================================
+        const avatarContainer = new THREE.Group();
+        scene.add(avatarContainer);
+
+        // Mi personaje (se creará después de conectarse)
+        let myAvatar = null;
+        let playerPos = { x: 0, y: 0, z: 0 };
+        const speed = 0.10;
+
+        // ============================================
+        // 12. CONTROLES DE TECLADO
+        // ============================================
+        const keys = { up: false, down: false, left: false, right: false };
+        let chatOpen = false;
+
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowUp': keys.up = true; e.preventDefault(); break;
+                case 'ArrowDown': keys.down = true; e.preventDefault(); break;
+                case 'ArrowLeft': keys.left = true; e.preventDefault(); break;
+                case 'ArrowRight': keys.right = true; e.preventDefault(); break;
+                case 't': case 'T': e.preventDefault(); toggleChat(); break;
+                case 'Enter': if (chatOpen) sendChat(); break;
+                case 'Escape': if (chatOpen) closeChat(); break;
+                case ' ':
+                    e.preventDefault();
+                    if (Math.abs(playerPos.x) < 3 && Math.abs(playerPos.z) < 3) {
+                        foundFogata = true;
+                        document.getElementById('fogata-msg').style.display = 'block';
+                        setTimeout(() => {
+                            document.getElementById('fogata-msg').style.display = 'none';
+                        }, 4000);
+                        broadcast({ type: 'fogata', id: myId, name: playerName });
+                    }
+                    break;
+            }
+        });
+        document.addEventListener('keyup', (e) => {
+            switch(e.key) {
+                case 'ArrowUp': keys.up = false; e.preventDefault(); break;
+                case 'ArrowDown': keys.down = false; e.preventDefault(); break;
+                case 'ArrowLeft': keys.left = false; e.preventDefault(); break;
+                case 'ArrowRight': keys.right = false; e.preventDefault(); break;
+            }
+        });
+
+        // ============================================
+        // 13. CHAT
+        // ============================================
+        function toggleChat() {
+            chatOpen = !chatOpen;
+            const input = document.getElementById('chat-input');
+            const box = document.getElementById('chat-box');
+            const toggle = document.getElementById('chat-toggle');
+            if (chatOpen) {
+                input.style.display = 'block';
+                box.style.display = 'block';
+                toggle.style.display = 'none';
+                input.focus();
+            } else {
+                input.style.display = 'none';
+                box.style.display = 'none';
+                toggle.style.display = 'block';
+            }
+        }
+
+        function closeChat() {
+            chatOpen = false;
+            document.getElementById('chat-input').style.display = 'none';
+            document.getElementById('chat-box').style.display = 'none';
+            document.getElementById('chat-toggle').style.display = 'block';
+        }
+
+        function sendChat() {
+            const input = document.getElementById('chat-input');
+            const msg = input.value.trim();
+            if (msg) {
+                broadcast({ type: 'chat', id: myId, name: playerName, message: msg });
+                addChatMessage(playerName, msg, '#a2ff00');
+                input.value = '';
+            }
+        }
+
+        function addChatMessage(name, message, color = '#a2ff00') {
+            const box = document.getElementById('chat-box');
+            const div = document.createElement('div');
+            div.className = 'msg';
+            div.innerHTML = `<span class="name" style="color:${color}">${name}:</span> ${message}`;
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+            if (box.children.length > 50) box.removeChild(box.firstChild);
+        }
+
+        document.getElementById('chat-toggle').addEventListener('click', toggleChat);
+        document.getElementById('chat-input').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') sendChat();
+        });
+
+        // ============================================
+        // 14. PEERJS - MULTIJUGADOR
+        // ============================================
+        const avatarColors = [
+            '#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6bff',
+            '#ff9f43', '#00d2d3', '#f368e0', '#ff9ff3', '#54a0ff'
+        ];
+        const avatarChars = ['☺', '◉', '●', '♦', '★', '☻', '♥', '♣'];
+
+        function connectToRoom() {
+            const room = document.getElementById('room-field').value.trim() || 'bosque';
+            roomName = room;
+            
+            // Elegir color y símbolo aleatorio
+            playerColor = avatarColors[Math.floor(Math.random() * avatarColors.length)];
+            playerChar = avatarChars[Math.floor(Math.random() * avatarChars.length)];
+
+            myPeer = new Peer(undefined, { debug: 0 });
+
+            myPeer.on('open', (id) => {
+                myId = id;
+                document.getElementById('status').textContent = `✅ Conectado (ID: ${id.substring(0,6)})`;
+                document.getElementById('room-input').style.display = 'none';
+                
+                // Crear mi avatar
+                myAvatar = createAvatar3D(playerColor, playerChar, playerName, true);
+                myAvatar.position.set(0, -0.3, 0);
+                avatarContainer.add(myAvatar);
+                
+                // Unirse a la sala
+                const roomId = roomName;
+                try {
+                    const conn = myPeer.connect(roomId);
+                    conn.on('open', () => {
+                        connections[roomId] = conn;
+                        setupConnection(conn);
+                    });
+                } catch(e) {
+                    // Si no existe la sala, crearla
+                    myPeer = new Peer(roomName, { debug: 0 });
+                    myPeer.on('open', () => {
+                        myId = roomName;
+                        myPeer.on('connection', (conn) => {
+                            connections[conn.peer] = conn;
+                            setupConnection(conn);
+                        });
+                    });
+                }
+                
+                myPeer.on('connection', (conn) => {
+                    connections[conn.peer] = conn;
+                    setupConnection(conn);
+                });
+            });
+
+            myPeer.on('error', (err) => {
+                if (err.type === 'peer-unavailable') {
+                    // Crear sala
+                    myPeer = new Peer(roomName, { debug: 0 });
+                    myPeer.on('open', () => {
+                        myId = roomName;
+                        document.getElementById('status').textContent = `✅ Sala creada (${roomName})`;
+                        document.getElementById('room-input').style.display = 'none';
+                        
+                        // Crear mi avatar
+                        myAvatar = createAvatar3D(playerColor, playerChar, playerName, true);
+                        myAvatar.position.set(0, -0.3, 0);
+                        avatarContainer.add(myAvatar);
+                        
+                        myPeer.on('connection', (conn) => {
+                            connections[conn.peer] = conn;
+                            setupConnection(conn);
+                        });
+                    });
+                } else {
+                    console.error('Peer error:', err);
+                }
+            });
+        }
+
+        function setupConnection(conn) {
+            conn.on('data', (data) => {
+                handlePeerData(data, conn.peer);
+            });
+            
+            conn.on('close', () => {
+                delete connections[conn.peer];
+                if (players[conn.peer]) {
+                    const name = players[conn.peer].name || 'Alguien';
+                    addChatMessage(name, '🚶 Se fue del bosque', '#ff4444');
+                    delete players[conn.peer];
+                    updatePlayers();
+                    document.getElementById('players-count').textContent = `👥 Jugadores: ${Object.keys(players).length + 1}`;
+                }
+            });
+            
+            // Enviar nuestros datos al conectar
+            setTimeout(() => {
+                conn.send({
+                    type: 'join',
+                    id: myId,
+                    name: playerName,
+                    color: playerColor,
+                    char: playerChar,
+                    x: playerPos.x,
+                    y: playerPos.y || 0,
+                    z: playerPos.z || 0
+                });
+            }, 500);
+        }
+
+        function handlePeerData(data, peerId) {
+            switch(data.type) {
+                case 'join':
+                    players[data.id] = {
+                        id: data.id,
+                        name: data.name || 'Viajero',
+                        color: data.color || '#88dd88',
+                        char: data.char || '☺',
+                        x: data.x || 0,
+                        y: data.y || 0,
+                        z: data.z || 0
+                    };
+                    updatePlayers();
+                    document.getElementById('players-count').textContent = `👥 Jugadores: ${Object.keys(players).length + 1}`;
+                    addChatMessage(data.name || 'Alguien', '👋 Entró al bosque', '#44ff44');
+                    break;
+
+                case 'move':
+                    if (players[data.id]) {
+                        players[data.id].x = data.x;
+                        players[data.id].y = data.y || 0;
+                        players[data.id].z = data.z;
+                        updatePlayerPosition(data.id);
+                    }
+                    break;
+
+                case 'chat':
+                    addChatMessage(data.name, data.message, players[data.id]?.color || '#a2ff00');
+                    break;
+
+                case 'fogata':
+                    document.getElementById('fogata-msg').textContent = `🔥 ${data.name || 'Alguien'} encontró la fogata!`;
+                    document.getElementById('fogata-msg').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('fogata-msg').style.display = 'none';
+                    }, 4000);
+                    break;
+
+                case 'name_change':
+                    if (players[data.id]) {
+                        players[data.id].name = data.name;
+                        updatePlayers();
+                    }
+                    break;
+            }
+        }
+
+        function broadcast(data) {
+            for (const id in connections) {
+                try {
+                    connections[id].send(data);
+                } catch(e) {}
+            }
+        }
+
+        // ============================================
+        // 15. ACTUALIZAR JUGADORES EN PANTALLA
+        // ============================================
+        function updatePlayers() {
+            // Limpiar avatares viejos (excepto el mío)
+            const toRemove = [];
+            avatarContainer.children.forEach(child => {
+                if (child !== myAvatar) {
+                    toRemove.push(child);
+                }
+            });
+            toRemove.forEach(child => avatarContainer.remove(child));
+            
+            // Crear avatares para otros jugadores
+            for (const id in players) {
+                if (id === myId) continue;
+                const p = players[id];
+                const avatar = createAvatar3D(p.color, p.char, p.name, false);
+                avatar.position.set(p.x || 0, p.y || 0, p.z || 0);
+                avatarContainer.add(avatar);
+            }
+        }
+
+        function updatePlayerPosition(id) {
+            const p = players[id];
+            if (!p) return;
+            
+            // Buscar el avatar correspondiente
+            for (let i = 0; i < avatarContainer.children.length; i++) {
+                const child = avatarContainer.children[i];
+                // El avatar tiene un nombre en su grupo
+                if (child !== myAvatar && child.children.length > 0) {
+                    // Buscar por nombre (simplificado)
+                    const nameSprite = child.children.find(c => 
+                        c.isSprite && c.material && c.material.map
+                    );
+                    if (nameSprite) {
+                        // No hay forma fácil de identificar, usamos posición como referencia
+                        // Mejor: guardar referencia de avatar por id
+                    }
+                }
+            }
+            
+            // Actualizar todos los avatares (más simple pero menos eficiente)
+            // Reconstruir todos los avatares
+            updatePlayers();
+        }
+
+        // ============================================
+        // 16. MOVIMIENTO Y CÁMARA
+        // ============================================
+        function updateMyPosition() {
+            if (!myAvatar) return;
+            
+            let dx = 0, dz = 0;
+            if (keys.up) dz -= speed;
+            if (keys.down) dz += speed;
+            if (keys.left) dx -= speed;
+            if (keys.right) dx += speed;
+
+            if (dx !== 0 || dz !== 0) {
+                playerPos.x += dx;
+                playerPos.z += dz;
+                
+                const radius = 26;
+                const dist = Math.sqrt(playerPos.x ** 2 + playerPos.z ** 2);
+                if (dist > radius) {
+                    playerPos.x *= 0.97;
+                    playerPos.z *= 0.97;
+                }
+                
+                myAvatar.position.x = playerPos.x;
+                myAvatar.position.z = playerPos.z;
+                
+                // Rotar hacia la dirección
+                myAvatar.rotation.y = Math.atan2(dx, dz);
+                
+                // Animación de caminar
+                const time = Date.now() * 0.01;
+                myAvatar.children.forEach(child => {
+                    if (child.geometry && child.geometry.type === 'BoxGeometry' && child.position.y < 0.5) {
+                        child.rotation.x = Math.sin(time) * 0.2;
+                    }
+                });
+                
+                // Enviar al servidor
+                broadcast({
+                    type: 'move',
+                    id: myId,
+                    x: playerPos.x,
+                    y: 0,
+                    z: playerPos.z
+                });
+            }
+            
+            // Verificar fogata
+            if (Math.abs(playerPos.x) < 2.5 && Math.abs(playerPos.z) < 2.5 && !foundFogata) {
+                foundFogata = true;
+                document.getElementById('fogata-msg').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('fogata-msg').style.display = 'none';
+                }, 4000);
+                broadcast({ type: 'fogata', id: myId, name: playerName });
+            }
+        }
+
+        function updateCamera() {
+            const target = new THREE.Vector3(playerPos.x, 0, playerPos.z);
+            const offset = new THREE.Vector3(8, 6, 10);
+            camera.position.lerp(target.clone().add(offset), 0.05);
+            camera.lookAt(target);
+        }
+
+        // ============================================
+        // 17. ANIMAR MUNDO
+        // ============================================
+        function animateWorld() {
+            const time = Date.now() * 0.001;
+            
+            // Búhos
+            buhos.forEach((buho) => {
+                const data = buho.userData;
+                data.angle += data.speed;
+                buho.position.x = Math.sin(data.angle) * data.radius;
+                buho.position.z = Math.cos(data.angle) * data.radius;
+                buho.position.y = 1.5 + Math.sin(time * data.ySpeed + data.yOffset) * 1.5;
+            });
+            
+            // Animales
+            animales.forEach((animal) => {
+                const data = animal.userData;
+                data.angle += data.speed;
+                animal.position.x = Math.sin(data.angle) * data.radius;
+                animal.position.z = Math.cos(data.angle) * data.radius;
+                data.visibleTimer += 0.01;
+                if (animal.visible && data.visibleTimer > data.visibleDuration) {
+                    animal.visible = false;
+                    data.visibleTimer = 0;
+                } else if (!animal.visible && data.visibleTimer > data.hiddenDuration) {
+                    animal.visible = true;
+                    data.visibleTimer = 0;
+                    data.angle = Math.random() * Math.PI * 2;
+                    data.radius = 6 + Math.random() * 14;
+                }
+            });
+            
+            // Fogata
+            if (foundFogata) {
+                const fireTime = Date.now() * 0.003;
+                fogataGroup.children.forEach((child, i) => {
+                    if (child.isSprite && child.material) {
+                        const colors = ['#ff4400', '#ff6600', '#ff8800', '#ffaa00', '#ffcc44'];
+                        const idx = Math.floor((fireTime + i * 0.5) % colors.length);
+                        child.material.color.set(colors[idx]);
+                        const s = 1 + Math.sin(fireTime + i) * 0.1;
+                        child.scale.set(s, s, 1);
+                    }
+                });
+            }
+        }
+
+        // ============================================
+        // 18. LOOP PRINCIPAL
+        // ============================================
+        function animate() {
+            requestAnimationFrame(animate);
+            updateMyPosition();
+            animateWorld();
+            updateCamera();
+            renderer.render(scene, camera);
+        }
+
+        // ============================================
+        // 19. INICIO
+        // ============================================
+        document.getElementById('room-create').addEventListener('click', () => {
+            const name = document.getElementById('room-field').value.trim() || 'bosque';
+            playerName = prompt('¿Cómo te llamas?', 'Viajero') || 'Viajero';
+            document.getElementById('room-field').value = name;
+            connectToRoom();
+        });
+
+        document.getElementById('room-field').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') document.getElementById('room-create').click();
+        });
+
+        animate();
+
+        // ============================================
+        // 20. RESIZE
+        // ============================================
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        console.log('🌲 Bosque Mágico Multijugador');
+        console.log('🎮 Flechas para moverte | T para chat');
+        console.log('🔥 Encuentra la fogata en el centro');
+        console.log('📡 Conectado a sala: ' + roomName);
+    </script>
+</body>
+</html>
