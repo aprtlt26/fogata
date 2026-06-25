@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ruta Cósmica - Interacción Flotante</title>
+    <title>🌲 Ruta Cósmica - Mundo Esférico</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { margin: 0; overflow: hidden; background: #0a0a0a; font-family: 'Courier New', monospace; }
@@ -14,25 +14,27 @@
             bottom: 20px;
             left: 20px;
             color: #a2ff00;
-            font-size: 10px;
+            font-size: 9px;
             background: rgba(0,0,0,0.7);
-            padding: 6px 12px;
+            padding: 4px 10px;
             border: 1px solid #a2ff00;
             z-index: 10;
             pointer-events: none;
+            border-radius: 4px;
         }
         #controls {
             position: fixed;
             bottom: 20px;
             right: 20px;
             color: #a2ff00;
-            font-size: 9px;
+            font-size: 8px;
             text-align: right;
             background: rgba(0,0,0,0.7);
-            padding: 6px 12px;
+            padding: 4px 10px;
             border: 1px solid #a2ff00;
             z-index: 10;
             pointer-events: none;
+            border-radius: 4px;
         }
         #title {
             position: fixed;
@@ -40,69 +42,72 @@
             left: 50%;
             transform: translateX(-50%);
             color: #a2ff00;
-            font-size: 12px;
-            letter-spacing: 4px;
+            font-size: 11px;
+            letter-spacing: 3px;
             background: rgba(0,0,0,0.6);
-            padding: 4px 20px;
+            padding: 3px 16px;
             border: 1px solid #a2ff00;
             z-index: 10;
             pointer-events: none;
+            border-radius: 20px;
         }
         #players-count {
             position: fixed;
-            top: 70px;
+            top: 65px;
             right: 20px;
             color: #a2ff00;
-            font-size: 9px;
+            font-size: 8px;
             background: rgba(0,0,0,0.6);
-            padding: 4px 12px;
+            padding: 3px 10px;
             border: 1px solid #a2ff00;
             z-index: 10;
             pointer-events: none;
+            border-radius: 4px;
         }
         #status {
             position: fixed;
-            top: 70px;
+            top: 65px;
             left: 20px;
             color: #44ff44;
             font-size: 8px;
             background: rgba(0,0,0,0.6);
-            padding: 4px 12px;
+            padding: 3px 10px;
             border: 1px solid #44ff44;
             z-index: 10;
             pointer-events: none;
+            border-radius: 4px;
         }
 
-        /* ===== INTERACCIÓN - VENTANA FLOTANTE PEQUEÑA ===== */
+        /* ===== INTERACCIÓN FLOTANTE ===== */
         #interaction-panel {
             position: fixed;
-            background: rgba(0,0,0,0.92);
+            background: rgba(0,0,0,0.9);
             border: 1.5px solid #ff8800;
-            padding: 12px 16px;
+            padding: 10px 14px;
             z-index: 100;
             display: none;
             text-align: center;
-            min-width: 200px;
-            max-width: 250px;
+            min-width: 190px;
+            max-width: 230px;
             border-radius: 10px;
-            box-shadow: 0 0 40px rgba(255,136,0,0.2);
+            box-shadow: 0 0 30px rgba(255,136,0,0.15);
             animation: floatIn 0.3s ease;
             pointer-events: auto;
             backdrop-filter: blur(4px);
         }
         @keyframes floatIn {
-            from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+            from { opacity: 0; transform: translateY(-8px) scale(0.95); }
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
         #interaction-panel .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
         #interaction-panel .header h3 {
             color: #ff8800;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: normal;
             letter-spacing: 1px;
             margin: 0;
@@ -111,7 +116,7 @@
             background: none;
             border: none;
             color: #666;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             padding: 0 4px;
             transition: 0.3s;
@@ -123,40 +128,39 @@
         #interaction-panel .player-name {
             color: #ff8800;
             font-weight: bold;
-            font-size: 10px;
+            font-size: 9px;
         }
         #interaction-panel .cigarette-status {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin: 4px 0;
-            font-size: 22px;
+            gap: 6px;
+            margin: 3px 0;
+            font-size: 20px;
         }
         #interaction-panel .cigarette-status .status-text {
             color: #ff8800;
-            font-size: 9px;
+            font-size: 8px;
             letter-spacing: 0.5px;
         }
         #interaction-panel .btn-group {
             display: flex;
-            gap: 4px;
+            gap: 3px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-top: 4px;
+            margin-top: 3px;
         }
         #interaction-panel button {
             background: transparent;
             border: 1px solid #ff8800;
             color: #ff8800;
-            padding: 3px 8px;
+            padding: 2px 7px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
-            font-size: 8px;
+            font-size: 7px;
             transition: all 0.3s;
-            border-radius: 4px;
-            min-width: 50px;
-            white-space: nowrap;
+            border-radius: 3px;
+            min-width: 44px;
         }
         #interaction-panel button:hover:not(:disabled) {
             background: #ff8800;
@@ -164,32 +168,32 @@
             transform: scale(1.05);
         }
         #interaction-panel button:disabled {
-            opacity: 0.3;
+            opacity: 0.25;
             cursor: not-allowed;
             transform: none;
         }
         #interaction-panel button .btn-emoji {
             display: inline;
-            margin-right: 2px;
+            margin-right: 1px;
         }
         #interaction-panel .mini-hint {
-            font-size: 7px;
-            color: #666;
-            margin-top: 3px;
+            font-size: 6px;
+            color: #555;
+            margin-top: 2px;
         }
 
-        /* ===== NOTIFICACIÓN FLOTANTE ===== */
+        /* ===== NOTIFICACIÓN ===== */
         .interaction-notification {
             position: fixed;
-            bottom: 100px;
+            bottom: 90px;
             left: 50%;
             transform: translateX(-50%);
             color: #ff8800;
             background: rgba(0,0,0,0.8);
-            padding: 4px 16px;
+            padding: 3px 14px;
             border: 1px solid #ff8800;
             border-radius: 20px;
-            font-size: 10px;
+            font-size: 9px;
             z-index: 50;
             animation: floatIn 0.3s ease;
             display: none;
@@ -199,24 +203,24 @@
         /* ===== AUDIO ===== */
         #audio-panel {
             position: fixed;
-            top: 100px;
+            top: 95px;
             right: 20px;
-            width: 180px;
+            width: 170px;
             background: rgba(0,0,0,0.85);
             border: 1px solid #a2ff00;
-            padding: 10px;
+            padding: 8px 10px;
             color: #a2ff00;
             font-family: 'Courier New', monospace;
-            font-size: 8px;
+            font-size: 7px;
             z-index: 100;
             display: none;
             border-radius: 6px;
         }
         #audio-panel h3 {
-            margin: 0 0 6px 0;
+            margin: 0 0 4px 0;
             font-weight: normal;
             letter-spacing: 2px;
-            font-size: 10px;
+            font-size: 9px;
             border-bottom: 1px solid #333;
             padding-bottom: 3px;
             color: #a2ff00;
@@ -225,11 +229,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         .row label {
-            flex: 0 0 40px;
-            font-size: 7px;
+            flex: 0 0 35px;
+            font-size: 6px;
             color: #aaa;
         }
         .row input[type="range"] {
@@ -243,8 +247,8 @@
         .row input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             background: #a2ff00;
             border-radius: 50%;
             cursor: pointer;
@@ -252,15 +256,15 @@
         #audio-toggle {
             position: fixed;
             top: 20px;
-            right: 80px;
+            right: 75px;
             z-index: 100;
             background: #0a0a0a;
             color: #a2ff00;
             border: 1px solid #a2ff00;
-            padding: 3px 8px;
+            padding: 2px 8px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
-            font-size: 8px;
+            font-size: 7px;
             border-radius: 4px;
         }
         #audio-toggle:hover {
@@ -268,20 +272,20 @@
             color: #000;
         }
 
-        /* ===== CHAT (más pequeño) ===== */
+        /* ===== CHAT ===== */
         #chat-box {
             position: fixed;
-            bottom: 60px;
+            bottom: 55px;
             left: 20px;
-            width: 200px;
-            max-height: 100px;
+            width: 180px;
+            max-height: 80px;
             overflow-y: auto;
             background: rgba(0,0,0,0.8);
             border: 1px solid #a2ff00;
-            padding: 4px 6px;
+            padding: 3px 5px;
             z-index: 10;
             display: none;
-            font-size: 8px;
+            font-size: 7px;
             color: #ccc;
             border-radius: 4px;
         }
@@ -296,15 +300,15 @@
         }
         #chat-input {
             position: fixed;
-            bottom: 60px;
+            bottom: 55px;
             left: 20px;
-            width: 200px;
+            width: 180px;
             background: rgba(0,0,0,0.9);
             border: 1px solid #a2ff00;
             color: #a2ff00;
-            padding: 3px 6px;
+            padding: 2px 5px;
             font-family: 'Courier New', monospace;
-            font-size: 8px;
+            font-size: 7px;
             z-index: 10;
             display: none;
             outline: none;
@@ -312,16 +316,16 @@
         }
         #chat-toggle {
             position: fixed;
-            bottom: 52px;
-            left: 230px;
+            bottom: 48px;
+            left: 208px;
             z-index: 10;
             background: #000;
             color: #a2ff00;
             border: 1px solid #a2ff00;
-            padding: 1px 6px;
+            padding: 1px 5px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
-            font-size: 7px;
+            font-size: 6px;
             display: none;
             border-radius: 4px;
         }
@@ -333,25 +337,25 @@
             z-index: 100;
             background: rgba(0,0,0,0.95);
             border: 2px solid #a2ff00;
-            padding: 25px 35px;
+            padding: 20px 30px;
             text-align: center;
             border-radius: 8px;
         }
         #room-input h2 {
             color: #a2ff00;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: normal;
             letter-spacing: 2px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         #room-input input {
             background: #111;
             border: 1px solid #a2ff00;
             color: #a2ff00;
-            padding: 6px 12px;
+            padding: 5px 10px;
             font-family: 'Courier New', monospace;
-            font-size: 12px;
-            width: 180px;
+            font-size: 11px;
+            width: 160px;
             outline: none;
             text-align: center;
             border-radius: 4px;
@@ -360,11 +364,11 @@
             background: transparent;
             border: 1px solid #a2ff00;
             color: #a2ff00;
-            padding: 6px 18px;
-            margin: 6px 4px;
+            padding: 5px 16px;
+            margin: 5px 4px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
-            font-size: 11px;
+            font-size: 10px;
             transition: 0.3s;
             border-radius: 4px;
         }
@@ -373,40 +377,45 @@
             color: #000;
         }
         #room-input .small {
-            font-size: 8px;
+            font-size: 7px;
             color: #666;
-            margin-top: 8px;
+            margin-top: 6px;
         }
+
+        /* Scroll personalizado */
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: #a2ff00; border-radius: 2px; }
     </style>
 </head>
 <body>
 
     <div id="title">🌲 RUTA CÓSMICA</div>
-    <div id="ui">🎮 Interacción Flotante</div>
-    <div id="controls">← ↑ → ↓ · T: chat</div>
+    <div id="ui">🎮 Mundo Esférico</div>
+    <div id="controls">← ↑ → ↓ · T: chat · Click: girar</div>
     <div id="players-count">👤 Jugadores: 1</div>
     <div id="status">✅ Conectado</div>
 
-    <button id="audio-toggle">🎛️ SONIDO</button>
+    <button id="audio-toggle">🎛️</button>
 
     <div id="audio-panel">
         <h3>🌊 RUIDO BLANCO</h3>
-        <div class="row"><label>Vol</label><input type="range" id="noise-vol" min="0" max="1" step="0.01" value="0.4"></div>
+        <div class="row"><label>Vol</label><input type="range" id="noise-vol" min="0" max="1" step="0.01" value="0.35"></div>
         <div class="row"><label>Filtro</label><input type="range" id="noise-filter" min="0" max="1" step="0.01" value="0.3"></div>
         <div class="row"><label>Olas</label><input type="range" id="noise-wave" min="0" max="1" step="0.01" value="0.5"></div>
-        <div style="margin-top:4px; display:flex; gap:4px;">
-            <button id="noise-play" style="background:#000;border:1px solid #a2ff00;color:#a2ff00;padding:1px 10px;cursor:pointer;font-size:8px;">▶</button>
-            <button id="noise-stop" style="background:#000;border:1px solid #ff4444;color:#ff4444;padding:1px 10px;cursor:pointer;font-size:8px;">⏹</button>
+        <div style="margin-top:3px; display:flex; gap:3px;">
+            <button id="noise-play" style="background:#000;border:1px solid #a2ff00;color:#a2ff00;padding:1px 8px;cursor:pointer;font-size:7px;">▶</button>
+            <button id="noise-stop" style="background:#000;border:1px solid #ff4444;color:#ff4444;padding:1px 8px;cursor:pointer;font-size:7px;">⏹</button>
         </div>
     </div>
 
-    <!-- INTERACCIÓN - VENTANA FLOTANTE PEQUEÑA -->
+    <!-- INTERACCIÓN FLOTANTE -->
     <div id="interaction-panel">
         <div class="header">
             <h3>🚬</h3>
             <button class="close-btn" onclick="cerrarInteraccion()">✕</button>
         </div>
-        <div style="font-size:9px;color:#aaa;">con <span class="player-name" id="interaction-player">Alguien</span></div>
+        <div style="font-size:8px;color:#aaa;">con <span class="player-name" id="interaction-player">Alguien</span></div>
         <div class="cigarette-status">
             <span id="cigarette-emoji">🚬</span>
             <span class="status-text" id="cigarette-state-text">📦</span>
@@ -425,7 +434,7 @@
     </div>
 
     <div id="room-input">
-        <h2>✦ SALA DE JUEGO ✦</h2>
+        <h2>✦ SALA ✦</h2>
         <input type="text" id="room-field" placeholder="Nombre..." value="bosque">
         <br>
         <button id="room-create">🎮 ENTRAR</button>
@@ -448,6 +457,7 @@
 
     <script type="module">
         import * as THREE from 'three';
+        import { OrbitControls } from 'https://unpkg.com/three@0.128.0/examples/jsm/controls/OrbitControls.js';
 
         // ============================================================
         // 1. SONIDO
@@ -463,7 +473,7 @@
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 noiseGain = audioCtx.createGain();
-                noiseGain.gain.value = 0.4;
+                noiseGain.gain.value = 0.35;
                 noiseGain.connect(audioCtx.destination);
                 filterNode = audioCtx.createBiquadFilter();
                 filterNode.type = 'lowpass';
@@ -473,7 +483,7 @@
                 waveOsc.frequency.value = 0.5;
                 waveOsc.type = 'sine';
                 const waveGain = audioCtx.createGain();
-                waveGain.gain.value = 0.08;
+                waveGain.gain.value = 0.06;
                 waveOsc.connect(waveGain);
                 waveGain.connect(noiseGain);
             }
@@ -488,7 +498,7 @@
                 const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
                 const data = buffer.getChannelData(0);
                 for (let i = 0; i < bufferSize; i++) {
-                    data[i] = (Math.random() * 2 - 1) * 0.3;
+                    data[i] = (Math.random() * 2 - 1) * 0.25;
                 }
                 noiseNode = audioCtx.createBufferSource();
                 noiseNode.buffer = buffer;
@@ -514,7 +524,7 @@
                     waveOsc.frequency.value = 0.5;
                     waveOsc.type = 'sine';
                     const waveGain = audioCtx.createGain();
-                    waveGain.gain.value = 0.08;
+                    waveGain.gain.value = 0.06;
                     waveOsc.connect(waveGain);
                     waveGain.connect(noiseGain);
                 }
@@ -555,17 +565,21 @@
         let cigaretteState = '📦';
         let interactionActive = false;
         let lastInteractionCheck = 0;
-        let panelX = 0;
-        let panelY = 0;
+        let cameraAngle = 0;
+        let cameraHeight = 6;
+        let cameraDistance = 10;
+        let isDragging = false;
+        let lastMouseX = 0;
+        let lastMouseY = 0;
 
         // ============================================================
-        // 3. ESCENA 3D
+        // 3. ESCENA 3D (con terreno esférico)
         // ============================================================
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x0a0a0a);
-        scene.fog = new THREE.FogExp2(0x0a0a0a, 0.008);
+        scene.fog = new THREE.FogExp2(0x0a0a0a, 0.005);
 
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 150);
+        const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 200);
         camera.position.set(12, 8, 16);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -573,23 +587,87 @@
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.2;
         document.body.prepend(renderer.domElement);
 
-        // LUCES
-        const ambient = new THREE.AmbientLight(0x223355, 0.4);
+        // ============================================================
+        // 4. CONTROL DE CÁMARA (orbit manual + zoom)
+        // ============================================================
+        function updateCamera() {
+            const target = new THREE.Vector3(playerPos.x, 0, playerPos.z);
+            const offsetX = Math.sin(cameraAngle) * cameraDistance;
+            const offsetZ = Math.cos(cameraAngle) * cameraDistance;
+            camera.position.lerp(
+                new THREE.Vector3(
+                    target.x + offsetX,
+                    cameraHeight,
+                    target.z + offsetZ
+                ),
+                0.05
+            );
+            camera.lookAt(target);
+        }
+
+        // Control con ratón
+        renderer.domElement.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const dx = e.clientX - lastMouseX;
+                const dy = e.clientY - lastMouseY;
+                cameraAngle -= dx * 0.005;
+                cameraHeight = Math.max(2, Math.min(12, cameraHeight - dy * 0.02));
+                lastMouseX = e.clientX;
+                lastMouseY = e.clientY;
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // Zoom con scroll
+        renderer.domElement.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            cameraDistance = Math.max(4, Math.min(18, cameraDistance + e.deltaY * 0.01));
+        }, { passive: false });
+
+        // ============================================================
+        // 5. LUCES
+        // ============================================================
+        const ambient = new THREE.AmbientLight(0x223355, 0.5);
         scene.add(ambient);
+        
         const moonLight = new THREE.DirectionalLight(0x6688cc, 0.3);
         moonLight.position.set(-10, 15, -10);
         scene.add(moonLight);
-        const dirLight = new THREE.DirectionalLight(0xffeedd, 0.5);
-        dirLight.position.set(10, 20, 5);
-        dirLight.castShadow = true;
-        scene.add(dirLight);
+        
+        const sunLight = new THREE.DirectionalLight(0xffeedd, 0.6);
+        sunLight.position.set(10, 20, 5);
+        sunLight.castShadow = true;
+        sunLight.shadow.mapSize.width = 2048;
+        sunLight.shadow.mapSize.height = 2048;
+        sunLight.shadow.camera.near = 0.5;
+        sunLight.shadow.camera.far = 60;
+        sunLight.shadow.camera.left = -30;
+        sunLight.shadow.camera.right = 30;
+        sunLight.shadow.camera.top = 30;
+        sunLight.shadow.camera.bottom = -30;
+        scene.add(sunLight);
+
+        const fireLight = new THREE.PointLight(0xff4400, 0, 8);
+        fireLight.position.set(0, 0.5, 0);
+        scene.add(fireLight);
 
         // ============================================================
-        // 4. FUNCIONES ASCII
+        // 6. FUNCIONES: CREAR SPRITES Y PERSONAJES
         // ============================================================
-        function createAsciiSprite(char, color, size = 0.4) {
+        function createAsciiSprite(char, color, size = 0.35) {
             const canvas = document.createElement('canvas');
             canvas.width = 64;
             canvas.height = 64;
@@ -614,82 +692,129 @@
         }
 
         // ============================================================
-        // 5. CREAR AVATAR
+        // 7. CREAR PERSONAJE (más realista)
         // ============================================================
-        function createAvatar3D(color, char = '☺', name = '', isMine = false) {
+        function createPersonaje3D(color, char = '☺', name = '', isMine = false) {
             const group = new THREE.Group();
 
+            // Cuerpo con forma más natural
             const bodyMat = new THREE.MeshStandardMaterial({ 
                 color: color, 
                 emissive: new THREE.Color(color), 
-                emissiveIntensity: 0.15 
+                emissiveIntensity: 0.1,
+                roughness: 0.6,
+                metalness: 0.1
             });
-            const body = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.6, 0.3), bodyMat);
-            body.position.y = 0.32;
+            const body = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.35, 0.6, 8), bodyMat);
+            body.position.y = 0.35;
             body.castShadow = true;
             body.receiveShadow = true;
             group.add(body);
 
-            const headMat = new THREE.MeshStandardMaterial({ color: 0xddbb88 });
-            const head = new THREE.Mesh(new THREE.SphereGeometry(0.22, 8), headMat);
-            head.position.y = 0.72;
+            // Cabeza
+            const headMat = new THREE.MeshStandardMaterial({ 
+                color: 0xddbb88,
+                roughness: 0.4,
+                metalness: 0.0
+            });
+            const head = new THREE.Mesh(new THREE.SphereGeometry(0.22, 10, 10), headMat);
+            head.position.y = 0.75;
             head.castShadow = true;
             head.receiveShadow = true;
             group.add(head);
 
+            // Ojos (con brillo y expresivos)
             const eyeMat = new THREE.MeshStandardMaterial({ 
                 color: 0xa2ff00, 
                 emissive: new THREE.Color(0xa2ff00), 
-                emissiveIntensity: 0.3 
+                emissiveIntensity: 0.3,
+                roughness: 0.1,
+                metalness: 0.0
             });
-            const eye1 = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8), eyeMat);
-            eye1.position.set(0.1, 0.76, 0.2);
+            const eye1 = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), eyeMat);
+            eye1.position.set(0.1, 0.79, 0.2);
             group.add(eye1);
-            const eye2 = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8), eyeMat);
-            eye2.position.set(-0.1, 0.76, 0.2);
+            const eye2 = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 8), eyeMat);
+            eye2.position.set(-0.1, 0.79, 0.2);
             group.add(eye2);
 
+            // Pupilas (puntos negros)
+            const pupilMat = new THREE.MeshStandardMaterial({ color: 0x000000 });
+            const pupil1 = new THREE.Mesh(new THREE.SphereGeometry(0.02, 6, 6), pupilMat);
+            pupil1.position.set(0.12, 0.79, 0.25);
+            group.add(pupil1);
+            const pupil2 = new THREE.Mesh(new THREE.SphereGeometry(0.02, 6, 6), pupilMat);
+            pupil2.position.set(-0.08, 0.79, 0.25);
+            group.add(pupil2);
+
+            // Boca (con expresión)
             const mouthMat = new THREE.MeshStandardMaterial({ color: 0x442222 });
-            const mouth = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.02, 0.02), mouthMat);
-            mouth.position.set(0, 0.67, 0.2);
+            const mouth = new THREE.Mesh(new THREE.TorusGeometry(0.04, 0.015, 6, 10, Math.PI), mouthMat);
+            mouth.position.set(0, 0.69, 0.22);
+            mouth.rotation.x = 0.1;
+            mouth.rotation.z = 0.1;
             group.add(mouth);
 
-            const armMat = new THREE.MeshStandardMaterial({ color: 0x88dd88 });
-            const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.04, 0.35, 6), armMat);
-            armL.position.set(-0.3, 0.5, 0);
-            armL.rotation.z = 0.2;
+            // Brazos (con articulación)
+            const armMat = new THREE.MeshStandardMaterial({ 
+                color: 0x88dd88,
+                roughness: 0.7
+            });
+            // Brazo izquierdo
+            const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.35, 6), armMat);
+            armL.position.set(-0.32, 0.5, 0);
+            armL.rotation.z = 0.3;
             armL.rotation.x = 0.1;
             armL.castShadow = true;
             group.add(armL);
-            const armR = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.04, 0.35, 6), armMat);
-            armR.position.set(0.3, 0.5, 0);
-            armR.rotation.z = -0.2;
+            // Antebrazo izquierdo
+            const forearmL = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.04, 0.3, 6), armMat);
+            forearmL.position.set(-0.42, 0.28, 0);
+            forearmL.rotation.z = 0.1;
+            forearmL.castShadow = true;
+            group.add(forearmL);
+            
+            // Brazo derecho
+            const armR = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.35, 6), armMat);
+            armR.position.set(0.32, 0.5, 0);
+            armR.rotation.z = -0.3;
             armR.rotation.x = -0.1;
             armR.castShadow = true;
             group.add(armR);
+            const forearmR = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.04, 0.3, 6), armMat);
+            forearmR.position.set(0.42, 0.28, 0);
+            forearmR.rotation.z = -0.1;
+            forearmR.castShadow = true;
+            group.add(forearmR);
 
-            const legMat = new THREE.MeshStandardMaterial({ color: 0x446644 });
-            const legL = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.06, 0.25, 6), legMat);
+            // Piernas
+            const legMat = new THREE.MeshStandardMaterial({ 
+                color: 0x446644,
+                roughness: 0.8
+            });
+            const legL = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 0.3, 6), legMat);
             legL.position.set(-0.1, 0.0, 0);
             legL.castShadow = true;
             group.add(legL);
-            const legR = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.06, 0.25, 6), legMat);
+            const legR = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 0.3, 6), legMat);
             legR.position.set(0.1, 0.0, 0);
             legR.castShadow = true;
             group.add(legR);
 
+            // Nombre
             if (name) {
                 const nameSprite = createAsciiSprite(
                     isMine ? `✦ ${name}` : name, 
                     isMine ? '#ff8800' : '#a2ff00', 
                     0.08
                 );
-                nameSprite.position.y = 0.95;
+                nameSprite.position.y = 1.0;
                 group.add(nameSprite);
             }
 
+            // Alma flotante
             const soul = createAsciiSprite(char, isMine ? '#ff8800' : '#88dd88', 0.1);
-            soul.position.set(0.3, 0.45, 0);
+            soul.position.set(0.35, 0.45, 0);
             group.add(soul);
 
             group.userData = {
@@ -703,69 +828,194 @@
         }
 
         // ============================================================
-        // 6. CONSTRUIR BOSQUE
+        // 8. CONSTRUIR MUNDO ESFÉRICO
         // ============================================================
-        const treeChars = ['🌲', '🌳', '▲', '♦', '♣', '⏚'];
-        const treeColors = ['#2a6a2a', '#3a7a3a', '#1a5a1a', '#4a8a4a'];
 
-        for (let i = 0; i < 400; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const radius = 3 + Math.random() * 25;
-            const x = Math.sin(angle) * radius;
-            const z = Math.cos(angle) * radius;
-            if (Math.abs(x) < 4 && Math.abs(z) < 4) continue;
-            const char = treeChars[Math.floor(Math.random() * treeChars.length)];
-            const color = treeColors[Math.floor(Math.random() * treeColors.length)];
-            const size = 0.3 + Math.random() * 0.9;
-            const sprite = createAsciiSprite(char, color, size);
-            sprite.position.set(x, -0.3 + Math.random() * 0.5, z);
-            scene.add(sprite);
+        // 8.1 TERRAZO ESFÉRICO (semiesfera)
+        const sphereGeo = new THREE.SphereGeometry(18, 64, 48, 0, Math.PI * 2, 0, Math.PI / 2.1);
+        const sphereMat = new THREE.MeshStandardMaterial({
+            color: 0x1a2a1a,
+            roughness: 0.95,
+            metalness: 0.0,
+            emissive: new THREE.Color(0x0a1a0a),
+            emissiveIntensity: 0.1,
+            flatShading: false,
+            side: THREE.DoubleSide
+        });
+        const terrain = new THREE.Mesh(sphereGeo, sphereMat);
+        terrain.rotation.x = -0.05;
+        terrain.position.y = -3.5;
+        terrain.receiveShadow = true;
+        terrain.castShadow = true;
+        scene.add(terrain);
+
+        // 8.2 ÁRBOLES GRANDES (laberinto)
+        function createArbol(x, z, scale = 1, type = 'normal') {
+            const group = new THREE.Group();
+            const altura = type === 'grande' ? 2.5 + Math.random() * 1.5 : 1.5 + Math.random() * 1;
+            const ancho = type === 'grande' ? 0.8 + Math.random() * 0.6 : 0.4 + Math.random() * 0.4;
+            
+            // Tronco
+            const trunkMat = new THREE.MeshStandardMaterial({ 
+                color: 0x4a3a2a, 
+                roughness: 0.9,
+                metalness: 0.0
+            });
+            const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.15 * scale, 0.3 * scale, altura * 0.6, 6), trunkMat);
+            trunk.position.y = altura * 0.3;
+            trunk.castShadow = true;
+            trunk.receiveShadow = true;
+            group.add(trunk);
+
+            // Copa (más voluminosa)
+            const leafMat = new THREE.MeshStandardMaterial({
+                color: type === 'grande' ? 0x1a4a1a : 0x2a5a2a,
+                roughness: 0.8,
+                emissive: new THREE.Color(0x0a1a0a),
+                emissiveIntensity: 0.1
+            });
+            const copa = new THREE.Mesh(new THREE.SphereGeometry(ancho * 0.6, 6, 6), leafMat);
+            copa.position.y = altura * 0.6 + ancho * 0.2;
+            copa.scale.y = 0.7 + Math.random() * 0.2;
+            copa.castShadow = true;
+            copa.receiveShadow = true;
+            group.add(copa);
+
+            const copa2 = new THREE.Mesh(new THREE.SphereGeometry(ancho * 0.4, 6, 6), leafMat);
+            copa2.position.set(
+                (Math.random() - 0.5) * ancho * 0.4,
+                altura * 0.7 + ancho * 0.3,
+                (Math.random() - 0.5) * ancho * 0.4
+            );
+            copa2.castShadow = true;
+            copa2.receiveShadow = true;
+            group.add(copa2);
+
+            group.position.set(x, -0.5, z);
+            group.rotation.y = Math.random() * Math.PI * 2;
+            return group;
         }
 
-        // SUELO
-        const groundGeo = new THREE.CircleGeometry(30, 32);
-        const groundMat = new THREE.MeshStandardMaterial({ 
-            color: 0x1a2a1a, 
-            roughness: 0.9, 
-            metalness: 0.0,
-            transparent: true,
-            opacity: 0.6
-        });
-        const ground = new THREE.Mesh(groundGeo, groundMat);
-        ground.rotation.x = -Math.PI / 2;
-        ground.position.y = -0.6;
-        ground.receiveShadow = true;
-        scene.add(ground);
-
-        // FOGATA
-        const fogataGroup = new THREE.Group();
-        const fireChars = ['🔥', '✧', '✦'];
-        for (let i = 0; i < 20; i++) {
+        // Árboles grandes (laberinto)
+        const arboles = [];
+        for (let i = 0; i < 120; i++) {
             const angle = Math.random() * Math.PI * 2;
-            const radius = 0.2 + Math.random() * 0.7;
-            const char = fireChars[Math.floor(Math.random() * fireChars.length)];
-            const colors = ['#ff4400', '#ff6600', '#ff8800', '#ffaa00'];
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            const sprite = createAsciiSprite(char, color, 0.1 + Math.random() * 0.2);
-            sprite.position.set(
+            const radius = 2 + Math.random() * 16;
+            const x = Math.sin(angle) * radius;
+            const z = Math.cos(angle) * radius;
+            
+            // Evitar el centro (donde está la fogata)
+            if (Math.abs(x) < 3 && Math.abs(z) < 3) continue;
+            
+            const tipo = radius < 6 ? 'grande' : (Math.random() > 0.6 ? 'grande' : 'normal');
+            const scale = 0.6 + Math.random() * 0.8;
+            const arbol = createArbol(x, z, scale, tipo);
+            scene.add(arbol);
+            arboles.push(arbol);
+        }
+
+        // 8.3 MADERA ALREDEDOR DE LA FOGATA (para sentarse)
+        function createMadera(angle, radius) {
+            const group = new THREE.Group();
+            const mat = new THREE.MeshStandardMaterial({ 
+                color: 0x6a4a2a, 
+                roughness: 0.95,
+                metalness: 0.0
+            });
+            const tronco = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.35, 0.15, 6), mat);
+            tronco.rotation.z = 0.2;
+            tronco.rotation.x = 0.3;
+            tronco.position.y = 0.08;
+            tronco.castShadow = true;
+            tronco.receiveShadow = true;
+            group.add(tronco);
+            
+            const tronco2 = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.3, 0.15, 6), mat);
+            tronco2.rotation.z = -0.2;
+            tronco2.rotation.x = -0.3;
+            tronco2.position.set(0.2, 0.08, 0.1);
+            tronco2.castShadow = true;
+            tronco2.receiveShadow = true;
+            group.add(tronco2);
+
+            group.position.set(
                 Math.cos(angle) * radius,
-                0.1 + Math.random() * 0.7,
+                -0.2,
                 Math.sin(angle) * radius
             );
-            fogataGroup.add(sprite);
+            group.rotation.y = angle + Math.PI / 2;
+            return group;
+        }
+
+        const maderas = [];
+        for (let i = 0; i < 8; i++) {
+            const angle = (i / 8) * Math.PI * 2 + 0.1;
+            const radius = 1.8 + Math.random() * 0.3;
+            const madera = createMadera(angle, radius);
+            scene.add(madera);
+            maderas.push(madera);
+        }
+
+        // 8.4 FOGATA (con fuego realista)
+        const fogataGroup = new THREE.Group();
+        // Base de piedras
+        const stoneMat = new THREE.MeshStandardMaterial({ color: 0x555555, roughness: 0.9 });
+        for (let i = 0; i < 10; i++) {
+            const angle = (i / 10) * Math.PI * 2 + Math.random() * 0.2;
+            const radius = 0.6 + Math.random() * 0.2;
+            const stone = new THREE.Mesh(new THREE.SphereGeometry(0.08 + Math.random() * 0.06, 5), stoneMat);
+            stone.position.set(
+                Math.cos(angle) * radius,
+                0.0 + Math.random() * 0.05,
+                Math.sin(angle) * radius
+            );
+            stone.scale.y = 0.4 + Math.random() * 0.3;
+            stone.castShadow = true;
+            stone.receiveShadow = true;
+            fogataGroup.add(stone);
+        }
+
+        // Fuego (partículas)
+        const fireParticles = [];
+        const fireMat = new THREE.MeshStandardMaterial({
+            color: 0xff4400,
+            emissive: new THREE.Color(0xff4400),
+            emissiveIntensity: 0.8,
+            transparent: true,
+            opacity: 0.8
+        });
+        for (let i = 0; i < 15; i++) {
+            const size = 0.05 + Math.random() * 0.1;
+            const fire = new THREE.Mesh(new THREE.SphereGeometry(size, 5), fireMat);
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 0.1 + Math.random() * 0.3;
+            fire.position.set(
+                Math.cos(angle) * radius,
+                0.05 + Math.random() * 0.3,
+                Math.sin(angle) * radius
+            );
+            fire.userData = {
+                angle: angle,
+                radius: radius,
+                speed: 0.5 + Math.random() * 1.5,
+                height: 0.05 + Math.random() * 0.3,
+                phase: Math.random() * Math.PI * 2
+            };
+            fogataGroup.add(fire);
+            fireParticles.push(fire);
         }
         fogataGroup.position.set(0, -0.3, 0);
         scene.add(fogataGroup);
 
-        // BÚHOS
+        // 8.5 BÚHOS
         const buhos = [];
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < 10; i++) {
             const buho = createAsciiSprite('🦉', '#ffdd88', 0.15 + Math.random() * 0.1);
             const angle = Math.random() * Math.PI * 2;
-            const radius = 5 + Math.random() * 15;
+            const radius = 3 + Math.random() * 14;
             buho.position.set(
                 Math.sin(angle) * radius,
-                1 + Math.random() * 4,
+                1 + Math.random() * 5,
                 Math.cos(angle) * radius
             );
             buho.userData = {
@@ -779,27 +1029,27 @@
             buhos.push(buho);
         }
 
-        // ANIMALES
+        // 8.6 ANIMALES
         const animales = [];
         const animalChars = ['🦊', '🐺', '🦌', '🐇', '🦔', '🐿️'];
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 8; i++) {
             const animal = createAsciiSprite(
                 animalChars[Math.floor(Math.random() * animalChars.length)],
                 '#ddbb88',
                 0.12 + Math.random() * 0.1
             );
             const angle = Math.random() * Math.PI * 2;
-            const radius = 6 + Math.random() * 14;
+            const radius = 4 + Math.random() * 13;
             animal.position.set(
                 Math.sin(angle) * radius,
-                -0.3,
+                -0.2,
                 Math.cos(angle) * radius
             );
             animal.visible = Math.random() < 0.3;
             animal.userData = {
                 angle: angle,
                 radius: radius,
-                speed: 0.002 + Math.random() * 0.003,
+                speed: 0.001 + Math.random() * 0.003,
                 visibleTimer: Math.random() * 100,
                 visibleDuration: 80 + Math.random() * 120,
                 hiddenDuration: 40 + Math.random() * 100
@@ -808,16 +1058,36 @@
             animales.push(animal);
         }
 
-        // AVATARES
+        // 8.7 ESTRELLAS
+        for (let i = 0; i < 400; i++) {
+            const star = createAsciiSprite(
+                ['·', '•', '○', '✧', '✦'][Math.floor(Math.random() * 5)],
+                `rgba(255,255,255,${0.3 + Math.random() * 0.7})`,
+                0.04 + Math.random() * 0.08
+            );
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos(2 * Math.random() - 1);
+            const radius = 45 + Math.random() * 30;
+            star.position.set(
+                radius * Math.sin(theta) * Math.cos(phi),
+                Math.abs(radius * Math.cos(theta) * Math.sin(phi)),
+                radius * Math.sin(theta) * Math.sin(phi)
+            );
+            scene.add(star);
+        }
+
+        // ============================================================
+        // 9. CONTENEDOR DE AVATARES
+        // ============================================================
         const avatarContainer = new THREE.Group();
         scene.add(avatarContainer);
 
         let myAvatar = null;
         let playerPos = { x: 0, y: 0, z: 0 };
-        const speed = 0.10;
+        const speed = 0.08;
 
         // ============================================================
-        // 7. CONTROLES
+        // 10. CONTROLES
         // ============================================================
         const keys = { up: false, down: false, left: false, right: false };
         let chatOpen = false;
@@ -843,7 +1113,7 @@
         });
 
         // ============================================================
-        // 8. CHAT
+        // 11. CHAT
         // ============================================================
         function toggleChat() {
             chatOpen = !chatOpen;
@@ -895,7 +1165,7 @@
         });
 
         // ============================================================
-        // 9. INTERACCIÓN FLOTANTE
+        // 12. INTERACCIÓN FLOTANTE
         // ============================================================
         function checkInteraction() {
             const now = Date.now();
@@ -933,7 +1203,7 @@
                     if (audioCtx) {
                         const osc = audioCtx.createOscillator();
                         const gain = audioCtx.createGain();
-                        gain.gain.value = 0.08;
+                        gain.gain.value = 0.06;
                         osc.frequency.value = 440;
                         osc.type = 'sine';
                         osc.connect(gain);
@@ -954,12 +1224,11 @@
             panel.style.display = 'block';
             document.getElementById('interaction-player').textContent = name;
             
-            // Posicionar la ventana flotante encima de los personajes
-            // Usamos la posición del jugador en pantalla
-            const panelWidth = 220;
-            const panelHeight = 150;
+            // Posición flotante (arriba-centro)
+            const panelWidth = 210;
+            const panelHeight = 140;
             const x = (window.innerWidth - panelWidth) / 2;
-            const y = window.innerHeight * 0.15;
+            const y = window.innerHeight * 0.08;
             panel.style.left = x + 'px';
             panel.style.top = y + 'px';
             panel.style.width = panelWidth + 'px';
@@ -1004,6 +1273,15 @@
             if (cigaretteState === '🔥' || cigaretteState === '💨') {
                 status.style.color = '#ff4400';
                 status.style.textShadow = '0 0 15px #ff4400';
+                // Luz de fuego en el personaje
+                if (myAvatar) {
+                    const light = new THREE.PointLight(0xff4400, 0.3, 2);
+                    light.position.set(0.1, 0.5, 0.2);
+                    myAvatar.add(light);
+                    setTimeout(() => {
+                        if (myAvatar) myAvatar.remove(light);
+                    }, 3000);
+                }
             } else {
                 status.style.color = '#ff8800';
                 status.style.textShadow = 'none';
@@ -1026,13 +1304,13 @@
         }
 
         // ============================================================
-        // 10. BOTONES
+        // 13. BOTONES DE INTERACCIÓN
         // ============================================================
         document.getElementById('btn-armar').addEventListener('click', () => {
             if (cigaretteState === '📦') {
                 updateCigarette('🔧');
                 document.getElementById('btn-armar').disabled = true;
-                // Efecto visual en el personaje (brazo se mueve)
+                // Animación de armar
                 if (myAvatar) {
                     myAvatar.children.forEach(child => {
                         if (child.geometry && child.geometry.type === 'CylinderGeometry' && child.position.x > 0.2) {
@@ -1060,19 +1338,13 @@
                 document.getElementById('btn-encender').disabled = true;
                 addChatMessage('Sistema', '🔥 Cigarrillo encendido!', '#ff8800');
                 
-                // Efecto de fuego
-                const fireTime = Date.now() * 0.003;
-                fogataGroup.children.forEach((child, i) => {
-                    if (child.isSprite && child.material) {
-                        const colors = ['#ff4400', '#ff6600', '#ff8800', '#ffaa00'];
-                        const idx = Math.floor((fireTime + i * 0.3) % colors.length);
-                        child.material.color.set(colors[idx]);
-                        const s = 1.2 + Math.sin(fireTime + i) * 0.15;
-                        child.scale.set(s, s, 1);
-                    }
-                });
+                // Luz de fuego intensa
+                fireLight.intensity = 1.5;
+                setTimeout(() => {
+                    fireLight.intensity = 0.8;
+                }, 500);
                 
-                // Chispa en la boca del personaje
+                // Partículas de chispa
                 if (myAvatar) {
                     const spark = createAsciiSprite('✦', '#ff8800', 0.06);
                     spark.position.set(0.05, 0.7, 0.22);
@@ -1090,27 +1362,26 @@
                 document.getElementById('btn-fumar').disabled = true;
                 addChatMessage('Sistema', '💨 *fuma profundamente*', '#ff8800');
                 
-                // Humo
+                // Humo en cascada
                 if (myAvatar) {
-                    const smoke = createAsciiSprite('💨', '#88aaff', 0.12);
-                    smoke.position.set(0.15, 0.85, 0.15);
-                    myAvatar.add(smoke);
-                    setTimeout(() => {
-                        myAvatar.remove(smoke);
-                        // Humo se eleva
-                        const smoke2 = createAsciiSprite('💨', '#88aaff', 0.1);
-                        smoke2.position.set(0.1, 0.95, 0.1);
-                        myAvatar.add(smoke2);
+                    const smokePositions = [
+                        { x: 0.15, y: 0.85, z: 0.15, size: 0.12 },
+                        { x: 0.1, y: 0.95, z: 0.1, size: 0.1 },
+                        { x: 0.05, y: 1.05, z: 0.05, size: 0.08 },
+                        { x: 0.0, y: 1.15, z: 0.0, size: 0.06 }
+                    ];
+                    smokePositions.forEach((pos, index) => {
                         setTimeout(() => {
-                            myAvatar.remove(smoke2);
-                            const smoke3 = createAsciiSprite('💨', '#88aaff', 0.08);
-                            smoke3.position.set(0.05, 1.05, 0.05);
-                            myAvatar.add(smoke3);
-                            setTimeout(() => {
-                                myAvatar.remove(smoke3);
-                            }, 800);
-                        }, 500);
-                    }, 1500);
+                            if (myAvatar) {
+                                const smoke = createAsciiSprite('💨', '#88aaff', pos.size);
+                                smoke.position.set(pos.x, pos.y, pos.z);
+                                myAvatar.add(smoke);
+                                setTimeout(() => {
+                                    if (myAvatar) myAvatar.remove(smoke);
+                                }, 800);
+                            }
+                        }, index * 400);
+                    });
                 }
                 
                 setTimeout(() => {
@@ -1154,7 +1425,7 @@
         });
 
         // ============================================================
-        // 11. PEERJS
+        // 14. PEERJS - MULTIJUGADOR
         // ============================================================
         const avatarColors = [
             '#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff6bff',
@@ -1175,8 +1446,8 @@
                 document.getElementById('status').textContent = `✅ Conectado`;
                 document.getElementById('room-input').style.display = 'none';
                 
-                myAvatar = createAvatar3D(playerColor, playerChar, playerName, true);
-                myAvatar.position.set(0, -0.3, 0);
+                myAvatar = createPersonaje3D(playerColor, playerChar, playerName, true);
+                myAvatar.position.set(0, -0.2, 0);
                 avatarContainer.add(myAvatar);
                 
                 try {
@@ -1209,8 +1480,8 @@
                         myId = room;
                         document.getElementById('status').textContent = `✅ Sala creada`;
                         document.getElementById('room-input').style.display = 'none';
-                        myAvatar = createAvatar3D(playerColor, playerChar, playerName, true);
-                        myAvatar.position.set(0, -0.3, 0);
+                        myAvatar = createPersonaje3D(playerColor, playerChar, playerName, true);
+                        myAvatar.position.set(0, -0.2, 0);
                         avatarContainer.add(myAvatar);
                         myPeer.on('connection', (conn) => {
                             connections[conn.peer] = conn;
@@ -1328,7 +1599,7 @@
         }
 
         // ============================================================
-        // 12. ACTUALIZAR JUGADORES
+        // 15. ACTUALIZAR JUGADORES
         // ============================================================
         function updatePlayers() {
             const toRemove = [];
@@ -1340,7 +1611,7 @@
             for (const id in players) {
                 if (id === myId) continue;
                 const p = players[id];
-                const avatar = createAvatar3D(p.color, p.char, p.name, false);
+                const avatar = createPersonaje3D(p.color, p.char, p.name, false);
                 avatar.position.set(p.x || 0, p.y || 0, p.z || 0);
                 avatarContainer.add(avatar);
             }
@@ -1351,7 +1622,7 @@
         }
 
         // ============================================================
-        // 13. MOVIMIENTO
+        // 16. MOVIMIENTO
         // ============================================================
         function updateMyPosition() {
             if (!myAvatar) return;
@@ -1369,24 +1640,32 @@
                 playerPos.x += dx;
                 playerPos.z += dz;
                 
-                const radius = 26;
+                // Limitar al terreno esférico
+                const radius = 17;
                 const dist = Math.sqrt(playerPos.x ** 2 + playerPos.z ** 2);
                 if (dist > radius) {
                     playerPos.x *= 0.97;
                     playerPos.z *= 0.97;
                 }
                 
+                // Altura según el terreno (efecto esférico)
+                const heightFactor = 1 - (dist / radius);
+                const y = -0.2 + heightFactor * 0.3;
+                playerPos.y = y;
+                
                 myAvatar.position.x = playerPos.x;
+                myAvatar.position.y = y;
                 myAvatar.position.z = playerPos.z;
                 myAvatar.rotation.y = Math.atan2(dx, dz);
                 
+                // Animación de caminar
                 const walkCycle = Math.sin(now * 8) * 0.25;
                 myAvatar.children.forEach(child => {
                     if (child.geometry && child.geometry.type === 'CylinderGeometry') {
                         if (child.position.y < 0.1) {
                             child.rotation.x = walkCycle * (child.position.x > 0 ? 1 : -1);
                         }
-                        if (child.position.y > 0.35 && child.position.y < 0.6) {
+                        if (child.position.y > 0.4 && child.position.y < 0.7) {
                             child.rotation.x = -walkCycle * 0.4 * (child.position.x > 0 ? 1 : -1);
                         }
                     }
@@ -1396,35 +1675,28 @@
                     type: 'move',
                     id: myId,
                     x: playerPos.x,
-                    y: 0,
+                    y: y,
                     z: playerPos.z
                 });
             } else {
-                const idleSway = Math.sin(now * 0.5 + myAvatar.userData.idleSway) * 0.015;
+                // Balanceo
+                const idleSway = Math.sin(now * 0.5 + myAvatar.userData.idleSway) * 0.01;
                 myAvatar.rotation.z = idleSway;
             }
 
+            // Verificar interacción
             if (!interactionActive) {
                 checkInteraction();
             }
         }
 
         // ============================================================
-        // 14. CÁMARA
-        // ============================================================
-        function updateCamera() {
-            const target = new THREE.Vector3(playerPos.x, 0, playerPos.z);
-            const offset = new THREE.Vector3(6, 4.5, 8);
-            camera.position.lerp(target.clone().add(offset), 0.05);
-            camera.lookAt(target);
-        }
-
-        // ============================================================
-        // 15. ANIMAR MUNDO
+        // 17. ANIMAR MUNDO
         // ============================================================
         function animateWorld() {
             const time = Date.now() * 0.001;
             
+            // Búhos
             buhos.forEach((buho) => {
                 const data = buho.userData;
                 data.angle += data.speed;
@@ -1433,6 +1705,7 @@
                 buho.position.y = 1.5 + Math.sin(time * data.ySpeed + data.yOffset) * 1.5;
             });
             
+            // Animales
             animales.forEach((animal) => {
                 const data = animal.userData;
                 data.angle += data.speed;
@@ -1446,26 +1719,32 @@
                     animal.visible = true;
                     data.visibleTimer = 0;
                     data.angle = Math.random() * Math.PI * 2;
-                    data.radius = 6 + Math.random() * 14;
+                    data.radius = 4 + Math.random() * 13;
                 }
             });
             
-            if (cigaretteState === '🔥' || cigaretteState === '💨') {
-                const fireTime = Date.now() * 0.003;
-                fogataGroup.children.forEach((child, i) => {
-                    if (child.isSprite && child.material) {
-                        const colors = ['#ff4400', '#ff6600', '#ff8800', '#ffaa00', '#ffcc44'];
-                        const idx = Math.floor((fireTime + i * 0.5) % colors.length);
-                        child.material.color.set(colors[idx]);
-                        const s = 1 + Math.sin(fireTime + i) * 0.12;
-                        child.scale.set(s, s, 1);
-                    }
-                });
-            }
+            // Fuego
+            const fireTime = Date.now() * 0.003;
+            fireParticles.forEach((particle, i) => {
+                const data = particle.userData;
+                const heightOffset = Math.sin(fireTime * data.speed + data.phase) * 0.15;
+                particle.position.y = 0.05 + data.height + heightOffset;
+                const scale = 1 + Math.sin(fireTime * data.speed + data.phase) * 0.3;
+                particle.scale.set(scale, scale * 1.5, scale);
+                
+                // Color del fuego
+                const colors = ['#ff4400', '#ff6600', '#ff8800', '#ffaa00', '#ffcc44'];
+                const idx = Math.floor((fireTime + i * 0.3) % colors.length);
+                particle.material.color.set(colors[idx]);
+                particle.material.emissive.set(colors[idx]);
+            });
+            
+            // Luz de fuego parpadea
+            fireLight.intensity = 0.5 + Math.sin(fireTime * 2) * 0.3;
         }
 
         // ============================================================
-        // 16. LOOP
+        // 18. LOOP PRINCIPAL
         // ============================================================
         function animate() {
             requestAnimationFrame(animate);
@@ -1476,7 +1755,7 @@
         }
 
         // ============================================================
-        // 17. INICIO
+        // 19. INICIO
         // ============================================================
         document.getElementById('room-create').addEventListener('click', () => {
             const name = document.getElementById('room-field').value.trim() || 'bosque';
@@ -1498,10 +1777,10 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        console.log('🌲 Ruta Cósmica - Interacción Flotante');
-        console.log('🎮 Flechas para moverte | T: chat');
+        console.log('🌲 Ruta Cósmica - Mundo Esférico');
+        console.log('🎮 Flechas: mover | Click+arrastrar: girar cámara | Scroll: zoom');
         console.log('🚬 Acércate a otro jugador para interactuar');
-        console.log('📱 Ventana pequeña flotando sobre los personajes');
+        console.log('🏔️ Terreno curvo, árboles grandes, madera para sentarse');
     </script>
 </body>
 </html>
